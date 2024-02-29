@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../Custom/Widgets/CustomButton.dart';
+import '../Custom/Widgets/CustomSnackbar.dart';
 import '../Custom/Widgets/CustomTextField.dart';
+import '../Singletone/DataHolder.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -70,7 +72,7 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 25),
 
                 CustomButton(
-                  onTap: () {},
+                  onTap: () => iniciarSesion(tecEmail.text, tecPasswd.text),
                   sText: "Inicar sesión",
                 ),
 
@@ -104,5 +106,41 @@ class _LoginViewState extends State<LoginView> {
 
   void goToRegister() {
     Navigator.of(context).popAndPushNamed("/registerview");
+  }
+
+  // Gestiona el boton de inicar sesión
+
+  void iniciarSesion(String email, String password) {
+    String errorMessage = checkFields();
+
+    if(errorMessage.isNotEmpty){
+      CustomSnackbar(sMensaje: errorMessage).show(context);
+    }
+    else if (errorMessage.isEmpty) {
+      Future<String?> result = DataHolder().fbadmin.iniciarSesion(tecEmail.text, tecPasswd.text);
+      result.then((mensajeError) async {
+        if (mensajeError == null || mensajeError.isEmpty) {
+          Navigator.of(context).popAndPushNamed("/homeview");
+        } else {
+          CustomSnackbar(sMensaje: mensajeError).show(context);
+        }
+      }
+      );
+    }
+  }
+
+  // Comprueba que todos los campos del login esten completos
+  String checkFields() {
+    StringBuffer errorMessage = StringBuffer();
+    if (tecEmail.text.isEmpty && tecPasswd.text.isEmpty) {
+      errorMessage.write('Por favor, complete todos los campos');
+    }
+    else if (tecEmail.text.isEmpty) {
+      errorMessage.write('Por favor, complete el campo de correo electrónico');
+    }
+    else if (tecPasswd.text.isEmpty) {
+      errorMessage.write('Por favor, complete el campo de contraseña');
+    }
+    return errorMessage.toString();
   }
 }

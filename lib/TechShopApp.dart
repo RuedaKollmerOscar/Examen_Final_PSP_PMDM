@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techshop/Main/HomeView.dart';
 import 'package:techshop/Theme/DarkMode.dart';
 
 import 'OnBoarding/LoginView.dart';
@@ -16,10 +17,11 @@ class TechShopApp extends StatelessWidget {
       theme: LightMode,
       darkTheme: DarkMode,
       routes: {
-        '/loginview': (context) => LoginView(),
-        '/registerview': (context) => RegisterView(),
+        "/loginview": (context) => LoginView(),
+        "/registerview": (context) => RegisterView(),
+        "/homeview": (context) => HomeView(),
       },
-      initialRoute: '/loginview'
+      initialRoute: "/loginview"
     );
   }
 }
