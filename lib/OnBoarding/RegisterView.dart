@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-
 import '../Custom/Widgets/CustomButton.dart';
 import '../Custom/Widgets/CustomTextField.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatefulWidget {
+  const RegisterView({Key? key}) : super(key: key);
+
+  @override
+  _RegisterViewState createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
   final TextEditingController tecEmail = TextEditingController();
   final TextEditingController tecPasswd = TextEditingController();
   final TextEditingController tecConfirmPasswd = TextEditingController();
+
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +52,21 @@ class RegisterView extends StatelessWidget {
 
                 CustomTextField(
                   sHint: "Contraseña",
-                  blIsPasswd: true,
+                  blIsPasswd: !isPasswordVisible,
                   tecControler: tecPasswd,
+                  iconButton: IconButton(
+                    icon: Icon(
+                      isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                  ),
                 ),
 
                 const SizedBox(height: 10),
@@ -58,7 +79,7 @@ class RegisterView extends StatelessWidget {
 
                 const SizedBox(height: 25),
 
-                CustomButton(sText: "Registrate", onTap: () => null),
+                CustomButton(sText: "Registrate", onTap: () {}),
 
                 const SizedBox(height: 25),
 
@@ -73,7 +94,7 @@ class RegisterView extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => null,
+                      onTap: goToLogin,
                       child: const Text(
                         " Inicia sesión aquí",
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -86,5 +107,12 @@ class RegisterView extends StatelessWidget {
           ),
         ),
       ),
-    );  }
+    );
+  }
+
+  // Gestiona el texto de ¿Ya tienes una cuenta? Inicia sesión aquí
+
+  void goToLogin() {
+    Navigator.of(context).popAndPushNamed("/loginview");
+  }
 }

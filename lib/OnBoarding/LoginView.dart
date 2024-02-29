@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-
 import '../Custom/Widgets/CustomButton.dart';
 import '../Custom/Widgets/CustomTextField.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
 
+  @override
+  _LoginViewState createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   final TextEditingController tecEmail = TextEditingController();
   final TextEditingController tecPasswd = TextEditingController();
+
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +50,27 @@ class LoginView extends StatelessWidget {
 
                 CustomTextField(
                   sHint: "Contraseña",
-                  blIsPasswd: true,
+                  blIsPasswd: !isPasswordVisible,
                   tecControler: tecPasswd,
+                  iconButton: IconButton(
+                    icon: Icon(
+                      isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                  ),
                 ),
 
                 const SizedBox(height: 25),
 
                 CustomButton(
-                  onTap: () => null,
+                  onTap: () {},
                   sText: "Inicar sesión",
                 ),
 
@@ -62,10 +82,9 @@ class LoginView extends StatelessWidget {
                     Text(
                         "¿No tienes cuenta?",
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.inversePrimary)
-                    ),
+                            color: Theme.of(context).colorScheme.inversePrimary)),
                     GestureDetector(
-                      onTap: () => null,
+                      onTap: goToRegister,
                       child: const Text(
                         " Registrate aquí",
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -79,5 +98,11 @@ class LoginView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // Gestiona el texto de ¿No tienes cuenta? Registrate aquí
+
+  void goToRegister() {
+    Navigator.of(context).popAndPushNamed("/registerview");
   }
 }
