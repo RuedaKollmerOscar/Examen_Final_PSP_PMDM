@@ -19,7 +19,7 @@ class TechShopApp extends StatelessWidget {
         '/loginview': (context) => LoginView(),
         '/registerview': (context) => RegisterView(),
       },
-      initialRoute: '/loginview'
+      initialRoute: '/registerview'
     );
   }
 }
