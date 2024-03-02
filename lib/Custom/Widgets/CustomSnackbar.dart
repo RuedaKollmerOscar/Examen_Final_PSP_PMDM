@@ -18,7 +18,7 @@ class CustomSnackbar {
             color: Colors.black
         ),
       ),
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.orangeAccent,
       duration: duration,
       behavior: behavior,
     );

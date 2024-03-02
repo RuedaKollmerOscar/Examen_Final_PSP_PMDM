@@ -10,6 +10,6 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  TechShopApp techShopApp =   const TechShopApp();
+  TechShopApp techShopApp = const TechShopApp();
   runApp(techShopApp);
 }

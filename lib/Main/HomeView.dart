@@ -16,6 +16,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final List<FbComponente> componentes = [];
   late Future<List<FbComponente>> futureComponentes;
+
   @override
   void initState() {
     super.initState();
@@ -34,8 +35,7 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: Colors.transparent
       ),
       body: listBody(),
       drawer: CustomDrawer(fOnItemTap: onDrawerPressed),
@@ -43,14 +43,17 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void onDrawerPressed(int indice) async {
+    if (indice == 2) {
+      Navigator.popAndPushNamed(context, "/accountview");
+    }
     if (indice == 4) {
-    DataHolder().fbadmin.cerrarSesion();
-    Navigator.of(context).pushAndRemoveUntil(
-    MaterialPageRoute(builder: (BuildContext context) => const LoginView()),
-    ModalRoute.withName("/loginview"));
+      DataHolder().fbadmin.cerrarSesion();
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => const LoginView()),
+        ModalRoute.withName("/loginview"),
+      );
     }
   }
-
 
   Widget listBody() {
     return ListView.separated(
@@ -64,18 +67,16 @@ class _HomeViewState extends State<HomeView> {
   // Creador de items en forma de lista
   Widget? itemListBuilder(BuildContext context, int index) {
     return ComponentesListView(
-        sName: componentes[index].name,
-        sPrice: componentes[index].price,
-        iPosicion: index,
-        fOnItemTap: onPostPressed,
+      sName: componentes[index].name,
+      sPrice: componentes[index].price,
+      iPosicion: index,
+      fOnItemTap: onPostPressed,
     );
   }
 
   Widget separadorLista(BuildContext context, int index) {
     return Divider(
-        thickness: 2,
-        color: Theme.of(context).colorScheme.primary
-    );
+        thickness: 2, color: Theme.of(context).colorScheme.primary);
   }
 
   // Gestiona el click del post

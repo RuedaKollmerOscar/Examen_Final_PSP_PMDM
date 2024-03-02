@@ -15,7 +15,7 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController tecEmail = TextEditingController();
   final TextEditingController tecPasswd = TextEditingController();
 
-  bool isPasswordVisible = false;
+  bool blsIsPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -52,18 +52,18 @@ class _LoginViewState extends State<LoginView> {
 
                 CustomTextField(
                   sHint: "Contraseña",
-                  blIsPasswd: !isPasswordVisible,
+                  blIsPasswd: !blsIsPassword,
                   tecControler: tecPasswd,
                   iconButton: IconButton(
                     icon: Icon(
-                      isPasswordVisible
+                      blsIsPassword
                           ? Icons.visibility
                           : Icons.visibility_off,
                       color: Theme.of(context).colorScheme.inversePrimary,
                     ),
                     onPressed: () {
                       setState(() {
-                        isPasswordVisible = !isPasswordVisible;
+                        blsIsPassword = !blsIsPassword;
                       });
                     },
                   ),
@@ -72,7 +72,7 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 25),
 
                 CustomButton(
-                  onTap: () => iniciarSesion(tecEmail.text, tecPasswd.text),
+                  onTap: iniciarSesion,
                   sText: "Inicar sesión",
                 ),
 
@@ -108,7 +108,7 @@ class _LoginViewState extends State<LoginView> {
   }
 
   // Gestiona el boton de inicar sesión
-  void iniciarSesion(String email, String password) {
+  void iniciarSesion() {
     String errorMessage = checkFields();
 
     if(errorMessage.isNotEmpty){

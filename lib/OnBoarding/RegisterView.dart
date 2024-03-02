@@ -81,7 +81,10 @@ class _RegisterViewState extends State<RegisterView> {
 
                 const SizedBox(height: 25),
 
-                CustomButton(sText: "Registrate", onTap: () => registrarUsuario(tecEmail.text, tecPasswd.text)),
+                CustomButton(
+                  onTap: registrarUsuario,
+                  sText: "Registrate"
+                ),
 
                 const SizedBox(height: 25),
 
@@ -118,7 +121,7 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   // Gestiona el boton de registrarse
-  void registrarUsuario(String email, String password) {
+  void registrarUsuario() {
     String errorMessage = checkFields();
 
     if(errorMessage.isNotEmpty){

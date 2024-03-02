@@ -4,15 +4,20 @@ import 'package:techshop/FirestoreObjects/FbComponente.dart';
 
 class FirebaseAdmin {
   FirebaseFirestore db = FirebaseFirestore.instance;
+  FirebaseAuth dbAuth = FirebaseAuth.instance;
 
   // Devuelve el ID del usuario logeado
   String? getCurrentUserID(){
-    return FirebaseAuth.instance.currentUser?.uid;
+    return dbAuth.currentUser?.uid;
   }
 
   // Devuelve el usuario logeado
   User? getCurrentUser(){
-    return FirebaseAuth.instance.currentUser;
+    return dbAuth.currentUser;
+  }
+
+  String? getCurrentUserEmail(){
+    return dbAuth.currentUser?.email;
   }
 
   // Devuelve una instancia de la base de datos de autentificación
