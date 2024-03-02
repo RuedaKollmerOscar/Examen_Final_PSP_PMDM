@@ -16,6 +16,11 @@ class FirebaseAdmin {
     return FirebaseAuth.instance;
   }
 
+  // Cierra sesión
+  void cerrarSesion() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   // Incia sesión con un correo y una contraseña que se le pasa por parámetro
   Future<String?> iniciarSesion(String email, String password) async {
     String? errorMessage;

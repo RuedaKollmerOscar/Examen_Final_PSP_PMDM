@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../Custom/Widgets/CustomDrawer.dart';
+import '../OnBoarding/LoginView.dart';
+import '../Singletone/DataHolder.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,5 +32,11 @@ class HomeView extends StatelessWidget {
   }
 
   void onDrawerPressed(int indice) async {
+    if (indice == 4) {
+    DataHolder().fbadmin.cerrarSesion();
+    Navigator.of(context).pushAndRemoveUntil(
+    MaterialPageRoute(builder: (BuildContext context) => const LoginView()),
+    ModalRoute.withName("/loginview"));
+    }
   }
 }

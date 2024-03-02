@@ -4,6 +4,7 @@ import 'package:techshop/Theme/DarkMode.dart';
 
 import 'OnBoarding/LoginView.dart';
 import 'OnBoarding/RegisterView.dart';
+import 'Splash/SplashView.dart';
 import 'Theme/LightMode.dart';
 
 class TechShopApp extends StatelessWidget {
@@ -20,8 +21,9 @@ class TechShopApp extends StatelessWidget {
         "/loginview": (context) => LoginView(),
         "/registerview": (context) => RegisterView(),
         "/homeview": (context) => HomeView(),
+        "/splashview": (context) => SplashView(),
       },
-      initialRoute: "/loginview"
+      initialRoute: "/splashview"
     );
   }
 }
