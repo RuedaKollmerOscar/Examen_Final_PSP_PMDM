@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:techshop/FirestoreObjects/FbComponente.dart';
 
 class FirebaseAdmin {
@@ -95,5 +98,28 @@ class FirebaseAdmin {
     List<FbComponente> posts = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return posts;
+  }
+
+  Future<void> subirFotoPerfil(File fotoPerfil) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosPerfil/${getCurrentUserID()}/fotoPerfil.jpg");
+    await ref.putFile(fotoPerfil);
+  }
+
+  // Método para cargar la foto de perfil
+  Future<File?> descargarFotoPerfil() async {
+    try {
+      final ref = FirebaseStorage.instance.ref().child("FotosPerfil/${getCurrentUserID()}/fotoPerfil.jpg");
+      final appDocDir = await getApplicationDocumentsDirectory();
+      final filePath = "${appDocDir.path}/fotoPerfil.jpg";
+      File imagePreview = File(filePath);
+
+      await ref.writeToFile(imagePreview);
+
+      return imagePreview;
+    } catch (e) {
+      // Manejar errores al cargar la foto de perfil
+      print("Error al cargar la foto de perfil: $e");
+      return null; // Devolver null en caso de error
+    }
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:techshop/Singletone/DataHolder.dart';
@@ -17,7 +16,6 @@ class _AccountViewState extends State<AccountView> {
   final ImagePicker _picker=ImagePicker();
   File _imagePreview=File("");
 
-
   final TextEditingController _tecEmail = TextEditingController();
   final TextEditingController _tecPassword = TextEditingController();
   final TextEditingController _tecNewPassword = TextEditingController();
@@ -29,7 +27,15 @@ class _AccountViewState extends State<AccountView> {
   void initState() {
     super.initState();
     _tecEmail.text = DataHolder().fbadmin.getCurrentUserEmail()!;
+    _cargarFotoPerfil;
   }
+
+// Método asincrónico para cargar la foto de perfil
+  Future<void> _cargarFotoPerfil() async {
+    _imagePreview = (await DataHolder().fbadmin.descargarFotoPerfil())!;
+    setState(() {});
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +76,7 @@ class _AccountViewState extends State<AccountView> {
                           child: SizedBox(
                             width: 100, // El doble del radio del círculo
                             height: 100, // El doble del radio del círculo
-                            child: _avatarView(),
+                            child: _fotoPerfilView(),
                           ),
                         ),
                       ),
@@ -267,6 +273,7 @@ class _AccountViewState extends State<AccountView> {
       setState(() {
         _imagePreview=File(image.path);
       });
+      DataHolder().fbadmin.subirFotoPerfil(_imagePreview);
     }
   }
 
@@ -276,11 +283,12 @@ class _AccountViewState extends State<AccountView> {
       setState(() {
         _imagePreview = File(image.path);
       });
+      DataHolder().fbadmin.subirFotoPerfil(_imagePreview);
     }
   }
 
-  Widget _avatarView() {
-    if (_imagePreview.path.isEmpty) {
+  Widget _fotoPerfilView() {
+    if (_imagePreview.path.isEmpty || _imagePreview == null) {
       return const Icon(
         Icons.person,
         size: 50
