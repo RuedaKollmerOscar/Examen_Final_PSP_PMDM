@@ -5,7 +5,7 @@ class DataHolder {
 
   static final DataHolder _dataHolder = DataHolder._internal();
 
-  late FbComponente selectedComponente;
+  late FbComponente componenteSeleccionado;
 
   FirebaseAdmin fbadmin=FirebaseAdmin();
 

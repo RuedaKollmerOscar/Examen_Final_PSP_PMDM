@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:techshop/Singletone/DataHolder.dart';
 
 import '../Custom/Widgets/CustomSnackbar.dart';
@@ -11,25 +14,36 @@ class AccountView extends StatefulWidget {
 }
 
 class _AccountViewState extends State<AccountView> {
-  TextEditingController tecEmail = TextEditingController();
-  TextEditingController tecPassword = TextEditingController();
-  TextEditingController tecNewPassword = TextEditingController();
+  final ImagePicker _picker=ImagePicker();
+  File _imagePreview=File("");
 
-  bool blsIsPassword = false;
-  bool blsIsNewPassword = false;
+
+  final TextEditingController _tecEmail = TextEditingController();
+  final TextEditingController _tecPassword = TextEditingController();
+  final TextEditingController _tecNewPassword = TextEditingController();
+
+  bool _blsIsPassword = false;
+  bool _blsIsNewPassword = false;
 
   @override
   void initState() {
     super.initState();
-    tecEmail.text = DataHolder().fbadmin.getCurrentUserEmail()!;
+    _tecEmail.text = DataHolder().fbadmin.getCurrentUserEmail()!;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text('Personalizar Perfil'),
-        centerTitle: true,
+          title: Text(
+            "Personalizar perfil",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.inversePrimary,
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.transparent
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -52,10 +66,12 @@ class _AccountViewState extends State<AccountView> {
                       CircleAvatar(
                         radius: 50,
                         backgroundColor: Theme.of(context).colorScheme.secondary,
-                        child: const Icon(
-                          Icons.person,
-                          size: 50,
-                          color: Colors.white,
+                        child: ClipOval(
+                          child: SizedBox(
+                            width: 100, // El doble del radio del círculo
+                            height: 100, // El doble del radio del círculo
+                            child: _avatarView(),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -75,17 +91,15 @@ class _AccountViewState extends State<AccountView> {
                       ),
                       const SizedBox(height: 16),
                       ElevatedButton(
-                        onPressed: () {
-                          // Acción para cambiar la imagen del perfil
-                        },
-                        child: const Text('Cambiar Imagen de Perfil'),
+                        onPressed: cambiarFotoPerfil,
+                        child: const Text('Cambiar foto de perfil'),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 16),
                 TextField(
-                  controller: tecEmail,
+                  controller: _tecEmail,
                   decoration: const InputDecoration(
                     labelText: 'Correo Electrónico',
                     hintText: 'Ingresa tu correo electrónico actual',
@@ -93,47 +107,47 @@ class _AccountViewState extends State<AccountView> {
                 ),
                 const SizedBox(height: 16),
                 TextField(
-                  controller: tecPassword,
+                  controller: _tecPassword,
                   decoration: InputDecoration(
                     labelText: 'Contraseña Actual',
                     hintText: 'Ingresa tu contraseña actual',
                     suffixIcon: IconButton(
                       icon: Icon(
-                        blsIsPassword
+                        _blsIsPassword
                             ? Icons.visibility
                             : Icons.visibility_off,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       onPressed: () {
                         setState(() {
-                          blsIsPassword = !blsIsPassword;
+                          _blsIsPassword = !_blsIsPassword;
                         });
                       },
                     ),
                   ),
-                  obscureText: !blsIsPassword,
+                  obscureText: !_blsIsPassword,
                 ),
                 const SizedBox(height: 16),
                 TextField(
-                  controller: tecNewPassword,
+                  controller: _tecNewPassword,
                   decoration: InputDecoration(
                     labelText: 'Nueva Contraseña',
                     hintText: 'Ingresa tu nueva contraseña',
                     suffixIcon: IconButton(
                       icon: Icon(
-                        blsIsNewPassword
+                        _blsIsNewPassword
                             ? Icons.visibility
                             : Icons.visibility_off,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       onPressed: () {
                         setState(() {
-                          blsIsNewPassword = !blsIsNewPassword;
+                          _blsIsNewPassword = !_blsIsNewPassword;
                         });
                       },
                     ),
                   ),
-                  obscureText: !blsIsNewPassword,
+                  obscureText: !_blsIsNewPassword,
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
@@ -156,16 +170,16 @@ class _AccountViewState extends State<AccountView> {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     }
     else if (errorMessage.isEmpty) {
-      Future<String?> result = DataHolder().fbadmin.iniciarSesion(tecEmail.text, tecPassword.text);
+      Future<String?> result = DataHolder().fbadmin.iniciarSesion(_tecEmail.text, _tecPassword.text);
       result.then((mensajeError) async {
         if (mensajeError == null || mensajeError.isEmpty) {
           var user = DataHolder().fbadmin.getCurrentUser();
           if (user != null) {
             try {
-              await user.updatePassword(tecNewPassword.text);
-              CustomSnackbar(sMensaje: "Los cambios se guardaron correctamente").show(context);
+              await user.updatePassword(_tecNewPassword.text);
+              const CustomSnackbar(sMensaje: "Los cambios se guardaron correctamente").show(context);
             } catch (e) {
-              CustomSnackbar(sMensaje: "Error al guardar los cambios").show(context);
+              const CustomSnackbar(sMensaje: "Error al guardar los cambios").show(context);
             }
           }
         } else {
@@ -178,19 +192,106 @@ class _AccountViewState extends State<AccountView> {
 
   String checkFields() {
     StringBuffer errorMessage = StringBuffer();
-    if (tecEmail.text.isEmpty && tecPassword.text.isEmpty && tecNewPassword.text.isEmpty) {
+    if (_tecEmail.text.isEmpty && _tecPassword.text.isEmpty && _tecNewPassword.text.isEmpty) {
       errorMessage.write('Por favor, complete todos los campos');
-    } else if (tecEmail.text.isEmpty) {
+    } else if (_tecEmail.text.isEmpty) {
       errorMessage.write('Por favor, complete el campo de correo electrónico');
-    } else if (tecPassword.text.isEmpty) {
+    } else if (_tecPassword.text.isEmpty) {
       errorMessage.write('Por favor, complete el campo de contraseña');
-    } else if (tecNewPassword.text.isEmpty) {
+    } else if (_tecNewPassword.text.isEmpty) {
       errorMessage.write('Por favor, complete el campo de confirmación de contraseña');
-    } else if (tecNewPassword.text.length < 8) {
+    } else if (_tecNewPassword.text.length < 8) {
       errorMessage.write('La contraseña debe tener al menos 8 caracteres');
-    } else if (tecPassword.text == tecNewPassword.text) {
+    } else if (_tecPassword.text == _tecNewPassword.text) {
       errorMessage.write('Las contraseñas no pueden coincidir');
     }
     return errorMessage.toString();
+  }
+
+  void cambiarFotoPerfil() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20.0),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          color: Theme.of(context).colorScheme.background, // Color de fondo del tema
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(
+                  Icons.camera,
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                ),
+                title: Text(
+                  'Abrir cámara',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                  ),
+                ),
+                onTap: _abrirCamara,
+              ),
+               Divider(
+                thickness: 1,
+                height: 20,
+                color: Theme.of(context).colorScheme.primary, // Color primario del tema
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.photo,
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                ),
+                title: Text(
+                  'Abrir galería',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                  ),
+                ),
+                onTap: _abrirGaleria,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _abrirGaleria() async{
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if(image!=null){
+      setState(() {
+        _imagePreview=File(image.path);
+      });
+    }
+  }
+
+  void _abrirCamara() async {
+    XFile? image = await _picker.pickImage(source: ImageSource.camera);
+    if (image != null) {
+      setState(() {
+        _imagePreview = File(image.path);
+      });
+    }
+  }
+
+  Widget _avatarView() {
+    if (_imagePreview.path.isEmpty) {
+      return const Icon(
+        Icons.person,
+        size: 50
+      );
+    } else {
+      return Image.file(
+        _imagePreview,
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover
+      );
+    }
   }
 }

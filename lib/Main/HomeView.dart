@@ -14,13 +14,13 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<FbComponente> componentes = [];
-  late Future<List<FbComponente>> futureComponentes;
+  final List<FbComponente> _componentes = [];
+  late Future<List<FbComponente>> _futureComponentes;
 
   @override
   void initState() {
     super.initState();
-    cargarComponentes();
+    _cargarComponentes();
   }
 
   @override
@@ -37,16 +37,18 @@ class _HomeViewState extends State<HomeView> {
         centerTitle: true,
         backgroundColor: Colors.transparent
       ),
-      body: listBody(),
-      drawer: CustomDrawer(fOnItemTap: onDrawerPressed),
+      body: _listBody(),
+      drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
     );
   }
 
-  void onDrawerPressed(int indice) async {
-    if (indice == 2) {
-      Navigator.popAndPushNamed(context, "/accountview");
+  void _onDrawerPressed(int indice) async {
+    if(indice == 0) {
+      Navigator.of(context).popAndPushNamed("/homeview");
     }
-    if (indice == 4) {
+    else if (indice == 2) {
+      Navigator.of(context).popAndPushNamed("/accountview");
+    } else if (indice == 4) {
       DataHolder().fbadmin.cerrarSesion();
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (BuildContext context) => const LoginView()),
@@ -55,22 +57,29 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  Widget listBody() {
+  // Gestiona el click del post
+  void _onComponentePressed(int index) {
+    DataHolder().componenteSeleccionado = _componentes[index];
+    Navigator.of(context).pushNamed("/componenteview");
+  }
+
+
+  Widget _listBody() {
     return ListView.separated(
       padding: const EdgeInsets.all(8),
-      itemBuilder: itemListBuilder,
+      itemBuilder: _itemListBuilder,
       separatorBuilder: separadorLista,
-      itemCount: componentes.length,
+      itemCount: _componentes.length,
     );
   }
 
   // Creador de items en forma de lista
-  Widget? itemListBuilder(BuildContext context, int index) {
+  Widget? _itemListBuilder(BuildContext context, int index) {
     return ComponentesListView(
-      sName: componentes[index].name,
-      sPrice: componentes[index].price,
+      sName: _componentes[index].name,
+      sPrice: _componentes[index].price,
       iPosicion: index,
-      fOnItemTap: onPostPressed,
+      fOnItemTap: _onComponentePressed,
     );
   }
 
@@ -79,18 +88,13 @@ class _HomeViewState extends State<HomeView> {
         thickness: 2, color: Theme.of(context).colorScheme.primary);
   }
 
-  // Gestiona el click del post
-  void onPostPressed(int index) {
-    DataHolder().selectedComponente = componentes[index];
-  }
-
   // Llena la lista de posts
-  Future<void> cargarComponentes() async {
-    futureComponentes = DataHolder().fbadmin.descargarComponentes();
-    List<FbComponente> listaComponentes = await futureComponentes;
+  Future<void> _cargarComponentes() async {
+    _futureComponentes = DataHolder().fbadmin.descargarComponentes();
+    List<FbComponente> listaComponentes = await _futureComponentes;
     setState(() {
-      componentes.clear();
-      componentes.addAll(listaComponentes);
+      _componentes.clear();
+      _componentes.addAll(listaComponentes);
     });
   }
 }

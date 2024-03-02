@@ -12,11 +12,11 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final TextEditingController tecEmail = TextEditingController();
-  final TextEditingController tecPasswd = TextEditingController();
-  final TextEditingController tecConfirmPasswd = TextEditingController();
+  final TextEditingController _tecEmail = TextEditingController();
+  final TextEditingController _tecPasswd = TextEditingController();
+  final TextEditingController _tecConfirmPasswd = TextEditingController();
 
-  bool isPasswordVisible = false;
+  bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,25 +47,25 @@ class _RegisterViewState extends State<RegisterView> {
                 CustomTextField(
                   sHint: "Correo electrónico",
                   blIsPasswd: false,
-                  tecControler: tecEmail,
+                  tecControler: _tecEmail,
                 ),
 
                 const SizedBox(height: 10),
 
                 CustomTextField(
                   sHint: "Contraseña",
-                  blIsPasswd: !isPasswordVisible,
-                  tecControler: tecPasswd,
+                  blIsPasswd: !_isPasswordVisible,
+                  tecControler: _tecPasswd,
                   iconButton: IconButton(
                     icon: Icon(
-                      isPasswordVisible
+                      _isPasswordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
                       color: Theme.of(context).colorScheme.inversePrimary,
                     ),
                     onPressed: () {
                       setState(() {
-                        isPasswordVisible = !isPasswordVisible;
+                        _isPasswordVisible = !_isPasswordVisible;
                       });
                     },
                   ),
@@ -76,13 +76,13 @@ class _RegisterViewState extends State<RegisterView> {
                 CustomTextField(
                   sHint: "Confirmar contraseña",
                   blIsPasswd: true,
-                  tecControler: tecConfirmPasswd,
+                  tecControler: _tecConfirmPasswd,
                 ),
 
                 const SizedBox(height: 25),
 
                 CustomButton(
-                  onTap: registrarUsuario,
+                  onTap: _registrarUsuario,
                   sText: "Registrate"
                 ),
 
@@ -99,7 +99,7 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: goToLogin,
+                      onTap: _goToLogin,
                       child: const Text(
                         " Inicia sesión aquí",
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -116,19 +116,19 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   // Gestiona el texto de ¿Ya tienes una cuenta? Inicia sesión aquí
-  void goToLogin() {
+  void _goToLogin() {
     Navigator.of(context).popAndPushNamed("/loginview");
   }
 
   // Gestiona el boton de registrarse
-  void registrarUsuario() {
-    String errorMessage = checkFields();
+  void _registrarUsuario() {
+    String errorMessage = _checkFields();
 
     if(errorMessage.isNotEmpty){
       CustomSnackbar(sMensaje: errorMessage).show(context);
     }
     else if (errorMessage.isEmpty) {
-      Future<String?> result = DataHolder().fbadmin.registrarUsuario(tecEmail.text, tecPasswd.text);
+      Future<String?> result = DataHolder().fbadmin.registrarUsuario(_tecEmail.text, _tecPasswd.text);
       result.then((mensajeError) {
         if (mensajeError == null || mensajeError.isEmpty) {
           Navigator.of(context).popAndPushNamed("/homeview");
@@ -140,21 +140,21 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   // Comprueba que todos los campos del register esten completos, la ultima comprobación comprueba que las contraseñas coincidan
-  String checkFields() {
+  String _checkFields() {
     StringBuffer errorMessage = StringBuffer();
-    if (tecEmail.text.isEmpty && tecPasswd.text.isEmpty && tecConfirmPasswd.text.isEmpty) {
+    if (_tecEmail.text.isEmpty && _tecPasswd.text.isEmpty && _tecConfirmPasswd.text.isEmpty) {
       errorMessage.write('Por favor, complete todos los campos');
     }
-    else if (tecEmail.text.isEmpty) {
+    else if (_tecEmail.text.isEmpty) {
       errorMessage.write('Por favor, complete el campo de correo electrónico');
     }
-    else if (tecPasswd.text.isEmpty) {
+    else if (_tecPasswd.text.isEmpty) {
       errorMessage.write('Por favor, complete el campo de contraseña');
     }
-    else if (tecConfirmPasswd.text.isEmpty) {
+    else if (_tecConfirmPasswd.text.isEmpty) {
       errorMessage.write('Por favor, complete el campo de confirmación de contraseña');
     }
-    else if (tecPasswd.text != tecConfirmPasswd.text) {
+    else if (_tecPasswd.text != _tecConfirmPasswd.text) {
       errorMessage.write('Las contraseñas no coinciden');
     }
     return errorMessage.toString();

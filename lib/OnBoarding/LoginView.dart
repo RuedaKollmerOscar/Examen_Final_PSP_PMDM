@@ -12,10 +12,10 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final TextEditingController tecEmail = TextEditingController();
-  final TextEditingController tecPasswd = TextEditingController();
+  final TextEditingController _tecEmail = TextEditingController();
+  final TextEditingController _tecPasswd = TextEditingController();
 
-  bool blsIsPassword = false;
+  bool _blsIsPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,24 +46,24 @@ class _LoginViewState extends State<LoginView> {
                 CustomTextField(
                     sHint: "Correo electrónico",
                     blIsPasswd: false,
-                    tecControler: tecEmail),
+                    tecControler: _tecEmail),
 
                 const SizedBox(height: 10),
 
                 CustomTextField(
                   sHint: "Contraseña",
-                  blIsPasswd: !blsIsPassword,
-                  tecControler: tecPasswd,
+                  blIsPasswd: !_blsIsPassword,
+                  tecControler: _tecPasswd,
                   iconButton: IconButton(
                     icon: Icon(
-                      blsIsPassword
+                      _blsIsPassword
                           ? Icons.visibility
                           : Icons.visibility_off,
                       color: Theme.of(context).colorScheme.inversePrimary,
                     ),
                     onPressed: () {
                       setState(() {
-                        blsIsPassword = !blsIsPassword;
+                        _blsIsPassword = !_blsIsPassword;
                       });
                     },
                   ),
@@ -72,7 +72,7 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 25),
 
                 CustomButton(
-                  onTap: iniciarSesion,
+                  onTap: _iniciarSesion,
                   sText: "Inicar sesión",
                 ),
 
@@ -86,7 +86,7 @@ class _LoginViewState extends State<LoginView> {
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.inversePrimary)),
                     GestureDetector(
-                      onTap: goToRegister,
+                      onTap: _goToRegister,
                       child: const Text(
                         " Registrate aquí",
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -103,19 +103,19 @@ class _LoginViewState extends State<LoginView> {
   }
 
   // Gestiona el texto de ¿No tienes cuenta? Registrate aquí
-  void goToRegister() {
+  void _goToRegister() {
     Navigator.of(context).popAndPushNamed("/registerview");
   }
 
   // Gestiona el boton de inicar sesión
-  void iniciarSesion() {
-    String errorMessage = checkFields();
+  void _iniciarSesion() {
+    String errorMessage = _checkFields();
 
     if(errorMessage.isNotEmpty){
       CustomSnackbar(sMensaje: errorMessage).show(context);
     }
     else if (errorMessage.isEmpty) {
-      Future<String?> result = DataHolder().fbadmin.iniciarSesion(tecEmail.text, tecPasswd.text);
+      Future<String?> result = DataHolder().fbadmin.iniciarSesion(_tecEmail.text, _tecPasswd.text);
       result.then((mensajeError) async {
         if (mensajeError == null || mensajeError.isEmpty) {
           Navigator.of(context).popAndPushNamed("/homeview");
@@ -128,15 +128,15 @@ class _LoginViewState extends State<LoginView> {
   }
 
   // Comprueba que todos los campos del login esten completos
-  String checkFields() {
+  String _checkFields() {
     StringBuffer errorMessage = StringBuffer();
-    if (tecEmail.text.isEmpty && tecPasswd.text.isEmpty) {
+    if (_tecEmail.text.isEmpty && _tecPasswd.text.isEmpty) {
       errorMessage.write('Por favor, complete todos los campos');
     }
-    else if (tecEmail.text.isEmpty) {
+    else if (_tecEmail.text.isEmpty) {
       errorMessage.write('Por favor, complete el campo de correo electrónico');
     }
-    else if (tecPasswd.text.isEmpty) {
+    else if (_tecPasswd.text.isEmpty) {
       errorMessage.write('Por favor, complete el campo de contraseña');
     }
     return errorMessage.toString();
