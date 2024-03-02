@@ -4,9 +4,9 @@ ThemeData LightMode = ThemeData(
     brightness: Brightness.light,
     colorScheme: ColorScheme.light(
         background: Colors.grey.shade300,
-        primary: Colors.grey.shade200,
-        secondary: Colors.grey.shade400,
-        inversePrimary: Colors.grey.shade800
+        primary: Colors.purple.shade200,
+        secondary: Colors.purple.shade400,
+        inversePrimary: Colors.purple.shade800
     ),
     textTheme: ThemeData.light().textTheme.apply(
         bodyColor: Colors.grey[800],

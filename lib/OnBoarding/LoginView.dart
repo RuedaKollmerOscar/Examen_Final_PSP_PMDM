@@ -103,13 +103,11 @@ class _LoginViewState extends State<LoginView> {
   }
 
   // Gestiona el texto de ¿No tienes cuenta? Registrate aquí
-
   void goToRegister() {
     Navigator.of(context).popAndPushNamed("/registerview");
   }
 
   // Gestiona el boton de inicar sesión
-
   void iniciarSesion(String email, String password) {
     String errorMessage = checkFields();
 

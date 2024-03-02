@@ -4,9 +4,9 @@ ThemeData DarkMode = ThemeData(
     brightness: Brightness.dark,
     colorScheme: ColorScheme.dark(
         background: Colors.black,
-        primary: Colors.grey.shade900,
-        secondary: Colors.grey.shade800,
-        inversePrimary: Colors.grey.shade300
+        primary: Colors.purple.shade900,
+        secondary: Colors.purple.shade800,
+        inversePrimary: Colors.purple.shade300
     ),
     textTheme: ThemeData.dark().textTheme.apply(
         bodyColor: Colors.grey[300],

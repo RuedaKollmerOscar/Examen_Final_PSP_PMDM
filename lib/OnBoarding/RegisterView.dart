@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../Custom/Widgets/CustomButton.dart';
+import '../Custom/Widgets/CustomSnackbar.dart';
 import '../Custom/Widgets/CustomTextField.dart';
+import '../Singletone/DataHolder.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -79,7 +81,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                 const SizedBox(height: 25),
 
-                CustomButton(sText: "Registrate", onTap: () {}),
+                CustomButton(sText: "Registrate", onTap: () => registrarUsuario(tecEmail.text, tecPasswd.text)),
 
                 const SizedBox(height: 25),
 
@@ -111,8 +113,47 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   // Gestiona el texto de ¿Ya tienes una cuenta? Inicia sesión aquí
-
   void goToLogin() {
     Navigator.of(context).popAndPushNamed("/loginview");
+  }
+
+  // Gestiona el boton de registrarse
+  void registrarUsuario(String email, String password) {
+    String errorMessage = checkFields();
+
+    if(errorMessage.isNotEmpty){
+      CustomSnackbar(sMensaje: errorMessage).show(context);
+    }
+    else if (errorMessage.isEmpty) {
+      Future<String?> result = DataHolder().fbadmin.registrarUsuario(tecEmail.text, tecPasswd.text);
+      result.then((mensajeError) {
+        if (mensajeError == null || mensajeError.isEmpty) {
+          Navigator.of(context).popAndPushNamed("/homeview");
+        } else {
+          CustomSnackbar(sMensaje: mensajeError).show(context);
+        }
+      });
+    }
+  }
+
+  // Comprueba que todos los campos del register esten completos, la ultima comprobación comprueba que las contraseñas coincidan
+  String checkFields() {
+    StringBuffer errorMessage = StringBuffer();
+    if (tecEmail.text.isEmpty && tecPasswd.text.isEmpty && tecConfirmPasswd.text.isEmpty) {
+      errorMessage.write('Por favor, complete todos los campos');
+    }
+    else if (tecEmail.text.isEmpty) {
+      errorMessage.write('Por favor, complete el campo de correo electrónico');
+    }
+    else if (tecPasswd.text.isEmpty) {
+      errorMessage.write('Por favor, complete el campo de contraseña');
+    }
+    else if (tecConfirmPasswd.text.isEmpty) {
+      errorMessage.write('Por favor, complete el campo de confirmación de contraseña');
+    }
+    else if (tecPasswd.text != tecConfirmPasswd.text) {
+      errorMessage.write('Las contraseñas no coinciden');
+    }
+    return errorMessage.toString();
   }
 }
