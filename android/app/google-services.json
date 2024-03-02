@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "696150257929",
-    "project_id": "techshop-f1399",
-    "storage_bucket": "techshop-f1399.appspot.com"
+    "project_number": "301574904357",
+    "project_id": "techshop-2a9bc",
+    "storage_bucket": "techshop-2a9bc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:696150257929:android:c6d214db12c36665e8a3d8",
+        "mobilesdk_app_id": "1:301574904357:android:a085a44e31ece2ef657dcc",
         "android_client_info": {
           "package_name": "rueda.oscar.techshop"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAamMpNYBxF3oQqySV3vFAh4peebPcdkn8"
+          "current_key": "AIzaSyBjiPduJGjvqC3OkL8_2YzI2wSdaucgBUM"
         }
       ],
       "services": {

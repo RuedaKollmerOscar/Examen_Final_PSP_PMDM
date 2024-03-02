@@ -5,6 +5,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../Singletone/DataHolder.dart';
 
 class SplashView extends StatefulWidget {
+  const SplashView({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _SplashViewState();
@@ -24,7 +26,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(milliseconds: 500), (Timer t) {
+    timer = Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
       setState(() {
         loadingText = 'Conectando con los dioses${'.' * ((t.tick % 3) + 1)}';
       });
@@ -32,7 +34,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void checkSession() async {
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 4));
     timer.cancel();
     if (DataHolder().fbadmin.getCurrentUserID() != null) {
       Navigator.of(context).popAndPushNamed("/homeview");
@@ -53,7 +55,7 @@ class _SplashViewState extends State<SplashView> {
               color: Theme.of(context).colorScheme.primary,
               size: 25.0,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               loadingText,
               style: TextStyle(

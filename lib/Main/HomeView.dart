@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../Custom/Views/ComponentesListView.dart';
 import '../Custom/Widgets/CustomDrawer.dart';
+import '../FirestoreObjects/FbComponente.dart';
 import '../OnBoarding/LoginView.dart';
 import '../Singletone/DataHolder.dart';
 
@@ -12,6 +14,14 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final List<FbComponente> componentes = [];
+  late Future<List<FbComponente>> futureComponentes;
+  @override
+  void initState() {
+    super.initState();
+    cargarComponentes();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +37,7 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
+      body: listBody(),
       drawer: CustomDrawer(fOnItemTap: onDrawerPressed),
     );
   }
@@ -38,5 +49,47 @@ class _HomeViewState extends State<HomeView> {
     MaterialPageRoute(builder: (BuildContext context) => const LoginView()),
     ModalRoute.withName("/loginview"));
     }
+  }
+
+
+  Widget listBody() {
+    return ListView.separated(
+      padding: const EdgeInsets.all(8),
+      itemBuilder: itemListBuilder,
+      separatorBuilder: separadorLista,
+      itemCount: componentes.length,
+    );
+  }
+
+  // Creador de items en forma de lista
+  Widget? itemListBuilder(BuildContext context, int index) {
+    return ComponentesListView(
+        sName: componentes[index].name,
+        sPrice: componentes[index].price,
+        iPosicion: index,
+        fOnItemTap: onPostPressed,
+    );
+  }
+
+  Widget separadorLista(BuildContext context, int index) {
+    return Divider(
+        thickness: 2,
+        color: Theme.of(context).colorScheme.primary
+    );
+  }
+
+  // Gestiona el click del post
+  void onPostPressed(int index) {
+    DataHolder().selectedComponente = componentes[index];
+  }
+
+  // Llena la lista de posts
+  Future<void> cargarComponentes() async {
+    futureComponentes = DataHolder().fbadmin.descargarComponentes();
+    List<FbComponente> listaComponentes = await futureComponentes;
+    setState(() {
+      componentes.clear();
+      componentes.addAll(listaComponentes);
+    });
   }
 }

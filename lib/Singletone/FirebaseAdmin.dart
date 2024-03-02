@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:techshop/FirestoreObjects/FbComponente.dart';
 
 class FirebaseAdmin {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
   // Devuelve el ID del usuario logeado
   String? getCurrentUserID(){
     return FirebaseAuth.instance.currentUser?.uid;
@@ -71,5 +75,20 @@ class FirebaseAdmin {
       errorMessage ='Error: $e';
     }
     return errorMessage;
+  }
+
+  // Descarga la lista de componentes
+  Future<List<FbComponente>> descargarComponentes() async {
+    CollectionReference<FbComponente> ref = db.collection("Componentes").withConverter(
+      fromFirestore: FbComponente.fromFirestore,
+      toFirestore: (FbComponente post, _) => post.toFirestore(),
+    );
+
+    QuerySnapshot<FbComponente> querySnapshot = await ref.get();
+
+    // Mapear los documentos a objetos FbPost y devolver una lista
+    List<FbComponente> posts = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return posts;
   }
 }
