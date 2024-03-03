@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:techshop/FirestoreObjects/FbComponente.dart';
 
+import '../FirestoreObjects/FbTienda.dart';
+
 class FirebaseAdmin {
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAuth dbAuth = FirebaseAuth.instance;
@@ -120,6 +122,20 @@ class FirebaseAdmin {
       // Manejar errores al cargar la foto de perfil
       print("Error al cargar la foto de perfil: $e");
       return null; // Devolver null en caso de error
+    }
+  }
+
+  Future<QuerySnapshot<FbTienda>> cargarTiendas() async {
+    try {
+      CollectionReference<FbTienda> ref = db.collection("Tiendas")
+          .withConverter(
+        fromFirestore: FbTienda.fromFirestore,
+        toFirestore: (FbTienda post, _) => post.toFirestore(),
+      );
+      return await ref.get();
+    } catch (error) {
+      print("Error al cargar tiendas: $error");
+      throw error; // Re-lanzar el error para que pueda ser manejado fuera de la función
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../Custom/Views/ComponentesListView.dart';
 import '../Custom/Widgets/CustomDrawer.dart';
@@ -15,12 +16,19 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final List<FbComponente> _componentes = [];
+
+  late Position position;
   late Future<List<FbComponente>> _futureComponentes;
 
   @override
   void initState() {
     super.initState();
     _cargarComponentes();
+    initData();
+  }
+
+  Future<void> initData() async {
+    await determinarPosicionActual();
   }
 
   @override
@@ -45,6 +53,8 @@ class _HomeViewState extends State<HomeView> {
   void _onDrawerPressed(int indice) async {
     if(indice == 0) {
       Navigator.of(context).popAndPushNamed("/homeview");
+    } else if (indice == 3) {
+      Navigator.of(context).popAndPushNamed("/mapatiendasview");
     }
     else if (indice == 2) {
       Navigator.of(context).popAndPushNamed("/accountview");
@@ -95,6 +105,13 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       _componentes.clear();
       _componentes.addAll(listaComponentes);
+    });
+  }
+
+  Future<void> determinarPosicionActual() async {
+    final positionTemp = await DataHolder().geolocAdmin.determinePosition();
+    setState(() {
+      position = positionTemp;
     });
   }
 }

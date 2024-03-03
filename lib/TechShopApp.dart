@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techshop/Main/HomeView.dart';
+import 'package:techshop/Main/MapaTiendasView.dart';
 import 'package:techshop/Theme/DarkMode.dart';
 
 import 'Main/AccountView.dart';
@@ -25,7 +26,8 @@ class TechShopApp extends StatelessWidget {
         "/homeview": (context) => HomeView(),
         "/splashview": (context) => SplashView(),
         "/accountview": (context) => AccountView(),
-        "/componenteview": (context) => ComponenteView()
+        "/componenteview": (context) => ComponenteView(),
+        "/mapatiendasview": (context) => MapaTiendasView()
       },
       initialRoute: "/splashview"
     );

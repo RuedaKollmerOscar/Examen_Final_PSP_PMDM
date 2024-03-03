@@ -1,5 +1,6 @@
 import 'package:techshop/FirestoreObjects/FbComponente.dart';
 import 'FirebaseAdmin.dart';
+import 'GeolocAdmin.dart';
 
 class DataHolder {
 
@@ -8,6 +9,7 @@ class DataHolder {
   late FbComponente componenteSeleccionado;
 
   FirebaseAdmin fbadmin=FirebaseAdmin();
+  GeolocAdmin geolocAdmin = GeolocAdmin();
 
   void initDataHolder() {}
 
