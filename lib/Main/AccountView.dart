@@ -14,8 +14,7 @@ class AccountView extends StatefulWidget {
 
 class _AccountViewState extends State<AccountView> {
   final ImagePicker _picker=ImagePicker();
-  File _imagePreview=File("");
-
+  File _imagePreview = File("");
   final TextEditingController _tecEmail = TextEditingController();
   final TextEditingController _tecPassword = TextEditingController();
   final TextEditingController _tecNewPassword = TextEditingController();
@@ -27,10 +26,10 @@ class _AccountViewState extends State<AccountView> {
   void initState() {
     super.initState();
     _tecEmail.text = DataHolder().fbadmin.getCurrentUserEmail()!;
-    _cargarFotoPerfil;
+    _cargarFotoPerfil();
   }
 
-// Método asincrónico para cargar la foto de perfil
+  // Método asincrónico para cargar la foto de perfil
   Future<void> _cargarFotoPerfil() async {
     _imagePreview = (await DataHolder().fbadmin.descargarFotoPerfil())!;
     setState(() {});

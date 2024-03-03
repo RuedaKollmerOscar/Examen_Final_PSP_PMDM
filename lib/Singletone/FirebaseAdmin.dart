@@ -23,17 +23,11 @@ class FirebaseAdmin {
     return dbAuth.currentUser?.email;
   }
 
-  // Devuelve una instancia de la base de datos de autentificación
-  FirebaseAuth getFirebaseAuthInstance(){
-    return FirebaseAuth.instance;
-  }
-
   // Cierra sesión
   void cerrarSesion() async {
     await FirebaseAuth.instance.signOut();
   }
 
-  // Incia sesión con un correo y una contraseña que se le pasa por parámetro
   Future<String?> iniciarSesion(String email, String password) async {
     String? errorMessage;
     try {
@@ -41,9 +35,13 @@ class FirebaseAdmin {
         email: email,
         password: password,
       );
+
+      print(getCurrentUserID());
+      await descargarFotoPerfil();
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        // Correo no econtrado
+        // Correo no encontrado
         errorMessage ='Ningún usuario encontrado para ese correo electrónico.';
       } else if (e.code == 'wrong-password') {
         // Contraseña incorrecta
@@ -58,6 +56,7 @@ class FirebaseAdmin {
     }
     return errorMessage;
   }
+
 
   // Crea un usuario con un correo y una contraseña que se le pasa por parámetro
   Future<String?> registrarUsuario(String email, String password) async {
@@ -108,6 +107,7 @@ class FirebaseAdmin {
   // Método para cargar la foto de perfil
   Future<File?> descargarFotoPerfil() async {
     try {
+      print(getCurrentUserID());
       final ref = FirebaseStorage.instance.ref().child("FotosPerfil/${getCurrentUserID()}/fotoPerfil.jpg");
       final appDocDir = await getApplicationDocumentsDirectory();
       final filePath = "${appDocDir.path}/fotoPerfil.jpg";
