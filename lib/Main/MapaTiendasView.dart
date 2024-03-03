@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:techshop/Singletone/DataHolder.dart';
-
 import '../FirestoreObjects/FbTienda.dart';
 
 class MapaTiendasView extends StatefulWidget {
@@ -18,6 +17,8 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
   late GoogleMapController _controller;
   Set<Marker> marcadores = {};
   late CameraPosition _kUser;
+  MapType _mapType = MapType.normal;
+  double _radioBusqueda = double.infinity;
 
   @override
   void initState() {
@@ -29,7 +30,6 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
   Future<void> cargarTiendasYSetearMarcadores() async {
     setearMarcadores();
   }
-
 
   @override
   void dispose() {
@@ -54,22 +54,27 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
   void setearMarcadores() async {
     Set<Marker> marcTemp = {};
     try {
-      QuerySnapshot<FbTienda> tiendasDescargadas = await DataHolder().fbadmin.cargarTiendas();
+      QuerySnapshot<FbTienda> tiendasDescargadas =
+      await DataHolder().fbadmin.cargarTiendas();
       for (int i = 0; i < tiendasDescargadas.docs.length; i++) {
         FbTienda temp = tiendasDescargadas.docs[i].data();
-        Marker marcadorTemp = Marker(
-          markerId: MarkerId(tiendasDescargadas.docs[i].id),
-          position: LatLng(temp.geoloc.latitude, temp.geoloc.longitude),
-          infoWindow: InfoWindow(
-            title: temp.name,
-            snippet: "Localidad: ${temp.loc}",
-          ),
-        );
-        marcTemp.add(marcadorTemp);
+        if (_ubicacionActual != null &&
+            estaEnRadio(temp.geoloc.latitude, temp.geoloc.longitude, _radioBusqueda)) {
+          Marker marcadorTemp = Marker(
+            markerId: MarkerId(tiendasDescargadas.docs[i].id),
+            position: LatLng(temp.geoloc.latitude, temp.geoloc.longitude),
+            infoWindow: InfoWindow(
+              title: temp.name,
+              snippet: "Localidad: ${temp.loc}",
+            ),
+          );
+          marcTemp.add(marcadorTemp);
+        }
       }
 
       if (mounted) {
         setState(() {
+          marcadores.clear();
           marcadores.addAll(marcTemp);
         });
       }
@@ -77,6 +82,94 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
       // Manejar el error, si es necesario
       print("Error en setearMarcadores: $error");
     }
+  }
+
+  void cambiarTipoMapa(MapType nuevoTipoMapa) {
+    setState(() {
+      _mapType = nuevoTipoMapa;
+    });
+  }
+
+  Future<void> mostrarDialogoRadio(BuildContext context) async {
+    String selectedRadio = _radioBusqueda == double.infinity
+        ? 'Sin límite'
+        : _radioBusqueda.round().toString();
+
+    await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              title: Text(
+                'Seleccione el radio en kilómetros',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DropdownButton<String>(
+                    value: selectedRadio,
+                    items: ['1', '5', '10', '30', '50', 'Sin límite']
+                        .map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value == 'Sin límite' ? 'Sin límite' : '$value km',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onBackground,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedRadio = newValue!;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Cancelar',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.inversePrimary
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    switch (selectedRadio) {
+                      case 'Sin límite':
+                        _radioBusqueda = double.infinity;
+                        break;
+                      default:
+                        _radioBusqueda = double.parse(selectedRadio);
+                        break;
+                    }
+                    Navigator.pop(context, selectedRadio);
+                    setearMarcadores();
+                    setState;
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.inversePrimary
+                  ),
+                  child: Text('Aceptar')
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -93,13 +186,94 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Theme.of(context).colorScheme.inversePrimary,
+            ),
+            onPressed: () async {
+              await mostrarDialogoRadio(context);
+            },
+          ),
+          PopupMenuButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            icon: Icon(
+              Icons.map,
+              color: Theme.of(context).colorScheme.inversePrimary,
+            ),
+            color: Theme.of(context).colorScheme.background,
+            onSelected: (caso) {
+              switch (caso) {
+                case 'mapaNormal':
+                  cambiarTipoMapa(MapType.normal);
+                  break;
+                case 'mapaSatelite':
+                  cambiarTipoMapa(MapType.satellite);
+                  break;
+                case 'mapaHibrido':
+                  cambiarTipoMapa(MapType.hybrid);
+                  break;
+              }
+            },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem(
+                value: 'mapaNormal',
+                child: ListTile(
+                  leading: Icon(
+                    Icons.map,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  title: Text(
+                    'Mapa normal',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
+                  ),
+                ),
+              ),
+              PopupMenuItem(
+                value: 'mapaSatelite',
+                child: ListTile(
+                  leading: Icon(
+                    Icons.satellite,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  title: Text(
+                    'Mapa satélite',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
+                  ),
+                ),
+              ),
+              PopupMenuItem(
+                value: 'mapaHibrido',
+                child: ListTile(
+                  leading: Icon(
+                    Icons.layers,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  title: Text(
+                    'Mapa híbrido',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       body: Container(
         color: Theme.of(context).colorScheme.background,
         child: Center(
           child: _ubicacionActual != null
               ? GoogleMap(
-            mapType: MapType.hybrid,
+            mapType: _mapType,
             initialCameraPosition: _kUser,
             onMapCreated: (GoogleMapController controller) {
               _controller = controller;
@@ -108,11 +282,28 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
           )
               : CircularProgressIndicator(
             color: Theme.of(context).colorScheme.primary,
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            backgroundColor:
+            Theme.of(context).colorScheme.inversePrimary,
             strokeWidth: 6.0,
           ),
         ),
       ),
     );
+  }
+
+  bool estaEnRadio(double latitud, double longitud, double radio) {
+    if (_ubicacionActual == null) {
+      return false;
+    }
+
+    double distancia = Geolocator.distanceBetween(
+      _ubicacionActual!.latitude,
+      _ubicacionActual!.longitude,
+      latitud,
+      longitud,
+    );
+
+    double distanciaEnKilometros = distancia / 1000;
+    return distanciaEnKilometros <= radio;
   }
 }

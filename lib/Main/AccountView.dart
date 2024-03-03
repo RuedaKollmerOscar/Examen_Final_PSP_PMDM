@@ -223,7 +223,7 @@ class _AccountViewState extends State<AccountView> {
       ),
       builder: (BuildContext context) {
         return Container(
-          color: Theme.of(context).colorScheme.background, // Color de fondo del tema
+          color: Theme.of(context).colorScheme.background,
           padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -231,7 +231,7 @@ class _AccountViewState extends State<AccountView> {
               ListTile(
                 leading: Icon(
                   Icons.camera,
-                  color: Theme.of(context).colorScheme.inversePrimary,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 title: Text(
                   'Abrir cámara',
@@ -244,12 +244,12 @@ class _AccountViewState extends State<AccountView> {
                Divider(
                 thickness: 1,
                 height: 20,
-                color: Theme.of(context).colorScheme.primary, // Color primario del tema
+                color: Theme.of(context).colorScheme.primary,
               ),
               ListTile(
                 leading: Icon(
                   Icons.photo,
-                  color: Theme.of(context).colorScheme.inversePrimary,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 title: Text(
                   'Abrir galería',
