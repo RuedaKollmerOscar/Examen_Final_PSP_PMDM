@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techshop/Main/CatalogoView.dart';
 import 'package:techshop/Main/CategoriasView.dart';
 import 'package:techshop/Main/HomeView.dart';
 import 'package:techshop/Main/MapaTiendasView.dart';
@@ -31,7 +32,8 @@ class TechShopApp extends StatelessWidget {
         "/componenteview": (context) => ComponenteView(),
         "/mapatiendasview": (context) => MapaTiendasView(),
         "/sobrenosotrosview": (context) => SobreNosotrosView(),
-        "/categoriasview": (context) => CategoriasView()
+        "/categoriasview": (context) => CategoriasView(),
+        "/catalogoview": (context) => CatalogoView()
       },
       initialRoute: "/splashview"
     );

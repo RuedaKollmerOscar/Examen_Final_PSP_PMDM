@@ -92,11 +92,12 @@ class _CategoriasViewState extends State<CategoriasView> {
   }
 
   Widget _separadorLista(BuildContext context, int index) {
-    return Divider(
-        thickness: 2, color: Colors.transparent);
+    return Divider(thickness: 2, color: Colors.transparent);
   }
 
   void _onCategoriaPressed(int index) {
+    DataHolder().categoriaSeleccionada = _categorias[index];
+    Navigator.of(context).pushNamed("/catalogoview");
   }
 
   Future<void> _cargarComponentes() async {

@@ -6,11 +6,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import 'package:techshop/FirestoreObjects/FbComponente.dart';
 
+import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbTienda.dart';
 
 class FirebaseAdmin {
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAuth dbAuth = FirebaseAuth.instance;
+
+  // Atributos de usuario
 
   // Devuelve el ID del usuario logeado
   String? getCurrentUserID(){
@@ -26,11 +29,33 @@ class FirebaseAdmin {
     return dbAuth.currentUser?.email;
   }
 
-  // Cierra sesión
+  // Método para cargar la foto de perfil
+  Future<File?> descargarFotoPerfil() async {
+    try {
+      print(getCurrentUserID());
+      final ref = FirebaseStorage.instance.ref().child("FotosPerfil/${getCurrentUserID()}/fotoPerfil.jpg");
+      final appDocDir = await getApplicationDocumentsDirectory();
+      final filePath = "${appDocDir.path}/fotoPerfil.jpg";
+      File imagePreview = File(filePath);
+
+      await ref.writeToFile(imagePreview);
+
+      return imagePreview;
+    } catch (e) {
+      // Manejar errores al cargar la foto de perfil
+      print("Error al cargar la foto de perfil: $e");
+      return null; // Devolver null en caso de error
+    }
+  }
+
+  // Metodos de autenticacion
+
+  // Cierra sesion
   void cerrarSesion() async {
     await FirebaseAuth.instance.signOut();
   }
 
+  // Inica sesion
   Future<String?> iniciarSesion(String email, String password) async {
     String? errorMessage;
     try {
@@ -87,6 +112,13 @@ class FirebaseAdmin {
     return errorMessage;
   }
 
+  Future<void> subirFotoPerfil(File fotoPerfil) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosPerfil/${getCurrentUserID()}/fotoPerfil.jpg");
+    await ref.putFile(fotoPerfil);
+  }
+
+  // Metodos para descargar colecciones
+
   // Descarga la lista de componentes
   Future<List<FbComponente>> descargarComponentes() async {
     CollectionReference<FbComponente> ref = db.collection("Componentes").withConverter(
@@ -117,30 +149,22 @@ class FirebaseAdmin {
     return categorias;
   }
 
-  Future<void> subirFotoPerfil(File fotoPerfil) async {
-    final ref = FirebaseStorage.instance.ref().child("FotosPerfil/${getCurrentUserID()}/fotoPerfil.jpg");
-    await ref.putFile(fotoPerfil);
+  // Descarga la lista de cajas
+  Future<List<FbCaja>> descargarCajas() async {
+    CollectionReference<FbCaja> ref = db.collection("Categorias/cajas/catalogo").withConverter(
+      fromFirestore: FbCaja.fromFirestore,
+      toFirestore: (FbCaja componente, _) => componente.toFirestore(),
+    );
+
+    QuerySnapshot<FbCaja> querySnapshot = await ref.get();
+
+    // Mapear los documentos a objetos FbPost y devolver una lista
+    List<FbCaja> cajas = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return cajas;
   }
 
-  // Método para cargar la foto de perfil
-  Future<File?> descargarFotoPerfil() async {
-    try {
-      print(getCurrentUserID());
-      final ref = FirebaseStorage.instance.ref().child("FotosPerfil/${getCurrentUserID()}/fotoPerfil.jpg");
-      final appDocDir = await getApplicationDocumentsDirectory();
-      final filePath = "${appDocDir.path}/fotoPerfil.jpg";
-      File imagePreview = File(filePath);
-
-      await ref.writeToFile(imagePreview);
-
-      return imagePreview;
-    } catch (e) {
-      // Manejar errores al cargar la foto de perfil
-      print("Error al cargar la foto de perfil: $e");
-      return null; // Devolver null en caso de error
-    }
-  }
-
+  // Descarga la coleccion y la devuelve (no devuelve un list)
   Future<QuerySnapshot<FbTienda>> cargarTiendas() async {
     try {
       CollectionReference<FbTienda> ref = db.collection("Tiendas")
