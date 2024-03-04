@@ -58,11 +58,11 @@ class CustomDrawer extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20.0),
               child: ListTile(
                 leading: Icon(
-                  Icons.home,
+                  Icons.star,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 title: Text(
-                  "Home",
+                  "Productos destacados",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),

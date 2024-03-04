@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import 'package:techshop/FirestoreObjects/FbComponente.dart';
 
 import '../FirestoreObjects/FbTienda.dart';
@@ -90,15 +91,30 @@ class FirebaseAdmin {
   Future<List<FbComponente>> descargarComponentes() async {
     CollectionReference<FbComponente> ref = db.collection("Componentes").withConverter(
       fromFirestore: FbComponente.fromFirestore,
-      toFirestore: (FbComponente post, _) => post.toFirestore(),
+      toFirestore: (FbComponente componente, _) => componente.toFirestore(),
     );
 
     QuerySnapshot<FbComponente> querySnapshot = await ref.get();
 
     // Mapear los documentos a objetos FbPost y devolver una lista
-    List<FbComponente> posts = querySnapshot.docs.map((doc) => doc.data()).toList();
+    List<FbComponente> componentes = querySnapshot.docs.map((doc) => doc.data()).toList();
 
-    return posts;
+    return componentes;
+  }
+
+  // Descarga la lista de categorias
+  Future<List<FbCategoria>> descargarCategorias() async {
+    CollectionReference<FbCategoria> ref = db.collection("Categorias").withConverter(
+      fromFirestore: FbCategoria.fromFirestore,
+      toFirestore: (FbCategoria categoria, _) => categoria.toFirestore(),
+    );
+
+    QuerySnapshot<FbCategoria> querySnapshot = await ref.get();
+
+    // Mapear los documentos a objetos FbPost y devolver una lista
+    List<FbCategoria> categorias = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return categorias;
   }
 
   Future<void> subirFotoPerfil(File fotoPerfil) async {

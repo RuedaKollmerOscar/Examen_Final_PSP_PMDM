@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:techshop/Custom/Widgets/CustomBottomMenu.dart';
 
-import '../Custom/Views/ComponentesListView.dart';
+import '../Custom/Views/CategoriasListView.dart';
+import '../Custom/Widgets/CustomBottomMenu.dart';
 import '../Custom/Widgets/CustomDrawer.dart';
-import '../FirestoreObjects/FbComponente.dart';
+import '../FirestoreObjects/FbCategoria.dart';
 import '../OnBoarding/LoginView.dart';
 import '../Singletone/DataHolder.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
-
+class CategoriasView extends StatefulWidget {
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<CategoriasView> createState() => _CategoriasViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  final List<FbComponente> _componentes = [];
-
-  late Position position;
-  late Future<List<FbComponente>> _futureComponentes;
+class _CategoriasViewState extends State<CategoriasView> {
+  final List<FbCategoria> _categorias = [];
+  late Future<List<FbCategoria>> _futureCategorias;
 
   @override
   void initState() {
     super.initState();
     _cargarComponentes();
-    initData();
-  }
-
-  Future<void> initData() async {
-    await determinarPosicionActual();
   }
 
   @override
@@ -38,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text(
-          "Productos destacados",
+          "Categorías",
           style: TextStyle(
             color: Theme.of(context).colorScheme.inversePrimary,
           ),
@@ -83,51 +73,38 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  // Gestiona el click del post
-  void _onComponentePressed(int index) {
-    DataHolder().componenteSeleccionado = _componentes[index];
-    Navigator.of(context).pushNamed("/componenteview");
-  }
-
-
   Widget _listBody() {
     return ListView.separated(
       padding: const EdgeInsets.all(8),
       itemBuilder: _itemListBuilder,
       separatorBuilder: _separadorLista,
-      itemCount: _componentes.length,
+      itemCount: _categorias.length,
     );
   }
 
-  // Creador de items en forma de lista
   Widget? _itemListBuilder(BuildContext context, int index) {
-    return ComponentesListView(
-      sName: _componentes[index].name,
-      sPrice: _componentes[index].price,
+    return CategoriasListView(
+      sName: _categorias[index].name,
+      sUrlImg: _categorias[index].urlImg,
       iPosicion: index,
-      fOnItemTap: _onComponentePressed,
+      fOnItemTap: _onCategoriaPressed,
     );
   }
 
   Widget _separadorLista(BuildContext context, int index) {
     return Divider(
-        thickness: 2, color: Theme.of(context).colorScheme.primary);
+        thickness: 2, color: Colors.transparent);
   }
 
-  // Llena la lista de posts
+  void _onCategoriaPressed(int index) {
+  }
+
   Future<void> _cargarComponentes() async {
-    _futureComponentes = DataHolder().fbadmin.descargarComponentes();
-    List<FbComponente> listaComponentes = await _futureComponentes;
+    _futureCategorias = DataHolder().fbadmin.descargarCategorias();
+    List<FbCategoria> listaCategorias = await _futureCategorias;
     setState(() {
-      _componentes.clear();
-      _componentes.addAll(listaComponentes);
-    });
-  }
-
-  Future<void> determinarPosicionActual() async {
-    final positionTemp = await DataHolder().geolocAdmin.determinePosition();
-    setState(() {
-      position = positionTemp;
+      _categorias.clear();
+      _categorias.addAll(listaCategorias);
     });
   }
 }
