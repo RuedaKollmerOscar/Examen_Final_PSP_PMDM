@@ -47,8 +47,11 @@ class _AccountViewState extends State<AccountView> {
               color: Theme.of(context).colorScheme.inversePrimary,
             ),
           ),
-          centerTitle: true,
-          backgroundColor: Colors.transparent
+        centerTitle: true,
+        shadowColor: Theme.of(context).colorScheme.inversePrimary,
+        elevation: 5,
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -182,7 +185,7 @@ class _AccountViewState extends State<AccountView> {
           if (user != null) {
             try {
               await user.updatePassword(_tecNewPassword.text);
-              const CustomSnackbar(sMensaje: "Los cambios se guardaron correctamente").show(context);
+              const CustomSnackbar(sMensaje: "Los cambios se guardaron correctamente. Reinicia la aplicación").show(context);
             } catch (e) {
               const CustomSnackbar(sMensaje: "Error al guardar los cambios").show(context);
             }

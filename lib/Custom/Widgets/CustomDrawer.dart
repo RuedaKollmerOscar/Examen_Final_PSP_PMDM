@@ -75,7 +75,7 @@ class CustomDrawer extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20.0),
               child: ListTile(
                 leading: Icon(
-                  Icons.search,
+                  Icons.search_outlined,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 title: Text(
@@ -125,6 +125,23 @@ class CustomDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: ListTile(
+                leading: Icon(
+                  Icons.info_outline_rounded,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                title: Text(
+                  'Sobre nosotros',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                  ),
+                ),
+                onTap: () => fOnItemTap!(4),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: ListTile(
                 leading: const Icon(
                   Icons.exit_to_app,
                   color: Colors.red,
@@ -135,7 +152,7 @@ class CustomDrawer extends StatelessWidget {
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                 ),
-                onTap: () => fOnItemTap!(4),
+                onTap: () => fOnItemTap!(5),
               ),
             ),
           ],

@@ -43,7 +43,10 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.transparent
+        shadowColor: Theme.of(context).colorScheme.inversePrimary,
+        elevation: 5,
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: _listBody(),
       drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
@@ -53,12 +56,13 @@ class _HomeViewState extends State<HomeView> {
   void _onDrawerPressed(int indice) async {
     if(indice == 0) {
       Navigator.of(context).popAndPushNamed("/homeview");
+    } else if (indice == 2) {
+      Navigator.of(context).popAndPushNamed("/accountview");
     } else if (indice == 3) {
       Navigator.of(context).popAndPushNamed("/mapatiendasview");
-    }
-    else if (indice == 2) {
-      Navigator.of(context).popAndPushNamed("/accountview");
     } else if (indice == 4) {
+      Navigator.of(context).popAndPushNamed("/sobrenosotros");
+    } else if (indice == 5) {
       DataHolder().fbadmin.cerrarSesion();
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (BuildContext context) => const LoginView()),
