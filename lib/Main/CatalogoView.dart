@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:techshop/Custom/Views/ProcesadoresListView.dart';
+import 'package:techshop/Custom/Views/RAMsListView.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import 'package:techshop/FirestoreObjects/FbProcesador.dart';
+import 'package:techshop/FirestoreObjects/FbRAM.dart';
 import '../Custom/Views/CajasListView.dart';
 import '../Custom/Views/DiscosDurosListView.dart';
 import '../Custom/Views/DisipadoresListView.dart';
@@ -42,6 +44,9 @@ class _CatalogoViewState extends State<CatalogoView> {
 
   final List<FbProcesador> _procesadores = [];
   late Future<List<FbProcesador>> _futureProcesadores;
+
+  final List<FbRAM> _rams = [];
+  late Future<List<FbRAM>> _futureRAMs;
 
   @override
   void initState() {
@@ -88,6 +93,8 @@ class _CatalogoViewState extends State<CatalogoView> {
         return _placas.length;
       case 'Procesadores':
         return _procesadores.length;
+      case 'Memorias RAM':
+        return _rams.length;
       default:
         return 0;
     }
@@ -172,6 +179,20 @@ class _CatalogoViewState extends State<CatalogoView> {
             iPosicion: index,
             fOnItemTap: (int indice) {},
         );
+      case 'Memorias RAM':
+        FbRAM ramSeleccionada = _rams[index];
+        return RAMsListView(
+          sNombre: ramSeleccionada.sNombre,
+          iCapacidad: ramSeleccionada.iCapacidad,
+          iModulos: ramSeleccionada.iModulos,
+          iVelocidad: ramSeleccionada.iVelocidad,
+          sGeneracion: ramSeleccionada.sGeneracion,
+          bRGB: ramSeleccionada.bRGB,
+          dPrecio: ramSeleccionada.dPrecio,
+          sUrlImg: ramSeleccionada.sUrlImg,
+          iPosicion: index,
+          fOnItemTap: (int indice) {},
+        );
       default:
         return null;
     }
@@ -227,11 +248,18 @@ class _CatalogoViewState extends State<CatalogoView> {
           _procesadores.addAll(listaProcesadores);
         });
         break;
+      case 'Memorias RAM':
+        _futureRAMs = DataHolder().fbadmin.descargarRAMs();
+        List<FbRAM> listaRAMs = await _futureRAMs;
+        setState(() {
+          _rams.clear();
+          _rams.addAll(listaRAMs);
+        });
+        break;
       default:
         break;
     }
   }
-
 
   Widget _separadorLista(BuildContext context, int index) {
     return Divider(
