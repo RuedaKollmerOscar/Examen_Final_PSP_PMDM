@@ -70,7 +70,7 @@ class FuentesListView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Text(
-              'Potencia: ${dPotencia.toString()}W',
+              'Potencia: ${dPotencia.toStringAsFixed(0)}W',
               style: const TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
@@ -79,7 +79,6 @@ class FuentesListView extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
             Text(
               'Precio: ${dPrecio.toString()} €',
               style: const TextStyle(fontSize: 16),

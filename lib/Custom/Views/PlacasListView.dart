@@ -74,7 +74,6 @@ class PlacasListView extends StatelessWidget {
               'Wi-Fi: ${bWifi ? 'Sí' : 'No'}',
               style: const TextStyle(fontSize: 16),
             ),
-            const SizedBox(height: 8),
             Text(
               'Precio: ${dPrecio.toString()} €',
               style: const TextStyle(fontSize: 16),

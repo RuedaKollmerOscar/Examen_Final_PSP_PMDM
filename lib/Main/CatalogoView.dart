@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:techshop/Custom/Views/ProcesadoresListView.dart';
 import 'package:techshop/Custom/Views/RAMsListView.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
+import 'package:techshop/FirestoreObjects/FbGrafica.dart';
 import 'package:techshop/FirestoreObjects/FbProcesador.dart';
 import 'package:techshop/FirestoreObjects/FbRAM.dart';
 import '../Custom/Views/CajasListView.dart';
 import '../Custom/Views/DiscosDurosListView.dart';
 import '../Custom/Views/DisipadoresListView.dart';
 import '../Custom/Views/FuentesListView.dart';
+import '../Custom/Views/GraficasListView.dart';
 import '../Custom/Views/PlacasListView.dart';
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbDiscoDuro.dart';
@@ -47,6 +49,9 @@ class _CatalogoViewState extends State<CatalogoView> {
 
   final List<FbRAM> _rams = [];
   late Future<List<FbRAM>> _futureRAMs;
+
+  final List<FbGrafica> _graficas = [];
+  late Future<List<FbGrafica>> _futureGraficas;
 
   @override
   void initState() {
@@ -95,6 +100,8 @@ class _CatalogoViewState extends State<CatalogoView> {
         return _procesadores.length;
       case 'Memorias RAM':
         return _rams.length;
+      case 'Tarjetas gráficas':
+        return _graficas.length;
       default:
         return 0;
     }
@@ -193,6 +200,20 @@ class _CatalogoViewState extends State<CatalogoView> {
           iPosicion: index,
           fOnItemTap: (int indice) {},
         );
+      case 'Tarjetas gráficas':
+        FbGrafica tarjetaGraficaSeleccionada = _graficas[index];
+        return GraficasListView(
+          sNombre: tarjetaGraficaSeleccionada.sNombre,
+          sEnsamblador: tarjetaGraficaSeleccionada.sEnsamblador,
+          sFabricante: tarjetaGraficaSeleccionada.sFabricante,
+          sSerie: tarjetaGraficaSeleccionada.sSerie,
+          iCapacidad: tarjetaGraficaSeleccionada.iCapacidad,
+          sGeneracion: tarjetaGraficaSeleccionada.sGeneracion,
+          dPrecio: tarjetaGraficaSeleccionada.dPrecio,
+          sUrlImg: tarjetaGraficaSeleccionada.sUrlImg,
+          iPosicion: index,
+          fOnItemTap: (int indice) {},
+        );
       default:
         return null;
     }
@@ -254,6 +275,15 @@ class _CatalogoViewState extends State<CatalogoView> {
         setState(() {
           _rams.clear();
           _rams.addAll(listaRAMs);
+        });
+        break;
+      case 'Tarjetas gráficas':
+        _futureGraficas = DataHolder().fbadmin.descargarGraficas();
+        List<FbGrafica> listaGraficas = await _futureGraficas;
+        print("------------------>>>>>>>>>>>>>>>>>>>>>>>>>${listaGraficas.length}");
+        setState(() {
+          _graficas.clear();
+          _graficas.addAll(listaGraficas);
         });
         break;
       default:

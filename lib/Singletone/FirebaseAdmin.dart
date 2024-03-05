@@ -8,6 +8,7 @@ import 'package:techshop/FirestoreObjects/FbComponente.dart';
 import 'package:techshop/FirestoreObjects/FbDiscoDuro.dart';
 import 'package:techshop/FirestoreObjects/FbDisipador.dart';
 import 'package:techshop/FirestoreObjects/FbFuente.dart';
+import 'package:techshop/FirestoreObjects/FbGrafica.dart';
 import 'package:techshop/FirestoreObjects/FbPlaca.dart';
 import 'package:techshop/FirestoreObjects/FbProcesador.dart';
 import 'package:techshop/FirestoreObjects/FbRAM.dart';
@@ -223,7 +224,7 @@ class FirebaseAdmin {
     return fuentes;
   }
 
-  // Descarga la lista de disipadores
+  // Descarga la lista de procesadores
   Future<List<FbProcesador>> descargarProcesadores() async {
     CollectionReference<FbProcesador> ref = db.collection("Categorias/procesadores/catalogo").withConverter(
       fromFirestore: FbProcesador.fromFirestore,
@@ -237,7 +238,7 @@ class FirebaseAdmin {
     return procesadores;
   }
 
-  // Descarga la lista de disipadores
+  // Descarga la lista de memorias RAM
   Future<List<FbRAM>> descargarRAMs() async {
     CollectionReference<FbRAM> ref = db.collection("Categorias/rams/catalogo").withConverter(
       fromFirestore: FbRAM.fromFirestore,
@@ -249,6 +250,20 @@ class FirebaseAdmin {
     List<FbRAM> rams = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return rams;
+  }
+
+  // Descarga la lista de tarjetas graficas
+  Future<List<FbGrafica>> descargarGraficas() async {
+    CollectionReference<FbGrafica> ref = db.collection("Categorias/tarjetasgraficas/catalogo").withConverter(
+      fromFirestore: FbGrafica.fromFirestore,
+      toFirestore: (FbGrafica componente, _) => componente.toFirestore(),
+    );
+
+    QuerySnapshot<FbGrafica> querySnapshot = await ref.get();
+
+    List<FbGrafica> graficas = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return graficas;
   }
 
   // Descarga la coleccion y la devuelve (no devuelve un list)

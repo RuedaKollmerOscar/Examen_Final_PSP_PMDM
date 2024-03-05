@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 
-class ProcesadoresListView extends StatelessWidget {
+class GraficasListView extends StatelessWidget {
   final String sNombre;
-  final String sMarca;
-  final String sModelo;
-  final int iNucleos;
-  final int iHilos;
-  final double dVelocidadBase;
-  final bool bOverclock;
+  final String sEnsamblador;
+  final String sFabricante;
+  final String sSerie;
+  final int iCapacidad;
+  final String sGeneracion;
   final double dPrecio;
   final String sUrlImg;
   final int iPosicion;
   final Function(int indice)? fOnItemTap;
 
-  ProcesadoresListView({
+  GraficasListView({
     Key? key,
     required this.sNombre,
-    required this.sMarca,
-    required this.sModelo,
-    required this.iNucleos,
-    required this.iHilos,
-    required this.dVelocidadBase,
-    required this.bOverclock,
+    required this.sEnsamblador,
+    required this.sFabricante,
+    required this.sSerie,
+    required this.iCapacidad,
+    required this.sGeneracion,
     required this.dPrecio,
     required this.sUrlImg,
     required this.iPosicion,
@@ -63,31 +61,27 @@ class ProcesadoresListView extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Marca: $sMarca',
+              'Ensamblador: $sEnsamblador',
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Modelo: $sModelo',
+              'Fabricante: $sFabricante',
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Núcleos: $iNucleos',
+              'Serie: $sSerie',
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Hilos: $iHilos',
+              'Capacidad: $iCapacidad GB',
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Velocidad Base: ${dVelocidadBase.toString()} GHz',
+              'Generación: GDDR$sGeneracion',
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Overclock: ${bOverclock ? 'Sí' : 'No'}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Precio: ${dPrecio.toString()} €',
+              'Precio: ${dPrecio.toString()}',
               style: const TextStyle(fontSize: 16),
             ),
           ],
