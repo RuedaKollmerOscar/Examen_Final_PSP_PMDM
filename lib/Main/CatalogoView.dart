@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import '../Custom/Views/CajasListView.dart';
 import '../Custom/Views/DiscosDurosListView.dart';
+import '../Custom/Views/DisipadoresListView.dart';
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbDiscoDuro.dart';
+import '../FirestoreObjects/FbDisipador.dart';
 import '../Singletone/DataHolder.dart';
 
 class CatalogoView extends StatefulWidget {
@@ -22,6 +24,9 @@ class _CatalogoViewState extends State<CatalogoView> {
 
   final List<FbDiscoDuro> _discosDuros = [];
   late Future<List<FbDiscoDuro>> _futureDiscosDuros;
+
+  final List<FbDisipador> _disipadores = [];
+  late Future<List<FbDisipador>> _futureDisipadores;
 
   @override
   void initState() {
@@ -60,42 +65,56 @@ class _CatalogoViewState extends State<CatalogoView> {
         return _cajas.length;
       case 'Discos duros':
         return _discosDuros.length;
+      case 'Disipadores':
+        return _disipadores.length;
       default:
         return 0;
     }
   }
 
-
   // Creador de items en forma de lista
   Widget? _itemListBuilder(BuildContext context, int index) {
-      switch (categoriaSeleccionada.name) {
-        case 'Cajas':
-          FbCaja cajaSeleccionada = _cajas[index];
-          return CajasListView(
-            sName: cajaSeleccionada.nombre,
-            sColor: cajaSeleccionada.color,
-            dPeso: cajaSeleccionada.peso,
-            dPrecio: cajaSeleccionada.precio,
-            sUrlImg: cajaSeleccionada.urlImg,
-            iPosicion: index,
-            fOnItemTap: (int indice) {},
-          );
-        case 'Discos duros':
-          FbDiscoDuro discoDuroSeleccionado = _discosDuros[index];
-          return DiscosDurosListView(
-            sNombre: discoDuroSeleccionado.nombre,
-            sTipo: discoDuroSeleccionado.tipo,
-            iEscritura: discoDuroSeleccionado.escritura,
-            iLectura: discoDuroSeleccionado.lectura,
-            dPrecio: discoDuroSeleccionado.precio,
-            sUrlImg: discoDuroSeleccionado.urlImg,
-            iPosicion: index,
-            fOnItemTap: (int indice) {},
-          );
-        default:
-          return null;
-      }
+    switch (categoriaSeleccionada.name) {
+      case 'Cajas':
+        FbCaja cajaSeleccionada = _cajas[index];
+        return CajasListView(
+          sName: cajaSeleccionada.nombre,
+          sColor: cajaSeleccionada.color,
+          dPeso: cajaSeleccionada.peso,
+          dPrecio: cajaSeleccionada.precio,
+          sUrlImg: cajaSeleccionada.urlImg,
+          iPosicion: index,
+          fOnItemTap: (int indice) {},
+        );
+      case 'Discos duros':
+        FbDiscoDuro discoDuroSeleccionado = _discosDuros[index];
+        return DiscosDurosListView(
+          sNombre: discoDuroSeleccionado.nombre,
+          sTipo: discoDuroSeleccionado.tipo,
+          iEscritura: discoDuroSeleccionado.escritura,
+          iLectura: discoDuroSeleccionado.lectura,
+          dPrecio: discoDuroSeleccionado.precio,
+          sUrlImg: discoDuroSeleccionado.urlImg,
+          iPosicion: index,
+          fOnItemTap: (int indice) {},
+        );
+      case 'Disipadores':
+        FbDisipador disipadorSeleccionado = _disipadores[index];
+        return DisipadoresListView(
+          sNombre: disipadorSeleccionado.sNombre,
+          sColor: disipadorSeleccionado.sColor,
+          sMaterial: disipadorSeleccionado.sMaterial,
+          iVelocidadRotacionMinima: disipadorSeleccionado.iVelocidadRotacionMinima,
+          iVelocidadRotacionMaxima: disipadorSeleccionado.iVelocidadRotacionMaxima,
+          dPrecio: disipadorSeleccionado.dPrecio,
+          sUrlImg: disipadorSeleccionado.sUrlImg,
+          iPosicion: index,
+          fOnItemTap: (int indice) {},
+        );
+      default:
+        return null;
     }
+  }
 
   Widget _separadorLista(BuildContext context, int index) {
     return Divider(
@@ -104,24 +123,33 @@ class _CatalogoViewState extends State<CatalogoView> {
 
 
   Future<void> _cargarDatos() async {
-    if (categoriaSeleccionada.name == 'Cajas') {
-      _futureCajas = DataHolder().fbadmin.descargarCajas();
-      List<FbCaja> listaCajas = await _futureCajas;
-      setState(() {
-        _cajas.clear();
-        _cajas.addAll(listaCajas);
-      });
-    } else if (categoriaSeleccionada.name == 'Discos duros') {
-      _futureDiscosDuros = DataHolder().fbadmin.descargarDiscosDuros();
-      List<FbDiscoDuro> listaDiscosDuros = await _futureDiscosDuros;
-      setState(() {
-        _discosDuros.clear();
-        _discosDuros.addAll(listaDiscosDuros);
-      });
+    switch (categoriaSeleccionada.name) {
+      case 'Cajas':
+        _futureCajas = DataHolder().fbadmin.descargarCajas();
+        List<FbCaja> listaCajas = await _futureCajas;
+        setState(() {
+          _cajas.clear();
+          _cajas.addAll(listaCajas);
+        });
+        break;
+      case 'Discos duros':
+        _futureDiscosDuros = DataHolder().fbadmin.descargarDiscosDuros();
+        List<FbDiscoDuro> listaDiscosDuros = await _futureDiscosDuros;
+        setState(() {
+          _discosDuros.clear();
+          _discosDuros.addAll(listaDiscosDuros);
+        });
+        break;
+      case 'Disipadores':
+        _futureDisipadores = DataHolder().fbadmin.descargarDisipadores();
+        List<FbDisipador> listaDisipadores = await _futureDisipadores;
+        setState(() {
+          _disipadores.clear();
+          _disipadores.addAll(listaDisipadores);
+        });
+        break;
+      default:
+        break;
     }
   }
 }
-
-
-
-

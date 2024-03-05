@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import 'package:techshop/FirestoreObjects/FbComponente.dart';
 import 'package:techshop/FirestoreObjects/FbDiscoDuro.dart';
+import 'package:techshop/FirestoreObjects/FbDisipador.dart';
 
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbTienda.dart';
@@ -129,7 +130,6 @@ class FirebaseAdmin {
 
     QuerySnapshot<FbComponente> querySnapshot = await ref.get();
 
-    // Mapear los documentos a objetos FbPost y devolver una lista
     List<FbComponente> componentes = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return componentes;
@@ -144,7 +144,6 @@ class FirebaseAdmin {
 
     QuerySnapshot<FbCategoria> querySnapshot = await ref.get();
 
-    // Mapear los documentos a objetos FbPost y devolver una lista
     List<FbCategoria> categorias = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return categorias;
@@ -159,7 +158,6 @@ class FirebaseAdmin {
 
     QuerySnapshot<FbCaja> querySnapshot = await ref.get();
 
-    // Mapear los documentos a objetos FbPost y devolver una lista
     List<FbCaja> cajas = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return cajas;
@@ -174,10 +172,23 @@ class FirebaseAdmin {
 
     QuerySnapshot<FbDiscoDuro> querySnapshot = await ref.get();
 
-    // Mapear los documentos a objetos FbPost y devolver una lista
     List<FbDiscoDuro> discosDuros = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return discosDuros;
+  }
+
+  // Descarga la lista de disipadores
+  Future<List<FbDisipador>> descargarDisipadores() async {
+    CollectionReference<FbDisipador> ref = db.collection("Categorias/disipadores/catalogo").withConverter(
+      fromFirestore: FbDisipador.fromFirestore,
+      toFirestore: (FbDisipador componente, _) => componente.toFirestore(),
+    );
+
+    QuerySnapshot<FbDisipador> querySnapshot = await ref.get();
+
+    List<FbDisipador> disipadores = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return disipadores;
   }
 
   // Descarga la coleccion y la devuelve (no devuelve un list)

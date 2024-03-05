@@ -24,9 +24,7 @@ class DiscosDurosListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Implementa lo que quieras hacer al hacer clic en el disco duro
-      },
+      onTap: () => fOnItemTap!(iPosicion),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
