@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:techshop/Custom/Views/ProcesadoresListView.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
+import 'package:techshop/FirestoreObjects/FbProcesador.dart';
 import '../Custom/Views/CajasListView.dart';
 import '../Custom/Views/DiscosDurosListView.dart';
 import '../Custom/Views/DisipadoresListView.dart';
@@ -37,6 +39,9 @@ class _CatalogoViewState extends State<CatalogoView> {
 
   final List<FbPlaca> _placas = [];
   late Future<List<FbPlaca>> _futurePlacas;
+
+  final List<FbProcesador> _procesadores = [];
+  late Future<List<FbProcesador>> _futureProcesadores;
 
   @override
   void initState() {
@@ -81,6 +86,8 @@ class _CatalogoViewState extends State<CatalogoView> {
         return _fuentes.length;
       case 'Placas base':
         return _placas.length;
+      case 'Procesadores':
+        return _procesadores.length;
       default:
         return 0;
     }
@@ -150,6 +157,21 @@ class _CatalogoViewState extends State<CatalogoView> {
           iPosicion: index,
           fOnItemTap: (int indice) {},
         );
+      case 'Procesadores':
+        FbProcesador procesadorSeleccionado = _procesadores[index];
+        return ProcesadoresListView(
+            sNombre: procesadorSeleccionado.sNombre,
+            sMarca: procesadorSeleccionado.sMarca,
+            sModelo: procesadorSeleccionado.sModelo,
+            iNucleos: procesadorSeleccionado.iNucleos,
+            iHilos: procesadorSeleccionado.iHilos,
+            dVelocidadBase: procesadorSeleccionado.dVelocidadBase,
+            bOverclock: procesadorSeleccionado.bOverclock,
+            dPrecio: procesadorSeleccionado.dPrecio,
+            sUrlImg: procesadorSeleccionado.sUrlImg,
+            iPosicion: index,
+            fOnItemTap: (int indice) {},
+        );
       default:
         return null;
     }
@@ -197,10 +219,19 @@ class _CatalogoViewState extends State<CatalogoView> {
           _placas.addAll(listaPlacas);
         });
         break;
+      case 'Procesadores':
+        _futureProcesadores = DataHolder().fbadmin.descargarProcesadores();
+        List<FbProcesador> listaProcesadores = await _futureProcesadores;
+        setState(() {
+          _procesadores.clear();
+          _procesadores.addAll(listaProcesadores);
+        });
+        break;
       default:
         break;
     }
   }
+
 
   Widget _separadorLista(BuildContext context, int index) {
     return Divider(

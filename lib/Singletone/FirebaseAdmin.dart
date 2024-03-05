@@ -9,6 +9,7 @@ import 'package:techshop/FirestoreObjects/FbDiscoDuro.dart';
 import 'package:techshop/FirestoreObjects/FbDisipador.dart';
 import 'package:techshop/FirestoreObjects/FbFuente.dart';
 import 'package:techshop/FirestoreObjects/FbPlaca.dart';
+import 'package:techshop/FirestoreObjects/FbProcesador.dart';
 
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbTienda.dart';
@@ -219,6 +220,20 @@ class FirebaseAdmin {
     List<FbFuente> fuentes = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return fuentes;
+  }
+
+  // Descarga la lista de disipadores
+  Future<List<FbProcesador>> descargarProcesadores() async {
+    CollectionReference<FbProcesador> ref = db.collection("Categorias/procesadores/catalogo").withConverter(
+      fromFirestore: FbProcesador.fromFirestore,
+      toFirestore: (FbProcesador componente, _) => componente.toFirestore(),
+    );
+
+    QuerySnapshot<FbProcesador> querySnapshot = await ref.get();
+
+    List<FbProcesador> procesadores = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return procesadores;
   }
 
   // Descarga la coleccion y la devuelve (no devuelve un list)
