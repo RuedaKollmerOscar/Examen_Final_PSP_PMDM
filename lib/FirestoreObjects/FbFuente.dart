@@ -19,10 +19,7 @@ class FbFuente {
     required this.dPrecio,
   });
 
-  factory FbFuente.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+  factory FbFuente.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
     final data = snapshot.data();
     return FbFuente(
       sNombre: data?['nombre'] != null ? data!['nombre'] : "xxxx",

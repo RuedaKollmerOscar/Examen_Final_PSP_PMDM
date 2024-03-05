@@ -4,10 +4,12 @@ import '../Custom/Views/CajasListView.dart';
 import '../Custom/Views/DiscosDurosListView.dart';
 import '../Custom/Views/DisipadoresListView.dart';
 import '../Custom/Views/FuentesListView.dart';
+import '../Custom/Views/PlacasListView.dart';
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbDiscoDuro.dart';
 import '../FirestoreObjects/FbDisipador.dart';
 import '../FirestoreObjects/FbFuente.dart';
+import '../FirestoreObjects/FbPlaca.dart';
 import '../Singletone/DataHolder.dart';
 
 class CatalogoView extends StatefulWidget {
@@ -33,6 +35,9 @@ class _CatalogoViewState extends State<CatalogoView> {
   final List<FbFuente> _fuentes = [];
   late Future<List<FbFuente>> _futureFuentes;
 
+  final List<FbPlaca> _placas = [];
+  late Future<List<FbPlaca>> _futurePlacas;
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +48,7 @@ class _CatalogoViewState extends State<CatalogoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Catálogo ${categoriaSeleccionada.name}",
+        title: Text("Catálogo ${categoriaSeleccionada.sName}",
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -65,7 +70,7 @@ class _CatalogoViewState extends State<CatalogoView> {
   }
 
   int _getItemCount() {
-    switch (categoriaSeleccionada.name) {
+    switch (categoriaSeleccionada.sName) {
       case 'Cajas':
         return _cajas.length;
       case 'Discos duros':
@@ -74,33 +79,35 @@ class _CatalogoViewState extends State<CatalogoView> {
         return _disipadores.length;
       case 'Fuentes de alimentación':
         return _fuentes.length;
+      case 'Placas base':
+        return _placas.length;
       default:
         return 0;
     }
   }
 
   Widget? _itemListBuilder(BuildContext context, int index) {
-    switch (categoriaSeleccionada.name) {
+    switch (categoriaSeleccionada.sName) {
       case 'Cajas':
         FbCaja cajaSeleccionada = _cajas[index];
         return CajasListView(
-          sName: cajaSeleccionada.nombre,
-          sColor: cajaSeleccionada.color,
-          dPeso: cajaSeleccionada.peso,
-          dPrecio: cajaSeleccionada.precio,
-          sUrlImg: cajaSeleccionada.urlImg,
+          sName: cajaSeleccionada.sNombre,
+          sColor: cajaSeleccionada.sColor,
+          dPeso: cajaSeleccionada.dPeso,
+          dPrecio: cajaSeleccionada.dPrecio,
+          sUrlImg: cajaSeleccionada.sUrlImg,
           iPosicion: index,
           fOnItemTap: (int indice) {},
         );
       case 'Discos duros':
         FbDiscoDuro discoDuroSeleccionado = _discosDuros[index];
         return DiscosDurosListView(
-          sNombre: discoDuroSeleccionado.nombre,
-          sTipo: discoDuroSeleccionado.tipo,
-          iEscritura: discoDuroSeleccionado.escritura,
-          iLectura: discoDuroSeleccionado.lectura,
-          dPrecio: discoDuroSeleccionado.precio,
-          sUrlImg: discoDuroSeleccionado.urlImg,
+          sNombre: discoDuroSeleccionado.sNombre,
+          sTipo: discoDuroSeleccionado.sTipo,
+          iEscritura: discoDuroSeleccionado.iEscritura,
+          iLectura: discoDuroSeleccionado.iLectura,
+          dPrecio: discoDuroSeleccionado.dPrecio,
+          sUrlImg: discoDuroSeleccionado.sUrlImg,
           iPosicion: index,
           fOnItemTap: (int indice) {},
         );
@@ -130,19 +137,26 @@ class _CatalogoViewState extends State<CatalogoView> {
           iPosicion: index,
           fOnItemTap: (int indice) {},
         );
+      case 'Placas base':
+        FbPlaca placaSeleccionada = _placas[index];
+        return PlacasListView(
+          sNombre: placaSeleccionada.sNombre,
+          sFactorForma: placaSeleccionada.sFactorForma,
+          sSocket: placaSeleccionada.sSocket,
+          sChipset: placaSeleccionada.sChipset,
+          bWifi: placaSeleccionada.bWifi,
+          dPrecio: placaSeleccionada.dPrecio,
+          sUrlImg: placaSeleccionada.sUrlImg,
+          iPosicion: index,
+          fOnItemTap: (int indice) {},
+        );
       default:
         return null;
     }
   }
 
-  Widget _separadorLista(BuildContext context, int index) {
-    return Divider(
-        thickness: 2, color: Theme.of(context).colorScheme.primary);
-  }
-
-
   Future<void> _cargarDatos() async {
-    switch (categoriaSeleccionada.name) {
+    switch (categoriaSeleccionada.sName) {
       case 'Cajas':
         _futureCajas = DataHolder().fbadmin.descargarCajas();
         List<FbCaja> listaCajas = await _futureCajas;
@@ -175,8 +189,21 @@ class _CatalogoViewState extends State<CatalogoView> {
           _fuentes.addAll(listaFuentes);
         });
         break;
+      case 'Placas base':
+        _futurePlacas = DataHolder().fbadmin.descargarPlacas();
+        List<FbPlaca> listaPlacas = await _futurePlacas;
+        setState(() {
+          _placas.clear();
+          _placas.addAll(listaPlacas);
+        });
+        break;
       default:
         break;
     }
+  }
+
+  Widget _separadorLista(BuildContext context, int index) {
+    return Divider(
+        thickness: 2, color: Theme.of(context).colorScheme.primary);
   }
 }

@@ -8,6 +8,7 @@ import 'package:techshop/FirestoreObjects/FbComponente.dart';
 import 'package:techshop/FirestoreObjects/FbDiscoDuro.dart';
 import 'package:techshop/FirestoreObjects/FbDisipador.dart';
 import 'package:techshop/FirestoreObjects/FbFuente.dart';
+import 'package:techshop/FirestoreObjects/FbPlaca.dart';
 
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbTienda.dart';
@@ -190,6 +191,20 @@ class FirebaseAdmin {
     List<FbDisipador> disipadores = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return disipadores;
+  }
+
+  // Descarga la lista de placas base
+  Future<List<FbPlaca>> descargarPlacas() async {
+    CollectionReference<FbPlaca> ref = db.collection("Categorias/placasbase/catalogo").withConverter(
+      fromFirestore: FbPlaca.fromFirestore,
+      toFirestore: (FbPlaca componente, _) => componente.toFirestore(),
+    );
+
+    QuerySnapshot<FbPlaca> querySnapshot = await ref.get();
+
+    List<FbPlaca> placas = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return placas;
   }
 
   // Descarga la lista de disipadores

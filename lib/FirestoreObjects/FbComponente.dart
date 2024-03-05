@@ -11,10 +11,7 @@ class FbComponente {
     required this.urlImg
   });
 
-  factory FbComponente.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+  factory FbComponente.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
     final data = snapshot.data();
     return FbComponente(
       name: data?['name'] ?? "xxxx",

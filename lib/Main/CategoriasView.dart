@@ -84,8 +84,8 @@ class _CategoriasViewState extends State<CategoriasView> {
 
   Widget? _itemListBuilder(BuildContext context, int index) {
     return CategoriasListView(
-      sName: _categorias[index].name,
-      sUrlImg: _categorias[index].urlImg,
+      sName: _categorias[index].sName,
+      sUrlImg: _categorias[index].sUrlImg,
       iPosicion: index,
       fOnItemTap: _onCategoriaPressed,
     );

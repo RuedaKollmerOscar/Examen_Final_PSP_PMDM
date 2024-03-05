@@ -19,10 +19,7 @@ class FbDisipador {
     required this.sUrlImg,
   });
 
-  factory FbDisipador.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+  factory FbDisipador.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
     final data = snapshot.data();
     return FbDisipador(
       sNombre: data?['nombre'] != null ? data!['nombre'] : "xxxx",

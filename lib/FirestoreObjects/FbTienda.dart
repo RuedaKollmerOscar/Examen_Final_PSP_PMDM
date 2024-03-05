@@ -12,10 +12,7 @@ class FbTienda {
     required this.geoloc
   });
 
-  factory FbTienda.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+  factory FbTienda.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
     final data = snapshot.data();
     return FbTienda(
       name: data?['name'] != null ? data!['name'] : "xxxx",

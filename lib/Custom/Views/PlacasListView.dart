@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
-class FuentesListView extends StatelessWidget {
+class PlacasListView extends StatelessWidget {
   final String sNombre;
-  final String sTipoCableado;
-  final String sFormato;
-  final double dPotencia;
-  final String sCertificacion;
-  final String sUrlImg;
+  final String sFactorForma;
+  final String sSocket;
+  final String sChipset;
+  final bool bWifi;
   final double dPrecio;
+  final String sUrlImg;
   final int iPosicion;
   final Function(int indice)? fOnItemTap;
 
-  FuentesListView({
+  PlacasListView({
     Key? key,
     required this.sNombre,
-    required this.sTipoCableado,
-    required this.sFormato,
-    required this.dPotencia,
-    required this.sCertificacion,
-    required this.sUrlImg,
+    required this.sFactorForma,
+    required this.sSocket,
+    required this.sChipset,
+    required this.bWifi,
     required this.dPrecio,
+    required this.sUrlImg,
     required this.iPosicion,
     required this.fOnItemTap,
   }) : super(key: key);
@@ -46,7 +46,6 @@ class FuentesListView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
-              textAlign: TextAlign.center, // Alineación central
             ),
             const SizedBox(height: 8),
             ClipRRect(
@@ -60,30 +59,25 @@ class FuentesListView extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Tipo de Cableado: $sTipoCableado',
+              'Factor de Forma: $sFactorForma',
               style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
             ),
             Text(
-              'Formato: $sFormato',
+              'Socket: $sSocket',
               style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
             ),
             Text(
-              'Potencia: ${dPotencia.toString()}W',
+              'Chipset: $sChipset',
               style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
             ),
             Text(
-              'Certificación: $sCertificacion',
+              'Wi-Fi: ${bWifi ? 'Sí' : 'No'}',
               style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
               'Precio: ${dPrecio.toString()} €',
               style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
             ),
           ],
         ),
