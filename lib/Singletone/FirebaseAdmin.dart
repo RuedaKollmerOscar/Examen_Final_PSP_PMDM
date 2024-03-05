@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import 'package:techshop/FirestoreObjects/FbComponente.dart';
+import 'package:techshop/FirestoreObjects/FbDiscoDuro.dart';
 
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbTienda.dart';
@@ -162,6 +163,21 @@ class FirebaseAdmin {
     List<FbCaja> cajas = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return cajas;
+  }
+
+  // Descarga la lista de discos duros
+  Future<List<FbDiscoDuro>> descargarDiscosDuros() async {
+    CollectionReference<FbDiscoDuro> ref = db.collection("Categorias/discosduros/catalogo").withConverter(
+      fromFirestore: FbDiscoDuro.fromFirestore,
+      toFirestore: (FbDiscoDuro componente, _) => componente.toFirestore(),
+    );
+
+    QuerySnapshot<FbDiscoDuro> querySnapshot = await ref.get();
+
+    // Mapear los documentos a objetos FbPost y devolver una lista
+    List<FbDiscoDuro> discosDuros = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return discosDuros;
   }
 
   // Descarga la coleccion y la devuelve (no devuelve un list)
