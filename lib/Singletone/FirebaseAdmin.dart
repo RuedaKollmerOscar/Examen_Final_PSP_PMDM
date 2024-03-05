@@ -7,6 +7,7 @@ import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import 'package:techshop/FirestoreObjects/FbComponente.dart';
 import 'package:techshop/FirestoreObjects/FbDiscoDuro.dart';
 import 'package:techshop/FirestoreObjects/FbDisipador.dart';
+import 'package:techshop/FirestoreObjects/FbFuente.dart';
 
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbTienda.dart';
@@ -189,6 +190,20 @@ class FirebaseAdmin {
     List<FbDisipador> disipadores = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return disipadores;
+  }
+
+  // Descarga la lista de disipadores
+  Future<List<FbFuente>> descargarFuentes() async {
+    CollectionReference<FbFuente> ref = db.collection("Categorias/fuentesalimentacion/catalogo").withConverter(
+      fromFirestore: FbFuente.fromFirestore,
+      toFirestore: (FbFuente componente, _) => componente.toFirestore(),
+    );
+
+    QuerySnapshot<FbFuente> querySnapshot = await ref.get();
+
+    List<FbFuente> fuentes = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return fuentes;
   }
 
   // Descarga la coleccion y la devuelve (no devuelve un list)

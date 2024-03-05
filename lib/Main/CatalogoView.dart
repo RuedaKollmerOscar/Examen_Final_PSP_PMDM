@@ -3,9 +3,11 @@ import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import '../Custom/Views/CajasListView.dart';
 import '../Custom/Views/DiscosDurosListView.dart';
 import '../Custom/Views/DisipadoresListView.dart';
+import '../Custom/Views/FuentesListView.dart';
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbDiscoDuro.dart';
 import '../FirestoreObjects/FbDisipador.dart';
+import '../FirestoreObjects/FbFuente.dart';
 import '../Singletone/DataHolder.dart';
 
 class CatalogoView extends StatefulWidget {
@@ -28,6 +30,9 @@ class _CatalogoViewState extends State<CatalogoView> {
   final List<FbDisipador> _disipadores = [];
   late Future<List<FbDisipador>> _futureDisipadores;
 
+  final List<FbFuente> _fuentes = [];
+  late Future<List<FbFuente>> _futureFuentes;
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +45,7 @@ class _CatalogoViewState extends State<CatalogoView> {
       appBar: AppBar(
         title: Text("Catálogo ${categoriaSeleccionada.name}",
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -67,12 +72,13 @@ class _CatalogoViewState extends State<CatalogoView> {
         return _discosDuros.length;
       case 'Disipadores':
         return _disipadores.length;
+      case 'Fuentes de alimentación':
+        return _fuentes.length;
       default:
         return 0;
     }
   }
 
-  // Creador de items en forma de lista
   Widget? _itemListBuilder(BuildContext context, int index) {
     switch (categoriaSeleccionada.name) {
       case 'Cajas':
@@ -111,6 +117,19 @@ class _CatalogoViewState extends State<CatalogoView> {
           iPosicion: index,
           fOnItemTap: (int indice) {},
         );
+      case 'Fuentes de alimentación':
+        FbFuente fuenteSeleccionada = _fuentes[index];
+        return FuentesListView(
+          sNombre: fuenteSeleccionada.sNombre,
+          sTipoCableado: fuenteSeleccionada.sTipoCableado,
+          sFormato: fuenteSeleccionada.sFormato,
+          dPotencia: fuenteSeleccionada.dPotencia,
+          sCertificacion: fuenteSeleccionada.sCertificacion,
+          sUrlImg: fuenteSeleccionada.sUrlImg,
+          dPrecio: fuenteSeleccionada.dPrecio,
+          iPosicion: index,
+          fOnItemTap: (int indice) {},
+        );
       default:
         return null;
     }
@@ -146,6 +165,14 @@ class _CatalogoViewState extends State<CatalogoView> {
         setState(() {
           _disipadores.clear();
           _disipadores.addAll(listaDisipadores);
+        });
+        break;
+      case 'Fuentes de alimentación':
+        _futureFuentes = DataHolder().fbadmin.descargarFuentes();
+        List<FbFuente> listaFuentes = await _futureFuentes;
+        setState(() {
+          _fuentes.clear();
+          _fuentes.addAll(listaFuentes);
         });
         break;
       default:
