@@ -4,6 +4,8 @@ import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
 
 class ProcesadorView extends StatelessWidget {
+  const ProcesadorView({super.key});
+
   @override
   Widget build(BuildContext context) {
     FbProcesador procesadorSeleccionado = DataHolder().procesadorSeleccionado;
@@ -19,50 +21,50 @@ class ProcesadorView extends StatelessWidget {
             children: [
               Text(
                 'Nombre: ${procesadorSeleccionado.sNombre}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Marca: ${procesadorSeleccionado.sMarca}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Modelo: ${procesadorSeleccionado.sModelo}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Núcleos: ${procesadorSeleccionado.iNucleos}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Hilos: ${procesadorSeleccionado.iHilos}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Velocidad Base: ${procesadorSeleccionado.dVelocidadBase} GHz',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Overclock: ${procesadorSeleccionado.bOverclock ? 'Sí' : 'No'}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Precio: ${procesadorSeleccionado.dPrecio} €',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (procesadorSeleccionado.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),

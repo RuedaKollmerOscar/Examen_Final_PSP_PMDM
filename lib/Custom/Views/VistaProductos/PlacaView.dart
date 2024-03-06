@@ -4,6 +4,8 @@ import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
 
 class PlacaView extends StatelessWidget {
+  const PlacaView({super.key});
+
   @override
   Widget build(BuildContext context) {
     FbPlaca placaSeleccionada = DataHolder().placaSeleccionada;
@@ -19,40 +21,40 @@ class PlacaView extends StatelessWidget {
             children: [
               Text(
                 'Nombre: ${placaSeleccionada.sNombre}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Factor de Forma: ${placaSeleccionada.sFactorForma}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Socket: ${placaSeleccionada.sSocket}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Chipset: ${placaSeleccionada.sChipset}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Wifi: ${placaSeleccionada.bWifi ? 'Sí' : 'No'}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Precio: ${placaSeleccionada.dPrecio} €',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (placaSeleccionada.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),

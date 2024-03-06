@@ -4,6 +4,8 @@ import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
 
 class DisipadorView extends StatelessWidget {
+  const DisipadorView({super.key});
+
   @override
   Widget build(BuildContext context) {
     FbDisipador disipadorSeleccionado = DataHolder().disipadorSeleccionado;
@@ -19,40 +21,40 @@ class DisipadorView extends StatelessWidget {
             children: [
               Text(
                 'Nombre: ${disipadorSeleccionado.sNombre}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Color: ${disipadorSeleccionado.sColor}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Material: ${disipadorSeleccionado.sMaterial}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Velocidad Mínima: ${disipadorSeleccionado.iVelocidadRotacionMinima} RPM',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Velocidad Máxima: ${disipadorSeleccionado.iVelocidadRotacionMaxima} RPM',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Precio: ${disipadorSeleccionado.dPrecio} €',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (disipadorSeleccionado.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),

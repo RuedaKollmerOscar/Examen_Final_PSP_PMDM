@@ -208,7 +208,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           dPrecio: tarjetaGraficaSeleccionada.dPrecio,
           sUrlImg: tarjetaGraficaSeleccionada.sUrlImg,
           iPosicion: index,
-          fOnItemTap: (int indice) {},
+          fOnItemTap: _onGraficaPressed,
         );
       default:
         return null;
@@ -287,7 +287,7 @@ class _CatalogoViewState extends State<CatalogoView> {
   }
 
   Widget _separadorLista(BuildContext context, int index) {
-    return Divider(thickness: 2, color: Colors.transparent);
+    return const Divider(thickness: 2, color: Colors.transparent);
   }
 
 
