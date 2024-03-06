@@ -11,7 +11,7 @@ class DiscosDurosListView extends StatelessWidget {
   final int iPosicion;
   final Function(int indice)? fOnItemTap;
 
-  DiscosDurosListView({
+  const DiscosDurosListView({super.key,
     required this.sNombre,
     required this.sTipo,
     required this.iEscritura,
@@ -63,36 +63,37 @@ class DiscosDurosListView extends StatelessWidget {
 
             Text(
               'Tipo: $sTipo',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
 
             Text(
               'Velocidad de Escritura: $iEscritura MB/s',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
 
             Text(
               'Velocidad de Lectura: $iLectura MB/s',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
 
             Text(
               'Almacenamiento: $iAlmacenamiento GB', // Nuevo atributo
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
 
             Text(
               'Precio: $dPrecio €',
-              style: TextStyle(
-                fontSize: 16,
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
               ),
             ),
           ],

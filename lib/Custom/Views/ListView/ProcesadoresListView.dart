@@ -13,7 +13,7 @@ class ProcesadoresListView extends StatelessWidget {
   final int iPosicion;
   final Function(int indice)? fOnItemTap;
 
-  ProcesadoresListView({
+  const ProcesadoresListView({
     Key? key,
     required this.sNombre,
     required this.sMarca,
@@ -88,7 +88,10 @@ class ProcesadoresListView extends StatelessWidget {
             ),
             Text(
               'Precio: ${dPrecio.toString()} €',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+              ),
             ),
           ],
         ),

@@ -60,22 +60,23 @@ class CajasListView extends StatelessWidget {
 
             Text(
               'Color: $sColor',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
 
             Text(
               'Peso: $dPeso kg',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
 
             Text(
               'Precio: $dPrecio €',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
+                fontWeight: FontWeight.bold
               ),
             ),
           ],

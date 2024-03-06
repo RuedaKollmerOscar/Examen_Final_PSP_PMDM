@@ -6,6 +6,8 @@ import '../../../FirestoreObjects/FbFuente.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
 class FormularioFuente extends StatefulWidget {
+  const FormularioFuente({super.key});
+
   @override
   _FormularioFuenteState createState() => _FormularioFuenteState();
 }
@@ -37,67 +39,67 @@ class _FormularioFuenteState extends State<FormularioFuente> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre de la fuente'),
+                decoration: const InputDecoration(labelText: 'Nombre de la fuente'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecCertificacion,
-                decoration: InputDecoration(labelText: 'Certificación de la fuente'),
+                decoration: const InputDecoration(labelText: 'Certificación'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecTipoCableado,
-                decoration: InputDecoration(labelText: 'Tipo de cableado de la fuente'),
+                decoration: const InputDecoration(labelText: 'Tipo de cableado'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecFormato,
-                decoration: InputDecoration(labelText: 'Formato de la fuente'),
+                decoration: const InputDecoration(labelText: 'Factor de forma'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPotencia,
-                decoration: InputDecoration(labelText: 'Potencia de la fuente (W)'),
+                decoration: const InputDecoration(labelText: 'Potencia (W)'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPrecio,
-                decoration: InputDecoration(labelText: 'Precio en euros'),
+                decoration: const InputDecoration(labelText: 'Precio en euros'),
                 keyboardType: TextInputType.number,
                 onEditingComplete: () {
                   _tecPrecio.text += ' €';
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: subirFoto,
-                    child: Text('Pon una foto'),
+                    child: const Text('Pon una foto'),
                   ),
                   ElevatedButton(
                     onPressed: _eliminarFoto,
-                    child: Text('Eliminar foto'),
+                    child: const Text('Eliminar foto'),
                   ),
                 ],
               ),
               Center(child: _fotoView()),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirFuente,
-                    child: Text('Subir producto'),
+                    child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),

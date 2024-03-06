@@ -6,6 +6,8 @@ import 'package:techshop/Singletone/DataHolder.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
 class FormularioDiscoDuro extends StatefulWidget {
+  const FormularioDiscoDuro({super.key});
+
   @override
   _FormularioDiscoDuroState createState() => _FormularioDiscoDuroState();
 }
@@ -37,69 +39,69 @@ class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre del disco duro'),
+                decoration: const InputDecoration(labelText: 'Nombre del disco duro'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecTipo,
-                decoration: InputDecoration(labelText: 'Tipo de disco duro'),
+                decoration: const InputDecoration(labelText: 'Tipo de disco duro'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecAlmacenamiento,
-                decoration: InputDecoration(labelText: 'Almacenamiento en GB'),
+                decoration: const InputDecoration(labelText: 'Almacenamiento en GB'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecVelocidadEscritura,
-                decoration: InputDecoration(labelText: 'Velocidad de escritura (MB/s)'),
+                decoration: const InputDecoration(labelText: 'Velocidad de escritura (MB/s)'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecVelocidadLectura,
-                decoration: InputDecoration(labelText: 'Velocidad de lectura (MB/s)'),
+                decoration: const InputDecoration(labelText: 'Velocidad de lectura (MB/s)'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPrecio,
-                decoration: InputDecoration(labelText: 'Precio en euros'),
+                decoration: const InputDecoration(labelText: 'Precio en euros'),
                 keyboardType: TextInputType.number,
                 onEditingComplete: () {
                   _tecPrecio.text += ' €';
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: subirFoto,
-                    child: Text('Pon una foto'),
+                    child: const Text('Pon una foto'),
                   ),
                   ElevatedButton(
                     onPressed: _eliminarFoto,
-                    child: Text('Eliminar foto'),
+                    child: const Text('Eliminar foto'),
                   ),
                 ],
               ),
               Center(child: _fotoView()),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirDiscoDuro,
-                    child: Text('Subir producto'),
+                    child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),

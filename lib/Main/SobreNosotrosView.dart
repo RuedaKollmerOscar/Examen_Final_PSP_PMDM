@@ -7,7 +7,7 @@ class SobreNosotrosView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Sobre Nosotros'),
+      appBar: const CustomAppBar(title: 'Sobre Nosotros'),
       body: Container(
         color: Theme.of(context).colorScheme.background,
         child: ListView(
@@ -25,14 +25,14 @@ class SobreNosotrosView extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     "TechShop es tu tienda de confianza para componentes informáticos. Ofrecemos un catálogo de productos en línea y también te brindamos la oportunidad de subir tus propios productos a nuestra plataforma.",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     "Misión",
                     style: TextStyle(
@@ -41,14 +41,14 @@ class SobreNosotrosView extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     "Nuestra misión es proporcionar a nuestros clientes acceso fácil y rápido a los mejores componentes informáticos del mercado. Buscamos ser el referente en la industria, ofreciendo productos de calidad y una experiencia de compra excepcional.",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     "Visión",
                     style: TextStyle(
@@ -57,7 +57,7 @@ class SobreNosotrosView extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     "Queremos ser reconocidos como líderes en el mundo de la tecnología, destacándonos por la variedad de nuestro catálogo, la excelencia en el servicio al cliente y la satisfacción de aquellos que confían en TechShop para sus necesidades informáticas.",
                     style: TextStyle(

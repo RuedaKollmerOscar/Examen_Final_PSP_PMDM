@@ -12,7 +12,7 @@ class RAMsListView extends StatelessWidget {
   final int iPosicion;
   final Function(int indice)? fOnItemTap;
 
-  RAMsListView({
+  const RAMsListView({
     Key? key,
     required this.sNombre,
     required this.iCapacidad,
@@ -82,7 +82,10 @@ class RAMsListView extends StatelessWidget {
             ),
             Text(
               'Precio: ${dPrecio.toString()} €',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+              ),
             ),
           ],
         ),

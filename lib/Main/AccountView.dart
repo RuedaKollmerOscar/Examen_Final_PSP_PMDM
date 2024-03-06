@@ -41,7 +41,7 @@ class _AccountViewState extends State<AccountView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: 'Personalizar perfil',
       ),
       body: Center(

@@ -6,6 +6,8 @@ import '../../../FirestoreObjects/FbProcesador.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
 class FormularioProcesador extends StatefulWidget {
+  const FormularioProcesador({super.key});
+
   @override
   _FormularioProcesadorState createState() => _FormularioProcesadorState();
 }
@@ -40,37 +42,37 @@ class _FormularioProcesadorState extends State<FormularioProcesador> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre del procesador'),
+                decoration: const InputDecoration(labelText: 'Nombre del procesador'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecMarca,
-                decoration: InputDecoration(labelText: 'Marca del procesador'),
+                decoration: const InputDecoration(labelText: 'Marca'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecModelo,
-                decoration: InputDecoration(labelText: 'Modelo del procesador'),
+                decoration: const InputDecoration(labelText: 'Modelo'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecNumeroNucleos,
-                decoration: InputDecoration(labelText: 'Número de núcleos'),
+                decoration: const InputDecoration(labelText: 'Número de núcleos'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecNumeroHilos,
-                decoration: InputDecoration(labelText: 'Número de hilos'),
+                decoration: const InputDecoration(labelText: 'Número de hilos'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecVelocidadReloj,
-                decoration: InputDecoration(labelText: 'Velocidad de reloj (GHz)'),
+                decoration: const InputDecoration(labelText: 'Velocidad de reloj (GHz)'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Checkbox(
@@ -81,47 +83,47 @@ class _FormularioProcesadorState extends State<FormularioProcesador> {
                       });
                     },
                   ),
-                  Text('¿Permite overclock?'),
+                  const Text('¿Permite overclock?'),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPrecio,
-                decoration: InputDecoration(labelText: 'Precio en euros'),
+                decoration: const InputDecoration(labelText: 'Precio en euros'),
                 keyboardType: TextInputType.number,
                 onEditingComplete: () {
                   _tecPrecio.text += ' €';
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: subirFoto,
-                    child: Text('Pon una foto'),
+                    child: const Text('Pon una foto'),
                   ),
                   ElevatedButton(
                     onPressed: _eliminarFoto,
-                    child: Text('Eliminar foto'),
+                    child: const Text('Eliminar foto'),
                   ),
                 ],
               ),
               Center(child: _fotoView()),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirProcesador,
-                    child: Text('Subir producto'),
+                    child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),
@@ -237,7 +239,7 @@ class _FormularioProcesadorState extends State<FormularioProcesador> {
     if (errorMessage.isNotEmpty) {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     } else if (errorMessage.isEmpty) {
-      String nombreNube = "${_tecNombre.text.trim()}${_tecMarca.text.trim()}${_tecModelo.text.trim()}${_tecNumeroNucleos.text}${_tecNumeroHilos.text}${_tecVelocidadReloj.text}${overclock}${_tecPrecio.text}";
+      String nombreNube = "${_tecNombre.text.trim()}${_tecMarca.text.trim()}${_tecModelo.text.trim()}${_tecNumeroNucleos.text}${_tecNumeroHilos.text}${_tecVelocidadReloj.text}$overclock${_tecPrecio.text}";
       FbProcesador procesadorNuevo = FbProcesador(
         sNombre: _tecNombre.text.trim(),
         sMarca: _tecMarca.text.trim(),

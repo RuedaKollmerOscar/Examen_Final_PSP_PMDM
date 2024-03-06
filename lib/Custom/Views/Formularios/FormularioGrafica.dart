@@ -6,6 +6,8 @@ import 'package:techshop/Singletone/DataHolder.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
 class FormularioGrafica extends StatefulWidget {
+  const FormularioGrafica({super.key});
+
   @override
   _FormularioGraficaState createState() => _FormularioGraficaState();
 }
@@ -39,73 +41,73 @@ class _FormularioGraficaState extends State<FormularioGrafica> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre de la tarjeta gráfica'),
+                decoration: const InputDecoration(labelText: 'Nombre de la tarjeta gráfica'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecEnsamblador,
-                decoration: InputDecoration(labelText: 'Ensamblador'),
+                decoration: const InputDecoration(labelText: 'Ensamblador'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecFabricante,
-                decoration: InputDecoration(labelText: 'Fabricante'),
+                decoration: const InputDecoration(labelText: 'Fabricante'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecSerie,
-                decoration: InputDecoration(labelText: 'Serie'),
+                decoration: const InputDecoration(labelText: 'Serie'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecCapacidad,
-                decoration: InputDecoration(labelText: 'Capacidad (GB)'),
+                decoration: const InputDecoration(labelText: 'Capacidad (GB)'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecGeneracion,
-                decoration: InputDecoration(labelText: 'Generación'),
+                decoration: const InputDecoration(labelText: 'Generación'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPrecio,
-                decoration: InputDecoration(labelText: 'Precio en euros'),
+                decoration: const InputDecoration(labelText: 'Precio en euros'),
                 keyboardType: TextInputType.number,
                 onEditingComplete: () {
                   _tecPrecio.text += ' €';
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: subirFoto,
-                    child: Text('Pon una foto'),
+                    child: const Text('Pon una foto'),
                   ),
                   ElevatedButton(
                     onPressed: _eliminarFoto,
-                    child: Text('Eliminar foto'),
+                    child: const Text('Eliminar foto'),
                   ),
                 ],
               ),
               Center(child: _fotoView()),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirGrafica,
-                    child: Text('Subir producto'),
+                    child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),

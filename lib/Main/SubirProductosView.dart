@@ -38,7 +38,7 @@ class _SubirProductosViewState extends State<SubirProductosView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: CustomAppBar(title: 'Sube tus propios productos'),
+      appBar: const CustomAppBar(title: 'Sube tus propios productos'),
       body: _buildBody(),
       drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
       bottomNavigationBar: CustomBottomMenu(fOnItemTap: _onBottomMenuPressed),
@@ -94,8 +94,8 @@ class _SubirProductosViewState extends State<SubirProductosView> {
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
                       categoria.sUrlImg,
-                      width: 40,
-                      height: 40,
+                      width: 30,
+                      height: 30,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -116,23 +116,23 @@ class _SubirProductosViewState extends State<SubirProductosView> {
   Widget _buildCategorySpecificContent() {
     switch (selectedCategory) {
       case 'Cajas':
-        return FormularioCaja();
+        return const FormularioCaja();
       case 'Discos duros':
-        return FormularioDiscoDuro();
+        return const FormularioDiscoDuro();
       case 'Disipadores':
-        return FormularioDisipador();
+        return const FormularioDisipador();
       case 'Fuentes de alimentación':
-        return FormularioFuente();
+        return const FormularioFuente();
       case 'Placas base':
-        return FormularioPlacaBase();
+        return const FormularioPlacaBase();
       case 'Procesadores':
-        return FormularioProcesador();
+        return const FormularioProcesador();
       case 'Memorias RAM':
-        return FormularioRAM();
+        return const FormularioRAM();
       case 'Tarjetas gráficas':
-        return FormularioGrafica();
+        return const FormularioGrafica();
       default:
-        return FormularioCaja();
+        return const FormularioCaja();
     }
   }
 

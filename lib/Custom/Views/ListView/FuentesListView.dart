@@ -11,7 +11,7 @@ class FuentesListView extends StatelessWidget {
   final int iPosicion;
   final Function(int indice)? fOnItemTap;
 
-  FuentesListView({
+  const FuentesListView({
     Key? key,
     required this.sNombre,
     required this.sTipoCableado,
@@ -46,7 +46,6 @@ class FuentesListView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
-              textAlign: TextAlign.center, // Alineación central
             ),
             const SizedBox(height: 8),
             ClipRRect(
@@ -61,28 +60,38 @@ class FuentesListView extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               'Tipo de Cableado: $sTipoCableado',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontSize: 16,
+              ),
               textAlign: TextAlign.center,
             ),
             Text(
               'Formato: $sFormato',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontSize: 16,
+              ),
               textAlign: TextAlign.center,
             ),
             Text(
               'Potencia: ${iPotencia.toStringAsFixed(0)}W',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontSize: 16,
+              ),
               textAlign: TextAlign.center,
             ),
             Text(
               'Certificación: $sCertificacion',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontSize: 16,
+              ),
               textAlign: TextAlign.center,
             ),
             Text(
               'Precio: ${dPrecio.toString()} €',
-              style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+              ),
             ),
           ],
         ),

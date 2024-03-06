@@ -61,20 +61,20 @@ class DisipadoresListView extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               'Color: $sColor',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
             Text(
               'Material: $sMaterial',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Velocidad mínima: ',
                   style: TextStyle(
                     fontSize: 16,
@@ -82,7 +82,7 @@ class DisipadoresListView extends StatelessWidget {
                 ),
                 Text(
                   '$iVelocidadRotacionMinima RPM',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                   ),
                 ),
@@ -91,7 +91,7 @@ class DisipadoresListView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Velocidad máxima: ',
                   style: TextStyle(
                     fontSize: 16,
@@ -99,7 +99,7 @@ class DisipadoresListView extends StatelessWidget {
                 ),
                 Text(
                   '$iVelocidadRotacionMaxima RPM',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                   ),
                 ),
@@ -107,8 +107,9 @@ class DisipadoresListView extends StatelessWidget {
             ),
             Text(
               'Precio: $dPrecio €',
-              style: TextStyle(
-                fontSize: 16,
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
               ),
             ),
           ],

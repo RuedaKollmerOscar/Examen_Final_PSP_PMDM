@@ -12,7 +12,7 @@ class GraficasListView extends StatelessWidget {
   final int iPosicion;
   final Function(int indice)? fOnItemTap;
 
-  GraficasListView({
+  const GraficasListView({
     Key? key,
     required this.sNombre,
     required this.sEnsamblador,
@@ -82,7 +82,10 @@ class GraficasListView extends StatelessWidget {
             ),
             Text(
               'Precio: ${dPrecio.toString()}',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+              ),
             ),
           ],
         ),

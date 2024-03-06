@@ -6,6 +6,8 @@ import 'package:techshop/Singletone/DataHolder.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
 class FormularioDisipador extends StatefulWidget {
+  const FormularioDisipador({super.key});
+
   @override
   _FormularioDisipadorState createState() => _FormularioDisipadorState();
 }
@@ -37,68 +39,68 @@ class _FormularioDisipadorState extends State<FormularioDisipador> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre del disipador'),
+                decoration: const InputDecoration(labelText: 'Nombre del disipador'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecColor,
-                decoration: InputDecoration(labelText: 'Color del disipador'),
+                decoration: const InputDecoration(labelText: 'Color'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecMaterial,
-                decoration: InputDecoration(labelText: 'Material del disipador'),
+                decoration: const InputDecoration(labelText: 'Material'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecVelocidadMinima,
-                decoration: InputDecoration(labelText: 'Velocidad de rotación mínima (RPM)'),
+                decoration: const InputDecoration(labelText: 'Velocidad de rotación mínima (RPM)'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecVelocidadMaxima,
-                decoration: InputDecoration(labelText: 'Velocidad de rotación máxima (RPM)'),
+                decoration: const InputDecoration(labelText: 'Velocidad de rotación máxima (RPM)'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPrecio,
-                decoration: InputDecoration(labelText: 'Precio en euros'),
+                decoration: const InputDecoration(labelText: 'Precio en euros'),
                 keyboardType: TextInputType.number,
                 onEditingComplete: () {
                   _tecPrecio.text += ' €';
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: subirFoto,
-                    child: Text('Pon una foto'),
+                    child: const Text('Pon una foto'),
                   ),
                   ElevatedButton(
                     onPressed: _eliminarFoto,
-                    child: Text('Eliminar foto'),
+                    child: const Text('Eliminar foto'),
                   ),
                 ],
               ),
               Center(child: _fotoView()),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirDisipador,
-                    child: Text('Subir producto'),
+                    child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),

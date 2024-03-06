@@ -6,6 +6,8 @@ import 'package:techshop/Singletone/DataHolder.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
 class FormularioPlacaBase extends StatefulWidget {
+  const FormularioPlacaBase({super.key});
+
   @override
   _FormularioPlacaBaseState createState() => _FormularioPlacaBaseState();
 }
@@ -36,27 +38,27 @@ class _FormularioPlacaBaseState extends State<FormularioPlacaBase> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre de la placa base'),
+                decoration: const InputDecoration(labelText: 'Nombre de la placa base'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecFactorForma,
-                decoration: InputDecoration(labelText: 'Factor de forma'),
+                decoration: const InputDecoration(labelText: 'Factor de forma'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecSocket,
-                decoration: InputDecoration(labelText: 'Socket'),
+                decoration: const InputDecoration(labelText: 'Socket'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecChipset,
-                decoration: InputDecoration(labelText: 'Chipset'),
+                decoration: const InputDecoration(labelText: 'Chipset'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
-                  Text('¿Tiene WiFi?'),
+                  const Text('¿Tiene WiFi?'),
                   Checkbox(
                     value: _wifi,
                     onChanged: (value) {
@@ -67,44 +69,44 @@ class _FormularioPlacaBaseState extends State<FormularioPlacaBase> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPrecio,
-                decoration: InputDecoration(labelText: 'Precio en euros'),
+                decoration: const InputDecoration(labelText: 'Precio en euros'),
                 keyboardType: TextInputType.number,
                 onEditingComplete: () {
                   _tecPrecio.text += ' €';
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: subirFoto,
-                    child: Text('Pon una foto'),
+                    child: const Text('Pon una foto'),
                   ),
                   ElevatedButton(
                     onPressed: _eliminarFoto,
-                    child: Text('Eliminar foto'),
+                    child: const Text('Eliminar foto'),
                   ),
                 ],
               ),
               Center(child: _fotoView()),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirPlacaBase,
-                    child: Text('Subir producto'),
+                    child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),
@@ -218,7 +220,7 @@ class _FormularioPlacaBaseState extends State<FormularioPlacaBase> {
     if (errorMessage.isNotEmpty) {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     } else if (errorMessage.isEmpty) {
-      String nombreNube = "${_tecNombre.text.trim()}${_tecFactorForma.text.trim()}${_tecSocket.text.trim()}${_tecChipset.text.trim()}${_wifi}${_tecPrecio.text}";
+      String nombreNube = "${_tecNombre.text.trim()}${_tecFactorForma.text.trim()}${_tecSocket.text.trim()}${_tecChipset.text.trim()}$_wifi${_tecPrecio.text}";
       FbPlaca placaBaseNueva = FbPlaca(
         sNombre: _tecNombre.text.trim(),
         sFactorForma: _tecFactorForma.text.trim(),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:techshop/Custom/Widgets/CustomAppBar.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
@@ -32,28 +33,13 @@ class _CatalogoViewState extends State<CatalogoView> {
 
   // Listas para los componenetes
   final List<FbCaja> _cajas = [];
-  late Future<List<FbCaja>> _futureCajas;
-
   final List<FbDiscoDuro> _discosDuros = [];
-  late Future<List<FbDiscoDuro>> _futureDiscosDuros;
-
   final List<FbDisipador> _disipadores = [];
-  late Future<List<FbDisipador>> _futureDisipadores;
-
   final List<FbFuente> _fuentes = [];
-  late Future<List<FbFuente>> _futureFuentes;
-
   final List<FbPlaca> _placas = [];
-  late Future<List<FbPlaca>> _futurePlacas;
-
   final List<FbProcesador> _procesadores = [];
-  late Future<List<FbProcesador>> _futureProcesadores;
-
   final List<FbRAM> _rams = [];
-  late Future<List<FbRAM>> _futureRAMs;
-
   final List<FbGrafica> _graficas = [];
-  late Future<List<FbGrafica>> _futureGraficas;
 
   @override
   void initState() {
@@ -218,68 +204,28 @@ class _CatalogoViewState extends State<CatalogoView> {
   Future<void> _cargarDatos() async {
     switch (categoriaSeleccionada.sName) {
       case 'Cajas':
-        _futureCajas = DataHolder().fbadmin.descargarCajas();
-        List<FbCaja> listaCajas = await _futureCajas;
-        setState(() {
-          _cajas.clear();
-          _cajas.addAll(listaCajas);
-        });
+        DataHolder().fbadmin.descargarCajas(_cargarCajas);
         break;
       case 'Discos duros':
-        _futureDiscosDuros = DataHolder().fbadmin.descargarDiscosDuros();
-        List<FbDiscoDuro> listaDiscosDuros = await _futureDiscosDuros;
-        setState(() {
-          _discosDuros.clear();
-          _discosDuros.addAll(listaDiscosDuros);
-        });
+        DataHolder().fbadmin.descargarDiscosDuros(_cargarDiscosDuros);
         break;
       case 'Disipadores':
-        _futureDisipadores = DataHolder().fbadmin.descargarDisipadores();
-        List<FbDisipador> listaDisipadores = await _futureDisipadores;
-        setState(() {
-          _disipadores.clear();
-          _disipadores.addAll(listaDisipadores);
-        });
+        DataHolder().fbadmin.descargarDisipadores(_cargarDisipadores);
         break;
       case 'Fuentes de alimentación':
-        _futureFuentes = DataHolder().fbadmin.descargarFuentes();
-        List<FbFuente> listaFuentes = await _futureFuentes;
-        setState(() {
-          _fuentes.clear();
-          _fuentes.addAll(listaFuentes);
-        });
+        DataHolder().fbadmin.descargarFuentes(_cargarFuentes);
         break;
       case 'Placas base':
-        _futurePlacas = DataHolder().fbadmin.descargarPlacas();
-        List<FbPlaca> listaPlacas = await _futurePlacas;
-        setState(() {
-          _placas.clear();
-          _placas.addAll(listaPlacas);
-        });
+        DataHolder().fbadmin.descargarPlacas(_cargarPlacas);
         break;
       case 'Procesadores':
-        _futureProcesadores = DataHolder().fbadmin.descargarProcesadores();
-        List<FbProcesador> listaProcesadores = await _futureProcesadores;
-        setState(() {
-          _procesadores.clear();
-          _procesadores.addAll(listaProcesadores);
-        });
+        DataHolder().fbadmin.descargarProcesadores(_cargarProcesadores);
         break;
       case 'Memorias RAM':
-        _futureRAMs = DataHolder().fbadmin.descargarRAMs();
-        List<FbRAM> listaRAMs = await _futureRAMs;
-        setState(() {
-          _rams.clear();
-          _rams.addAll(listaRAMs);
-        });
+        DataHolder().fbadmin.descargarRAM(cargarRAMs);
         break;
       case 'Tarjetas gráficas':
-        _futureGraficas = DataHolder().fbadmin.descargarGraficas();
-        List<FbGrafica> listaGraficas = await _futureGraficas;
-        setState(() {
-          _graficas.clear();
-          _graficas.addAll(listaGraficas);
-        });
+        DataHolder().fbadmin.descargarGraficas(_cargarGraficas);
         break;
       default:
         break;
@@ -329,5 +275,77 @@ class _CatalogoViewState extends State<CatalogoView> {
   void _onGraficaPressed(int index) {
     DataHolder().graficaSeleccionada = _graficas[index];
     Navigator.of(context).pushNamed("/graficaview");
+  }
+
+  void _cargarCajas(QuerySnapshot<FbCaja> cajasDescargadas) {
+    if (mounted) {
+      setState(() {
+        _cajas.clear();
+        _cajas.addAll(cajasDescargadas.docs.map((doc) => doc.data()));
+      });
+    }
+  }
+
+  void _cargarDiscosDuros(QuerySnapshot<FbDiscoDuro> discosDurosDescargados) {
+    if (mounted) {
+      setState(() {
+        _discosDuros.clear();
+        _discosDuros.addAll(discosDurosDescargados.docs.map((doc) => doc.data()));
+      });
+    }
+  }
+
+  void _cargarDisipadores(QuerySnapshot<FbDisipador> disipadoresDescargados) {
+    if (mounted) {
+      setState(() {
+        _disipadores.clear();
+        _disipadores.addAll(disipadoresDescargados.docs.map((doc) => doc.data()));
+      });
+    }
+  }
+
+  void _cargarFuentes(QuerySnapshot<FbFuente> fuentesDescargadas) {
+    if (mounted) {
+      setState(() {
+        _fuentes.clear();
+        _fuentes.addAll(fuentesDescargadas.docs.map((doc) => doc.data()));
+      });
+    }
+  }
+
+  void _cargarPlacas(QuerySnapshot<FbPlaca> placasDescargadas) {
+    if (mounted) {
+      setState(() {
+        _placas.clear();
+        _placas.addAll(placasDescargadas.docs.map((doc) => doc.data()));
+      });
+    }
+  }
+
+  void _cargarProcesadores(QuerySnapshot<FbProcesador> procesadoresDescargados) {
+    if (mounted) {
+      setState(() {
+        _procesadores.clear();
+        _procesadores.addAll(procesadoresDescargados.docs.map((doc) => doc.data()));
+      });
+    }
+  }
+
+  void cargarRAMs(QuerySnapshot<FbRAM> RAMsDescargadas) {
+    if (mounted) {
+      setState(() {
+        _rams.clear();
+        _rams.addAll(RAMsDescargadas.docs.map((doc) => doc.data()));
+      });
+    }
+  }
+
+  void _cargarGraficas(QuerySnapshot<FbGrafica> graficasDescargadas) {
+    if (mounted) {
+      setState(() {
+        _graficas.clear();
+        _graficas.addAll(graficasDescargadas.docs.map((doc) => doc.data()));
+      });
+    }
   }
 }

@@ -8,6 +8,8 @@ import 'package:techshop/FirestoreObjects/FbCaja.dart';
 import '../../../Singletone/DataHolder.dart';
 
 class FormularioCaja extends StatefulWidget {
+  const FormularioCaja({super.key});
+
   @override
   _FormularioCajaState createState() => _FormularioCajaState();
 }
@@ -35,60 +37,60 @@ class _FormularioCajaState extends State<FormularioCaja> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre de la caja'),
+                decoration: const InputDecoration(labelText: 'Nombre de la caja'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecColor,
-                decoration: InputDecoration(labelText: 'Color de la Caja'),
+                decoration: const InputDecoration(labelText: 'Color'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPeso,
-                decoration: InputDecoration(labelText: 'Peso en kilos'),
+                decoration: const InputDecoration(labelText: 'Peso en kilos'),
                 keyboardType: TextInputType.number,
                 onEditingComplete: () {
                   _tecPeso.text += ' kg';
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPrecio,
-                decoration: InputDecoration(labelText: 'Precio en euros'),
+                decoration: const InputDecoration(labelText: 'Precio en euros'),
                 keyboardType: TextInputType.number,
                 onEditingComplete: () {
                   _tecPrecio.text += ' €';
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: subirFoto,
-                    child: Text('Pon una foto'),
+                    child: const Text('Pon una foto'),
                   ),
                   ElevatedButton(
                     onPressed: _eliminarFoto,
-                    child: Text('Eliminar foto'),
+                    child: const Text('Eliminar foto'),
                   ),
                 ],
               ),
               Center(child: _fotoView()),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirCaja,
-                    child: Text('Subir producto'),
+                    child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),

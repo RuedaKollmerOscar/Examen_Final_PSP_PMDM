@@ -21,7 +21,6 @@ import 'Splash/SplashView.dart';
 import 'Theme/DarkMode.dart';
 import 'Theme/LightMode.dart';
 
-
 class TechShopApp extends StatelessWidget {
   const TechShopApp({super.key});
 

@@ -17,7 +17,7 @@ class MapaTiendasView extends StatefulWidget {
 class MapaTiendasViewState extends State<MapaTiendasView> {
   Position? _ubicacionActual;
   late GoogleMapController _controller;
-  Set<Marker> _marcadores = {};
+  final Set<Marker> _marcadores = {};
   late CameraPosition _kUser;
   MapType _mapType = MapType.normal;
   double _radioBusqueda = double.infinity;
@@ -47,7 +47,7 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
         title: 'Visita nuestras tiendas físicas',
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.search,
             ),
             onPressed: () async {
@@ -288,7 +288,7 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.inversePrimary
                     ),
-                    child: Text('Aceptar')
+                    child: const Text('Aceptar')
                 ),
               ],
             );

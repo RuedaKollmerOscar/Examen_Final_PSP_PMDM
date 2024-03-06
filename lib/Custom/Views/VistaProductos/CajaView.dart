@@ -4,6 +4,8 @@ import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart'; // Asegúrate de importar el archivo correcto
 
 class CajaView extends StatelessWidget {
+  const CajaView({super.key});
+
   @override
   Widget build(BuildContext context) {
     FbCaja cajaSeleccionada = DataHolder().cajaSeleccionada;

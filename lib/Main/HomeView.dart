@@ -36,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: CustomAppBar(title: 'Productos destacados'),
+      appBar: const CustomAppBar(title: 'Productos destacados'),
       body: _listBody(),
       drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
       bottomNavigationBar: CustomBottomMenu(fOnItemTap: _onBottomMenuPressed),

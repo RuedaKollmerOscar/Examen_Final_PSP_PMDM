@@ -9,6 +9,8 @@ import '../OnBoarding/LoginView.dart';
 import '../Singletone/DataHolder.dart';
 
 class CategoriasView extends StatefulWidget {
+  const CategoriasView({super.key});
+
   @override
   State<CategoriasView> createState() => _CategoriasViewState();
 }
@@ -27,7 +29,7 @@ class _CategoriasViewState extends State<CategoriasView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: CustomAppBar(title: 'Categorias'),
+      appBar: const CustomAppBar(title: 'Categorias'),
       body: _listBody(),
       drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
       bottomNavigationBar: CustomBottomMenu(fOnItemTap: _onBottomMenuPressed),
@@ -81,7 +83,7 @@ class _CategoriasViewState extends State<CategoriasView> {
   }
 
   Widget _separadorLista(BuildContext context, int index) {
-    return Divider(thickness: 2, color: Colors.transparent);
+    return const Divider(thickness: 2, color: Colors.transparent);
   }
 
   void _onCategoriaPressed(int index) {

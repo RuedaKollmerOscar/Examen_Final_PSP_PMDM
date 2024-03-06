@@ -6,6 +6,8 @@ import '../../../FirestoreObjects/FbRAM.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
 class FormularioRAM extends StatefulWidget {
+  const FormularioRAM({super.key});
+
   @override
   _FormularioRAMState createState() => _FormularioRAMState();
 }
@@ -38,33 +40,33 @@ class _FormularioRAMState extends State<FormularioRAM> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre de la RAM'),
+                decoration: const InputDecoration(labelText: 'Nombre de la RAM'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecCapacidadGB,
-                decoration: InputDecoration(labelText: 'Capacidad (GB)'),
+                decoration: const InputDecoration(labelText: 'Capacidad (GB)'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecCantidadModulos,
-                decoration: InputDecoration(labelText: 'Cantidad de módulos'),
+                decoration: const InputDecoration(labelText: 'Cantidad de módulos'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecVelocidadMHz,
-                decoration: InputDecoration(labelText: 'Velocidad (MHz)'),
+                decoration: const InputDecoration(labelText: 'Velocidad (MHz)'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecGeneracion,
-                decoration: InputDecoration(labelText: 'Generación'),
+                decoration: const InputDecoration(labelText: 'Generación'),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Checkbox(
@@ -75,47 +77,47 @@ class _FormularioRAMState extends State<FormularioRAM> {
                       });
                     },
                   ),
-                  Text('Tiene RGB'),
+                  const Text('Tiene RGB'),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _tecPrecio,
-                decoration: InputDecoration(labelText: 'Precio en euros'),
+                decoration: const InputDecoration(labelText: 'Precio en euros'),
                 keyboardType: TextInputType.number,
                 onEditingComplete: () {
                   _tecPrecio.text += ' €';
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: subirFoto,
-                    child: Text('Pon una foto'),
+                    child: const Text('Pon una foto'),
                   ),
                   ElevatedButton(
                     onPressed: _eliminarFoto,
-                    child: Text('Eliminar foto'),
+                    child: const Text('Eliminar foto'),
                   ),
                 ],
               ),
               Center(child: _fotoView()),
 
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirRAM,
-                    child: Text('Subir producto'),
+                    child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),
@@ -230,7 +232,7 @@ class _FormularioRAMState extends State<FormularioRAM> {
     if (errorMessage.isNotEmpty) {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     } else if (errorMessage.isEmpty) {
-      String nombreNube = "${_tecNombre.text.trim()}${_tecCapacidadGB.text}${_tecCantidadModulos.text}${_tecVelocidadMHz.text}${_tecGeneracion.text}${tieneRGB}${_tecPrecio.text}";
+      String nombreNube = "${_tecNombre.text.trim()}${_tecCapacidadGB.text}${_tecCantidadModulos.text}${_tecVelocidadMHz.text}${_tecGeneracion.text}$tieneRGB${_tecPrecio.text}";
       FbRAM ramNueva = FbRAM(
         sNombre: _tecNombre.text.trim(),
         iCapacidad: int.parse(_tecCapacidadGB.text.trim()),
