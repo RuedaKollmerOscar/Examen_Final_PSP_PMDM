@@ -1,30 +1,30 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:techshop/FirestoreObjects/FbDiscoDuro.dart';
+import 'package:techshop/FirestoreObjects/FbDisipador.dart'; // Asegúrate de importar el archivo correcto
 import 'package:techshop/Singletone/DataHolder.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
-class FormularioDiscoDuro extends StatefulWidget {
+class FormularioDisipador extends StatefulWidget {
   @override
-  _FormularioDiscoDuroState createState() => _FormularioDiscoDuroState();
+  _FormularioDisipadorState createState() => _FormularioDisipadorState();
 }
 
-class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
+class _FormularioDisipadorState extends State<FormularioDisipador> {
   String nombre = '';
-  String tipo = '';
-  double velocidadEscritura = 0.0;
-  double velocidadLectura = 0.0;
+  String color = '';
+  String material = '';
+  int velocidadRotacionMaxima = 0;
+  int velocidadRotacionMinima = 0;
   double precio = 0.0;
-  double almacenamiento = 0.0;
   final ImagePicker _picker = ImagePicker();
   File _imagePreview = File("");
   final TextEditingController _tecNombre = TextEditingController();
-  final TextEditingController _tecTipo = TextEditingController();
-  final TextEditingController _tecVelocidadEscritura = TextEditingController();
-  final TextEditingController _tecVelocidadLectura = TextEditingController();
+  final TextEditingController _tecColor = TextEditingController();
+  final TextEditingController _tecMaterial = TextEditingController();
+  final TextEditingController _tecVelocidadMaxima = TextEditingController();
+  final TextEditingController _tecVelocidadMinima = TextEditingController();
   final TextEditingController _tecPrecio = TextEditingController();
-  final TextEditingController _tecAlmacenamiento = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,29 +37,28 @@ class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre del disco duro'),
+                decoration: InputDecoration(labelText: 'Nombre del disipador'),
               ),
               SizedBox(height: 10),
               TextFormField(
-                controller: _tecTipo,
-                decoration: InputDecoration(labelText: 'Tipo de disco duro'),
+                controller: _tecColor,
+                decoration: InputDecoration(labelText: 'Color del disipador'),
               ),
               SizedBox(height: 10),
               TextFormField(
-                controller: _tecAlmacenamiento,
-                decoration: InputDecoration(labelText: 'Almacenamiento en GB'),
+                controller: _tecMaterial,
+                decoration: InputDecoration(labelText: 'Material del disipador'),
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                controller: _tecVelocidadMinima,
+                decoration: InputDecoration(labelText: 'Velocidad de rotación mínima (RPM)'),
                 keyboardType: TextInputType.number,
               ),
               SizedBox(height: 10),
               TextFormField(
-                controller: _tecVelocidadEscritura,
-                decoration: InputDecoration(labelText: 'Velocidad de escritura (MB/s)'),
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                controller: _tecVelocidadLectura,
-                decoration: InputDecoration(labelText: 'Velocidad de lectura (MB/s)'),
+                controller: _tecVelocidadMaxima,
+                decoration: InputDecoration(labelText: 'Velocidad de rotación máxima (RPM)'),
                 keyboardType: TextInputType.number,
               ),
               SizedBox(height: 10),
@@ -94,8 +93,8 @@ class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: _subirDiscoDuro,
-                    child: Text('Subir disco duro'),
+                    onPressed: _subirDisipador,
+                    child: Text('Subir disipador'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
@@ -202,59 +201,58 @@ class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
   void _cancelar() {
     _eliminarFoto();
     _tecNombre.clear();
-    _tecTipo.clear();
-    _tecVelocidadEscritura.clear();
-    _tecVelocidadLectura.clear();
+    _tecColor.clear();
+    _tecMaterial.clear();
+    _tecVelocidadMaxima.clear();
+    _tecVelocidadMinima.clear();
     _tecPrecio.clear();
   }
 
-  Future<void> _subirDiscoDuro() async {
+  Future<void> _subirDisipador() async {
     String? errorMessage = _checkFields();
     if (errorMessage.isNotEmpty) {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     } else if (errorMessage.isEmpty) {
-      String nombreNube = "${_tecNombre.text.trim()}${_tecTipo.text.trim()}${_tecVelocidadEscritura.text}${_tecVelocidadLectura.text}${_tecPrecio.text}";
-      FbDiscoDuro discoDuroNuevo = FbDiscoDuro(
-          sNombre: _tecNombre.text.trim(),
-          sTipo: _tecTipo.text.trim(),
-          iAlmacenamiento: int.parse(_tecAlmacenamiento.text.trim()),
-          iEscritura: int.parse(_tecVelocidadEscritura.text.trim()),
-          iLectura: int.parse(_tecVelocidadLectura.text.trim()),
-          dPrecio: double.parse(_tecPrecio.text.trim()),
-          sUrlImg: await DataHolder().fbadmin.subirFotoDiscoDuro(_imagePreview, nombreNube)
-    );
-      DataHolder().fbadmin.subirDiscoDuro(discoDuroNuevo);
+      String nombreNube = "${_tecNombre.text.trim()}${_tecColor.text.trim()}${_tecMaterial.text.trim()}${_tecVelocidadMaxima.text}${_tecVelocidadMinima.text}${_tecPrecio.text}";
+      FbDisipador disipadorNuevo = FbDisipador(
+        sNombre: _tecNombre.text.trim(),
+        sColor: _tecColor.text.trim(),
+        sMaterial: _tecMaterial.text.trim(),
+        iVelocidadRotacionMaxima: int.parse(_tecVelocidadMaxima.text.trim()),
+        iVelocidadRotacionMinima: int.parse(_tecVelocidadMinima.text.trim()),
+        dPrecio: double.parse(_tecPrecio.text.trim()),
+        sUrlImg: await DataHolder().fbadmin.subirFotoDisipador(_imagePreview, nombreNube),
+      );
+      DataHolder().fbadmin.subirDisipador(disipadorNuevo);
     }
   }
 
   String _checkFields() {
     StringBuffer errorMessage = StringBuffer();
-
     if (_tecNombre.text.isEmpty &&
-        _tecTipo.text.isEmpty &&
-        _tecVelocidadEscritura.text.isEmpty &&
-        _tecVelocidadLectura.text.isEmpty &&
-        _tecPrecio.text.isEmpty &&
-        _tecAlmacenamiento.text.isEmpty) {
+        _tecColor.text.isEmpty &&
+        _tecMaterial.text.isEmpty &&
+        _tecVelocidadMaxima.text.isEmpty &&
+        _tecVelocidadMinima.text.isEmpty) {
       errorMessage.write('Por favor, complete todos los campos');
     } else {
       if (_tecNombre.text.isEmpty) {
         errorMessage.write('Por favor, complete el campo nombre');
       }
-      if (_tecTipo.text.isEmpty) {
-        errorMessage.write('Por favor, complete el campo tipo');
+      if (_tecColor.text.isEmpty) {
+        errorMessage.write('Por favor, complete el campo color');
       }
-      if (_tecVelocidadEscritura.text.isEmpty) {
-        errorMessage.write('Por favor, complete la velocidad de escritura');
+      if (_tecMaterial.text.isEmpty) {
+        errorMessage.write('Por favor, complete el campo material');
       }
-      if (_tecVelocidadLectura.text.isEmpty) {
-        errorMessage.write('Por favor, complete la velocidad de lectura');
+      if (_tecVelocidadMaxima.text.isEmpty) {
+        errorMessage.write('Por favor, complete la velocidad de rotación máxima');
+      }
+      if (_tecVelocidadMinima.text.isEmpty) {
+        errorMessage.write('Por favor, complete la velocidad de rotación mínima');
       }
       if (_tecPrecio.text.isEmpty) {
         errorMessage.write('Por favor, complete el precio');
-      }
-      if (_tecAlmacenamiento.text.isEmpty) {
-        errorMessage.write('Por favor, complete el campo de almacenamiento');
       }
       if (_imagePreview.path.isEmpty) {
         errorMessage.write('Por favor, adjunte una foto del producto');

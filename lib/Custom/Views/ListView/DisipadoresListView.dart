@@ -71,12 +71,42 @@ class DisipadoresListView extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            Text(
-              'Velocidad Rotación (Min-Max): $iVelocidadRotacionMinima - $iVelocidadRotacionMaxima RPM',
-              style: TextStyle(
-                fontSize: 16,
-              ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Velocidad mínima: ',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  '$iVelocidadRotacionMinima RPM',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Velocidad máxima: ',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  '$iVelocidadRotacionMaxima RPM',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
             Text(
               'Precio: $dPrecio €',
               style: TextStyle(

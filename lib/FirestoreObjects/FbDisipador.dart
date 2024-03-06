@@ -16,7 +16,7 @@ class FbDisipador {
     required this.iVelocidadRotacionMinima,
     required this.iVelocidadRotacionMaxima,
     required this.dPrecio,
-    required this.sUrlImg,
+    required this.sUrlImg
   });
 
   factory FbDisipador.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
