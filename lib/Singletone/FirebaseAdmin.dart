@@ -124,6 +124,20 @@ class FirebaseAdmin {
     await ref.putFile(fotoPerfil);
   }
 
+  Future<String> subirFotoDiscoDuro(File fotoDiscoDuro, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/DiscosDuros/$nombreNube");
+    await ref.putFile(fotoDiscoDuro, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<void> subirDiscoDuro(FbDiscoDuro discoDuroNuevo) async {
+    CollectionReference<FbDiscoDuro> postsRef = db.collection("Categorias/discosduros/catalogo").withConverter(
+      fromFirestore: FbDiscoDuro.fromFirestore,
+      toFirestore: (FbDiscoDuro discoDuro, _) => discoDuro.toFirestore(),
+    );
+    await postsRef.add(discoDuroNuevo);
+  }
+
   Future<String> subirFotoCaja(File fotoCaja, String nombreNube) async {
     final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Cajas/$nombreNube");
     await ref.putFile(fotoCaja, SettableMetadata(contentType: "image/jpeg"));

@@ -6,6 +6,7 @@ class DiscosDurosListView extends StatelessWidget {
   final int iEscritura;
   final int iLectura;
   final double dPrecio;
+  final int iAlmacenamiento;
   final String sUrlImg;
   final int iPosicion;
   final Function(int indice)? fOnItemTap;
@@ -16,6 +17,7 @@ class DiscosDurosListView extends StatelessWidget {
     required this.iEscritura,
     required this.iLectura,
     required this.dPrecio,
+    required this.iAlmacenamiento,
     required this.sUrlImg,
     required this.iPosicion,
     this.fOnItemTap,
@@ -75,6 +77,13 @@ class DiscosDurosListView extends StatelessWidget {
 
             Text(
               'Velocidad de Lectura: $iLectura MB/s',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+
+            Text(
+              'Almacenamiento: $iAlmacenamiento GB', // Nuevo atributo
               style: TextStyle(
                 fontSize: 16,
               ),

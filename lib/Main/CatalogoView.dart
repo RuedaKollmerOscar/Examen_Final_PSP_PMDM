@@ -126,6 +126,7 @@ class _CatalogoViewState extends State<CatalogoView> {
         return DiscosDurosListView(
           sNombre: discoDuroSeleccionado.sNombre,
           sTipo: discoDuroSeleccionado.sTipo,
+          iAlmacenamiento: discoDuroSeleccionado.iAlmacenamiento,
           iEscritura: discoDuroSeleccionado.iEscritura,
           iLectura: discoDuroSeleccionado.iLectura,
           dPrecio: discoDuroSeleccionado.dPrecio,

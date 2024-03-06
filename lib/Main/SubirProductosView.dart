@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:techshop/Custom/Views/Formularios/FormularioDiscoDuro.dart';
 import '../Custom/Views/Formularios/FormularioCaja.dart';
 import '../Custom/Widgets/CustomBottomMenu.dart';
 import '../FirestoreObjects/FbCategoria.dart';
@@ -98,7 +99,7 @@ class _SubirProductosViewState extends State<SubirProductosView> {
       case 'Cajas':
         return FormularioCaja();
       case 'Discos duros':
-        return Text('Contenido específico para Categoria2');
+        return FormularioDiscoDuro();
       case 'Disipadores':
         return Text('Contenido específico para Categoria3');
       case 'Fuentes de alimentación':

@@ -6,6 +6,7 @@ class FbDiscoDuro {
   final int iEscritura;
   final int iLectura;
   final double dPrecio;
+  final int iAlmacenamiento;
   final String sUrlImg;
 
   FbDiscoDuro({
@@ -14,6 +15,7 @@ class FbDiscoDuro {
     required this.iEscritura,
     required this.iLectura,
     required this.dPrecio,
+    required this.iAlmacenamiento,
     required this.sUrlImg,
   });
 
@@ -25,6 +27,7 @@ class FbDiscoDuro {
       iEscritura: (data?['escritura'] as int?) ?? -1,
       iLectura: (data?['lectura'] as int?) ?? -1,
       dPrecio: (data?['precio'] as num?)?.toDouble() ?? -1,
+      iAlmacenamiento: (data?['almacenamiento'] as int?) ?? -1,
       sUrlImg: data?['urlImg'] != null ? data!['urlImg'] : "xxxx",
     );
   }
@@ -36,6 +39,7 @@ class FbDiscoDuro {
       if (iEscritura != null) "escritura": iEscritura,
       if (iLectura != null) "lectura": iLectura,
       if (dPrecio != null) "precio": dPrecio,
+      if (iAlmacenamiento != null) "almacenamiento": iAlmacenamiento,
       if (sUrlImg != null) "urlImg": sUrlImg,
     };
   }
