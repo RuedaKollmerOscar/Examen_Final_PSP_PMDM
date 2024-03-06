@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:techshop/Custom/Views/ProcesadoresListView.dart';
-import 'package:techshop/Custom/Views/RAMsListView.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import 'package:techshop/FirestoreObjects/FbGrafica.dart';
 import 'package:techshop/FirestoreObjects/FbProcesador.dart';
 import 'package:techshop/FirestoreObjects/FbRAM.dart';
-import '../Custom/Views/CajasListView.dart';
-import '../Custom/Views/DiscosDurosListView.dart';
-import '../Custom/Views/DisipadoresListView.dart';
-import '../Custom/Views/FuentesListView.dart';
-import '../Custom/Views/GraficasListView.dart';
-import '../Custom/Views/PlacasListView.dart';
 import '../FirestoreObjects/FbCaja.dart';
 import '../FirestoreObjects/FbDiscoDuro.dart';
 import '../FirestoreObjects/FbDisipador.dart';
 import '../FirestoreObjects/FbFuente.dart';
 import '../FirestoreObjects/FbPlaca.dart';
+import '../Custom/Views/ListView/CajasListView.dart';
+import '../Custom/Views/ListView/DiscosDurosListView.dart';
+import '../Custom/Views/ListView/DisipadoresListView.dart';
+import '../Custom/Views/ListView/FuentesListView.dart';
+import '../Custom/Views/ListView/GraficasListView.dart';
+import '../Custom/Views/ListView/PlacasListView.dart';
+import '../Custom/Views/ListView/ProcesadoresListView.dart';
+import '../Custom/Views/ListView/RAMsListView.dart';
 import '../Singletone/DataHolder.dart';
 
 class CatalogoView extends StatefulWidget {
@@ -29,6 +29,7 @@ class CatalogoView extends StatefulWidget {
 class _CatalogoViewState extends State<CatalogoView> {
   FbCategoria categoriaSeleccionada = DataHolder().categoriaSeleccionada;
 
+  // Listas para los componenetes
   final List<FbCaja> _cajas = [];
   late Future<List<FbCaja>> _futureCajas;
 
@@ -280,7 +281,6 @@ class _CatalogoViewState extends State<CatalogoView> {
       case 'Tarjetas gráficas':
         _futureGraficas = DataHolder().fbadmin.descargarGraficas();
         List<FbGrafica> listaGraficas = await _futureGraficas;
-        print("------------------>>>>>>>>>>>>>>>>>>>>>>>>>${listaGraficas.length}");
         setState(() {
           _graficas.clear();
           _graficas.addAll(listaGraficas);
@@ -292,7 +292,6 @@ class _CatalogoViewState extends State<CatalogoView> {
   }
 
   Widget _separadorLista(BuildContext context, int index) {
-    return Divider(
-        thickness: 2, color: Theme.of(context).colorScheme.primary);
+    return Divider(thickness: 2, color: Colors.transparent);
   }
 }

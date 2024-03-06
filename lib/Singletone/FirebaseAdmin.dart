@@ -124,6 +124,20 @@ class FirebaseAdmin {
     await ref.putFile(fotoPerfil);
   }
 
+  Future<String> subirFotoCaja(File fotoCaja, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Cajas/$nombreNube");
+    await ref.putFile(fotoCaja, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<void> subirCaja(FbCaja cajaNueva) async {
+    CollectionReference<FbCaja> postsRef = db.collection("Categorias/cajas/catalogo").withConverter(
+      fromFirestore: FbCaja.fromFirestore,
+      toFirestore: (FbCaja caja, _) => caja.toFirestore(),
+    );
+    await postsRef.add(cajaNueva);
+  }
+
   // Metodos para descargar colecciones
 
   // Descarga la lista de componentes

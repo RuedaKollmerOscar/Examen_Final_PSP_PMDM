@@ -76,8 +76,8 @@ class _AccountViewState extends State<AccountView> {
                         backgroundColor: Theme.of(context).colorScheme.secondary,
                         child: ClipOval(
                           child: SizedBox(
-                            width: 100, // El doble del radio del círculo
-                            height: 100, // El doble del radio del círculo
+                            width: 100,
+                            height: 100,
                             child: _fotoPerfilView(),
                           ),
                         ),

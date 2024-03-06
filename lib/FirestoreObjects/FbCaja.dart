@@ -29,10 +29,10 @@ class FbCaja {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (sNombre != null) "name" : sNombre,
-      if (sColor != null) "sColor" : sColor,
-      if (dPeso != null) "dPeso" : dPeso,
-      if (dPrecio != null) "dPrecio" : dPrecio,
+      if (sNombre != null) "nombre" : sNombre,
+      if (sColor != null) "color" : sColor,
+      if (dPeso != null) "peso" : dPeso,
+      if (dPrecio != null) "precio" : dPrecio,
       if (sUrlImg != null) "urlImg" : sUrlImg
     };
   }

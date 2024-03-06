@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:techshop/Custom/Widgets/CustomBottomMenu.dart';
-
-import '../Custom/Views/ComponentesListView.dart';
+import '../Custom/Views/ListView/ComponentesListView.dart';
 import '../Custom/Widgets/CustomDrawer.dart';
 import '../FirestoreObjects/FbComponente.dart';
 import '../OnBoarding/LoginView.dart';
@@ -79,7 +78,7 @@ class _HomeViewState extends State<HomeView> {
     } else if (indice == 1) {
       Navigator.of(context).popAndPushNamed("/categoriasview");
     } else if (indice == 2) {
-
+      Navigator.of(context).popAndPushNamed("/subirproductosview");
     }
   }
 

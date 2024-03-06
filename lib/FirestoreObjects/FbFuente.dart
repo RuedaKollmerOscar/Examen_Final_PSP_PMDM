@@ -39,8 +39,8 @@ class FbFuente {
       if (sFormato != null) "formato": sFormato,
       if (dPotencia != null) "potencia": dPotencia,
       if (sCertificacion != null) "certificacion": sCertificacion,
-      if (sUrlImg != null) "urlImg": sUrlImg,
       if (dPrecio != null) "precio": dPrecio,
+      if (sUrlImg != null) "urlImg": sUrlImg
     };
   }
 }

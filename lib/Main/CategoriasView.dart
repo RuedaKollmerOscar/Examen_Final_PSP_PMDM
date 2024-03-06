@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Custom/Views/CategoriasListView.dart';
+import '../Custom/Views/ListView/CategoriasListView.dart';
 import '../Custom/Widgets/CustomBottomMenu.dart';
 import '../Custom/Widgets/CustomDrawer.dart';
 import '../FirestoreObjects/FbCategoria.dart';
@@ -19,7 +19,7 @@ class _CategoriasViewState extends State<CategoriasView> {
   @override
   void initState() {
     super.initState();
-    _cargarComponentes();
+    _cargarCategorias();
   }
 
   @override
@@ -69,7 +69,7 @@ class _CategoriasViewState extends State<CategoriasView> {
     } else if (indice == 1) {
       Navigator.of(context).popAndPushNamed("/categoriasview");
     } else if (indice == 2) {
-
+      Navigator.of(context).popAndPushNamed("/subirproductosview");
     }
   }
 
@@ -100,7 +100,7 @@ class _CategoriasViewState extends State<CategoriasView> {
     Navigator.of(context).pushNamed("/catalogoview");
   }
 
-  Future<void> _cargarComponentes() async {
+  Future<void> _cargarCategorias() async {
     _futureCategorias = DataHolder().fbadmin.descargarCategorias();
     List<FbCategoria> listaCategorias = await _futureCategorias;
     setState(() {

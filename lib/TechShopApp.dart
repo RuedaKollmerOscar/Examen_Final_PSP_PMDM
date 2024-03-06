@@ -3,6 +3,7 @@ import 'package:techshop/Main/CatalogoView.dart';
 import 'package:techshop/Main/CategoriasView.dart';
 import 'package:techshop/Main/HomeView.dart';
 import 'package:techshop/Main/MapaTiendasView.dart';
+import 'package:techshop/Main/SubirProductosView.dart';
 import 'package:techshop/Main/SobreNosotrosView.dart';
 import 'package:techshop/Theme/DarkMode.dart';
 
@@ -33,7 +34,8 @@ class TechShopApp extends StatelessWidget {
         "/mapatiendasview": (context) => MapaTiendasView(),
         "/sobrenosotrosview": (context) => SobreNosotrosView(),
         "/categoriasview": (context) => CategoriasView(),
-        "/catalogoview": (context) => CatalogoView()
+        "/catalogoview": (context) => CatalogoView(),
+        "/subirproductosview": (context) => SubirProductosView()
       },
       initialRoute: "/splashview"
     );

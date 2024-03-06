@@ -6,24 +6,22 @@ class CustomBottomMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
-          border: Border(
-            top: BorderSide(
-              color: Theme.of(context).colorScheme.inversePrimary,
-              width: 0.2,
-            ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+        border: Border(
+          top: BorderSide(
+            color: Theme.of(context).colorScheme.inversePrimary,
+            width: 0.2,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton.icon(
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: ElevatedButton.icon(
                 onPressed: () => fOnItemTap!(0),
                 icon: Icon(
                   Icons.star,
@@ -40,7 +38,12 @@ class CustomBottomMenu extends StatelessWidget {
                   shadowColor: Colors.transparent,
                 ),
               ),
-              ElevatedButton.icon(
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: ElevatedButton.icon(
                 onPressed: () => fOnItemTap!(1),
                 icon: Icon(
                   Icons.category,
@@ -57,7 +60,12 @@ class CustomBottomMenu extends StatelessWidget {
                   shadowColor: Colors.transparent,
                 ),
               ),
-              ElevatedButton.icon(
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: ElevatedButton.icon(
                 onPressed: () => fOnItemTap!(2),
                 icon: Icon(
                   Icons.shopping_cart,
@@ -74,9 +82,9 @@ class CustomBottomMenu extends StatelessWidget {
                   shadowColor: Colors.transparent,
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
