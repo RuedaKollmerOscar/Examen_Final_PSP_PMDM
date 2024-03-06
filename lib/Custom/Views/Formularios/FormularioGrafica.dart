@@ -1,32 +1,31 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:techshop/FirestoreObjects/FbGrafica.dart';
 import 'package:techshop/Singletone/DataHolder.dart';
-import '../../../FirestoreObjects/FbProcesador.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
-class FormularioProcesadores extends StatefulWidget {
+class FormularioGrafica extends StatefulWidget {
   @override
-  _FormularioProcesadoresState createState() => _FormularioProcesadoresState();
+  _FormularioGraficaState createState() => _FormularioGraficaState();
 }
 
-class _FormularioProcesadoresState extends State<FormularioProcesadores> {
+class _FormularioGraficaState extends State<FormularioGrafica> {
   String nombre = '';
-  String marca = '';
-  String modelo = '';
-  int numeroNucleos = 0;
-  int numeroHilos = 0;
-  double velocidadReloj = 0.0;
-  bool overclock = false;
+  String ensamblador = '';
+  String fabricante = '';
+  String serie = '';
+  int capacidad = 0;
+  int generacion = 0;
   double precio = 0.0;
   final ImagePicker _picker = ImagePicker();
   File _imagePreview = File("");
   final TextEditingController _tecNombre = TextEditingController();
-  final TextEditingController _tecMarca = TextEditingController();
-  final TextEditingController _tecModelo = TextEditingController();
-  final TextEditingController _tecNumeroNucleos = TextEditingController();
-  final TextEditingController _tecNumeroHilos = TextEditingController();
-  final TextEditingController _tecVelocidadReloj = TextEditingController();
+  final TextEditingController _tecEnsamblador = TextEditingController();
+  final TextEditingController _tecFabricante = TextEditingController();
+  final TextEditingController _tecSerie = TextEditingController();
+  final TextEditingController _tecCapacidad = TextEditingController();
+  final TextEditingController _tecGeneracion = TextEditingController();
   final TextEditingController _tecPrecio = TextEditingController();
 
   @override
@@ -40,49 +39,34 @@ class _FormularioProcesadoresState extends State<FormularioProcesadores> {
             children: [
               TextFormField(
                 controller: _tecNombre,
-                decoration: InputDecoration(labelText: 'Nombre del procesador'),
+                decoration: InputDecoration(labelText: 'Nombre de la tarjeta gráfica'),
               ),
               SizedBox(height: 10),
               TextFormField(
-                controller: _tecMarca,
-                decoration: InputDecoration(labelText: 'Marca del procesador'),
+                controller: _tecEnsamblador,
+                decoration: InputDecoration(labelText: 'Ensamblador'),
               ),
               SizedBox(height: 10),
               TextFormField(
-                controller: _tecModelo,
-                decoration: InputDecoration(labelText: 'Modelo del procesador'),
+                controller: _tecFabricante,
+                decoration: InputDecoration(labelText: 'Fabricante'),
               ),
               SizedBox(height: 10),
               TextFormField(
-                controller: _tecNumeroNucleos,
-                decoration: InputDecoration(labelText: 'Número de núcleos'),
+                controller: _tecSerie,
+                decoration: InputDecoration(labelText: 'Serie'),
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                controller: _tecCapacidad,
+                decoration: InputDecoration(labelText: 'Capacidad (GB)'),
                 keyboardType: TextInputType.number,
               ),
               SizedBox(height: 10),
               TextFormField(
-                controller: _tecNumeroHilos,
-                decoration: InputDecoration(labelText: 'Número de hilos'),
+                controller: _tecGeneracion,
+                decoration: InputDecoration(labelText: 'Generación'),
                 keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                controller: _tecVelocidadReloj,
-                decoration: InputDecoration(labelText: 'Velocidad de reloj (GHz)'),
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Checkbox(
-                    value: overclock,
-                    onChanged: (value) {
-                      setState(() {
-                        overclock = value ?? false;
-                      });
-                    },
-                  ),
-                  Text('¿Permite overclock?'),
-                ],
               ),
               SizedBox(height: 10),
               TextFormField(
@@ -116,8 +100,8 @@ class _FormularioProcesadoresState extends State<FormularioProcesadores> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: _subirProcesador,
-                    child: Text('Subir procesador'),
+                    onPressed: _subirGrafica,
+                    child: Text('Subir tarjeta gráfica'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,
@@ -224,62 +208,59 @@ class _FormularioProcesadoresState extends State<FormularioProcesadores> {
   void _cancelar() {
     _eliminarFoto();
     _tecNombre.clear();
-    _tecMarca.clear();
-    _tecModelo.clear();
-    _tecNumeroNucleos.clear();
-    _tecNumeroHilos.clear();
-    _tecVelocidadReloj.clear();
+    _tecEnsamblador.clear();
+    _tecFabricante.clear();
+    _tecSerie.clear();
+    _tecCapacidad.clear();
+    _tecGeneracion.clear();
     _tecPrecio.clear();
   }
 
-  Future<void> _subirProcesador() async {
+  Future<void> _subirGrafica() async {
     String? errorMessage = _checkFields();
     if (errorMessage.isNotEmpty) {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     } else if (errorMessage.isEmpty) {
-      String nombreNube = "${_tecNombre.text.trim()}${_tecMarca.text.trim()}${_tecModelo.text.trim()}${_tecNumeroNucleos.text}${_tecNumeroHilos.text}${_tecVelocidadReloj.text}${overclock}${_tecPrecio.text}";
-      FbProcesador procesadorNuevo = FbProcesador(
+      String nombreNube = "${_tecNombre.text.trim()}${_tecEnsamblador.text.trim()}${_tecFabricante.text.trim()}${_tecSerie.text.trim()}${_tecCapacidad.text}${_tecGeneracion.text}${_tecPrecio.text}";
+      FbGrafica graficaNueva = FbGrafica(
         sNombre: _tecNombre.text.trim(),
-        sMarca: _tecMarca.text.trim(),
-        sModelo: _tecModelo.text.trim(),
-        iNucleos: int.parse(_tecNumeroNucleos.text.trim()),
-        iHilos: int.parse(_tecNumeroHilos.text.trim()),
-        dVelocidadBase: double.parse(_tecVelocidadReloj.text.trim()),
-        bOverclock: overclock,
+        sEnsamblador: _tecEnsamblador.text.trim(),
+        sFabricante: _tecFabricante.text.trim(),
+        sSerie: _tecSerie.text.trim(),
+        iCapacidad: int.parse(_tecCapacidad.text.trim()),
+        iGeneracion: int.parse(_tecGeneracion.text.trim()),
         dPrecio: double.parse(_tecPrecio.text.trim()),
-        sUrlImg: await DataHolder().fbadmin.subirFotoProcesador(_imagePreview, nombreNube),
+        sUrlImg: await DataHolder().fbadmin.subirFotoGrafica(_imagePreview, nombreNube),
       );
-      DataHolder().fbadmin.subirProcesador(procesadorNuevo);
+      DataHolder().fbadmin.subirGrafica(graficaNueva);
     }
   }
 
   String _checkFields() {
     StringBuffer errorMessage = StringBuffer();
     if (_tecNombre.text.isEmpty &&
-        _tecMarca.text.isEmpty &&
-        _tecModelo.text.isEmpty &&
-        _tecNumeroNucleos.text.isEmpty &&
-        _tecNumeroHilos.text.isEmpty &&
-        _tecVelocidadReloj.text.isEmpty) {
+        _tecSerie.text.isEmpty &&
+        _tecCapacidad.text.isEmpty &&
+        _tecGeneracion.text.isEmpty) {
       errorMessage.write('Por favor, complete todos los campos');
     } else {
       if (_tecNombre.text.isEmpty) {
         errorMessage.write('Por favor, complete el campo nombre');
       }
-      if (_tecMarca.text.isEmpty) {
-        errorMessage.write('Por favor, complete el campo marca');
+      if (_tecEnsamblador.text.isEmpty) {
+        errorMessage.write('Por favor, complete el campo ensamblador');
       }
-      if (_tecModelo.text.isEmpty) {
-        errorMessage.write('Por favor, complete el campo modelo');
+      if (_tecFabricante.text.isEmpty) {
+        errorMessage.write('Por favor, complete el campo fabricante');
       }
-      if (_tecNumeroNucleos.text.isEmpty) {
-        errorMessage.write('Por favor, complete el número de núcleos');
+      if (_tecSerie.text.isEmpty) {
+        errorMessage.write('Por favor, complete el campo serie');
       }
-      if (_tecNumeroHilos.text.isEmpty) {
-        errorMessage.write('Por favor, complete el número de hilos');
+      if (_tecCapacidad.text.isEmpty) {
+        errorMessage.write('Por favor, complete el campo capacidad');
       }
-      if (_tecVelocidadReloj.text.isEmpty) {
-        errorMessage.write('Por favor, complete la velocidad de reloj');
+      if (_tecGeneracion.text.isEmpty) {
+        errorMessage.write('Por favor, complete el campo generación');
       }
       if (_tecPrecio.text.isEmpty) {
         errorMessage.write('Por favor, complete el precio');

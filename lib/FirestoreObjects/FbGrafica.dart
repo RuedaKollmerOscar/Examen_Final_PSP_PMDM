@@ -6,7 +6,7 @@ class FbGrafica {
   final String sFabricante;
   final String sSerie;
   final int iCapacidad;
-  final String sGeneracion;
+  final int iGeneracion;
   final double dPrecio;
   final String sUrlImg;
 
@@ -16,7 +16,7 @@ class FbGrafica {
     required this.sFabricante,
     required this.sSerie,
     required this.iCapacidad,
-    required this.sGeneracion,
+    required this.iGeneracion,
     required this.dPrecio,
     required this.sUrlImg,
   });
@@ -29,7 +29,7 @@ class FbGrafica {
       sFabricante: data?['fabricante'] != null ? data!['fabricante'] : "xxxx",
       sSerie: data?['serie'] != null ? data!['serie'] : "xxxx",
       iCapacidad: (data?['capacidad'] as int?) ?? 0,
-      sGeneracion: data?['generacion'] != null ? data!['generacion'] : "xxxx",
+      iGeneracion: (data?['generacion'] as int?) ?? 0,
       dPrecio: (data?['precio'] as num?)?.toDouble() ?? 0.0,
       sUrlImg: data?['urlImg'] != null ? data!['urlImg'] : "xxxx",
     );
@@ -42,7 +42,7 @@ class FbGrafica {
       if (sFabricante != null) "fabricante": sFabricante,
       if (sSerie != null) "serie": sSerie,
       if (iCapacidad != null) "capacidad": iCapacidad,
-      if (sGeneracion != null) "generacion": sGeneracion,
+      if (iGeneracion != null) "generacion": iGeneracion,
       if (dPrecio != null) "precio": dPrecio,
       if (sUrlImg != null) "urlImg": sUrlImg,
     };

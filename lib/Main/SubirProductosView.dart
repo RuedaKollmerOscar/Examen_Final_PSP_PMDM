@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioDiscoDuro.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioDisipador.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioFuente.dart';
-import 'package:techshop/Custom/Views/Formularios/FormularioPlacas.dart';
-import 'package:techshop/Custom/Views/Formularios/FormularioProcesadores.dart';
-import 'package:techshop/Custom/Views/Formularios/FormularioRAMs.dart';
+import 'package:techshop/Custom/Views/Formularios/FormularioGrafica.dart';
+import 'package:techshop/Custom/Views/Formularios/FormularioPlaca.dart';
+import 'package:techshop/Custom/Views/Formularios/FormularioProcesador.dart';
+import 'package:techshop/Custom/Views/Formularios/FormularioRAM.dart';
 import '../Custom/Views/Formularios/FormularioCaja.dart';
 import '../Custom/Widgets/CustomBottomMenu.dart';
 import '../FirestoreObjects/FbCategoria.dart';
@@ -112,11 +113,11 @@ class _SubirProductosViewState extends State<SubirProductosView> {
       case 'Placas base':
         return FormularioPlacaBase();
       case 'Procesadores':
-        return FormularioProcesadores();
+        return FormularioProcesador();
       case 'Memorias RAM':
-        return FormularioRAMs();
+        return FormularioRAM();
       case 'Tarjetas gráficas':
-        return Text('Contenido específico para Categoria3');
+        return FormularioGrafica();
       default:
         return FormularioCaja();
     }

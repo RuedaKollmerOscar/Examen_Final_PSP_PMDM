@@ -6,7 +6,7 @@ class GraficasListView extends StatelessWidget {
   final String sFabricante;
   final String sSerie;
   final int iCapacidad;
-  final String sGeneracion;
+  final int iGeneracion;
   final double dPrecio;
   final String sUrlImg;
   final int iPosicion;
@@ -19,7 +19,7 @@ class GraficasListView extends StatelessWidget {
     required this.sFabricante,
     required this.sSerie,
     required this.iCapacidad,
-    required this.sGeneracion,
+    required this.iGeneracion,
     required this.dPrecio,
     required this.sUrlImg,
     required this.iPosicion,
@@ -77,7 +77,7 @@ class GraficasListView extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Generación: GDDR$sGeneracion',
+              'Generación: GDDR$iGeneracion',
               style: const TextStyle(fontSize: 16),
             ),
             Text(

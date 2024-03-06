@@ -210,7 +210,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           sFabricante: tarjetaGraficaSeleccionada.sFabricante,
           sSerie: tarjetaGraficaSeleccionada.sSerie,
           iCapacidad: tarjetaGraficaSeleccionada.iCapacidad,
-          sGeneracion: tarjetaGraficaSeleccionada.sGeneracion,
+          iGeneracion: tarjetaGraficaSeleccionada.iGeneracion,
           dPrecio: tarjetaGraficaSeleccionada.dPrecio,
           sUrlImg: tarjetaGraficaSeleccionada.sUrlImg,
           iPosicion: index,

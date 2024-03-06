@@ -119,13 +119,31 @@ class FirebaseAdmin {
     return errorMessage;
   }
 
-
-
   Future<void> subirFotoPerfil(File fotoPerfil) async {
     final ref = FirebaseStorage.instance.ref().child("FotosPerfil/${getCurrentUserID()}/fotoPerfil.jpg");
     await ref.putFile(fotoPerfil);
   }
 
+  // Metodos para subir componentes
+
+
+  // Tarjetas graficas
+  Future<String> subirFotoGrafica(File fotoGrafica, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Tarjetas_graficas/$nombreNube");
+    await ref.putFile(fotoGrafica, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<void> subirGrafica(FbGrafica graficaNueva) async {
+    CollectionReference<FbGrafica> ref = db.collection("Categorias/tarjetasgraficas/catalogo").withConverter(
+      fromFirestore: FbGrafica.fromFirestore,
+      toFirestore: (FbGrafica grafica, _) => grafica.toFirestore(),
+    );
+    await ref.add(graficaNueva);
+  }
+
+
+  // Memorias RAM
   Future<String> subirFotoRAM(File fotoRAM, String nombreNube) async {
     final ref = FirebaseStorage.instance.ref().child("FotosComponentes/RAMs/$nombreNube");
     await ref.putFile(fotoRAM, SettableMetadata(contentType: "image/jpeg"));
@@ -140,6 +158,8 @@ class FirebaseAdmin {
     await ref.add(ramNueva);
   }
 
+
+  // Procesadores
   Future<String> subirFotoProcesador(File fotoProcesador, String nombreNube) async {
     final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Procesadores/$nombreNube");
     await ref.putFile(fotoProcesador, SettableMetadata(contentType: "image/jpeg"));
@@ -154,6 +174,8 @@ class FirebaseAdmin {
     await ref.add(procesadorNuevo);
   }
 
+
+  // Placas base
   Future<String> subirFotoPlaca(File fotoPlaca, String nombreNube) async {
     final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Placas_Base/$nombreNube");
     await ref.putFile(fotoPlaca, SettableMetadata(contentType: "image/jpeg"));
@@ -169,6 +191,8 @@ class FirebaseAdmin {
     await ref.add(placaBaseNueva);
   }
 
+
+  // Fuentes de alimentacion
   Future<String> subirFotoFuente(File fotoFuente, String nombreNube) async {
     final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Fuentes_Alimentacion/$nombreNube");
     await ref.putFile(fotoFuente, SettableMetadata(contentType: "image/jpeg"));
@@ -183,6 +207,8 @@ class FirebaseAdmin {
     await ref.add(fuenteNueva);
   }
 
+
+  // Disipadores
   Future<String> subirFotoDisipador(File fotoDisipador, String nombreNube) async {
     final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Disipadores/$nombreNube");
     await ref.putFile(fotoDisipador, SettableMetadata(contentType: "image/jpeg"));
@@ -197,8 +223,10 @@ class FirebaseAdmin {
     await ref.add(disipadorNuevo);
   }
 
+
+  // Discos duros
   Future<String> subirFotoDiscoDuro(File fotoDiscoDuro, String nombreNube) async {
-    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Disipadores/$nombreNube");
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/DiscosDuros/$nombreNube");
     await ref.putFile(fotoDiscoDuro, SettableMetadata(contentType: "image/jpeg"));
     return await ref.getDownloadURL();
   }
@@ -211,6 +239,8 @@ class FirebaseAdmin {
     await ref.add(discoDuroNuevo);
   }
 
+
+  // Cajas
   Future<String> subirFotoCaja(File fotoCaja, String nombreNube) async {
     final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Cajas/$nombreNube");
     await ref.putFile(fotoCaja, SettableMetadata(contentType: "image/jpeg"));
@@ -224,6 +254,7 @@ class FirebaseAdmin {
     );
     await ref.add(cajaNueva);
   }
+
 
   // Metodos para descargar colecciones
 
@@ -311,7 +342,7 @@ class FirebaseAdmin {
     return placas;
   }
 
-  // Descarga la lista de disipadores
+  // Descarga la lista de fuentes de alimentacion
   Future<List<FbFuente>> descargarFuentes() async {
     CollectionReference<FbFuente> ref = db.collection("Categorias/fuentesalimentacion/catalogo").withConverter(
       fromFirestore: FbFuente.fromFirestore,
@@ -366,6 +397,7 @@ class FirebaseAdmin {
 
     return graficas;
   }
+
 
   // Descarga la coleccion y la devuelve (no devuelve un list)
   Future<QuerySnapshot<FbTienda>> cargarTiendas() async {
