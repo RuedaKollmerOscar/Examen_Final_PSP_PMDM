@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:techshop/Custom/Widgets/CustomAppBar.dart';
 import 'package:techshop/Singletone/DataHolder.dart';
 import '../FirestoreObjects/FbTienda.dart';
 
@@ -42,18 +43,8 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          "Visita nuestras tiendas físicas",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-        ),
-        centerTitle: true,
-        shadowColor: Theme.of(context).colorScheme.inversePrimary,
-        elevation: 5,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-        backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: CustomAppBar(
+        title: 'Visita nuestras tiendas físicas',
         actions: [
           IconButton(
             icon: Icon(

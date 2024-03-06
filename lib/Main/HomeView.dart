@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:techshop/Custom/Widgets/CustomAppBar.dart';
 import 'package:techshop/Custom/Widgets/CustomBottomMenu.dart';
 import '../Custom/Views/ListView/ComponentesListView.dart';
 import '../Custom/Widgets/CustomDrawer.dart';
@@ -35,19 +36,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          "Productos destacados",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 5,
-        shadowColor: Theme.of(context).colorScheme.inversePrimary,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
+      appBar: CustomAppBar(title: 'Productos destacados'),
       body: _listBody(),
       drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
       bottomNavigationBar: CustomBottomMenu(fOnItemTap: _onBottomMenuPressed),

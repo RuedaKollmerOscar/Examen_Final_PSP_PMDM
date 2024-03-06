@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techshop/Custom/Widgets/CustomAppBar.dart';
 
 class SobreNosotrosView extends StatelessWidget {
   const SobreNosotrosView({Key? key}) : super(key: key);
@@ -6,19 +7,7 @@ class SobreNosotrosView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Sobre Nosotros",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-        ),
-        centerTitle: true,
-        shadowColor: Theme.of(context).colorScheme.inversePrimary,
-        elevation: 5,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
+      appBar: CustomAppBar(title: 'Sobre Nosotros'),
       body: Container(
         color: Theme.of(context).colorScheme.background,
         child: ListView(

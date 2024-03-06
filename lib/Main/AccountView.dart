@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:techshop/Singletone/DataHolder.dart';
 
+import '../Custom/Widgets/CustomAppBar.dart';
 import '../Custom/Widgets/CustomSnackbar.dart';
 
 class AccountView extends StatefulWidget {
@@ -40,18 +41,8 @@ class _AccountViewState extends State<AccountView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-          title: Text(
-            "Personalizar perfil",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.inversePrimary,
-            ),
-          ),
-        centerTitle: true,
-        shadowColor: Theme.of(context).colorScheme.inversePrimary,
-        elevation: 5,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-        backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: CustomAppBar(
+        title: 'Personalizar perfil',
       ),
       body: Center(
         child: SingleChildScrollView(

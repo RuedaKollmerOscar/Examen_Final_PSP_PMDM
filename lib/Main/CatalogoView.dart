@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techshop/Custom/Widgets/CustomAppBar.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import 'package:techshop/FirestoreObjects/FbGrafica.dart';
 import 'package:techshop/FirestoreObjects/FbProcesador.dart';
@@ -64,19 +65,7 @@ class _CatalogoViewState extends State<CatalogoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          "Catalogo de ${categoriaSeleccionada.sName}",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 5,
-        shadowColor: Theme.of(context).colorScheme.inversePrimary,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
+      appBar: CustomAppBar(title: 'Catalogo de ${categoriaSeleccionada.sName}'),
           body: _listBody(),
     );
   }
@@ -124,7 +113,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           dPrecio: cajaSeleccionada.dPrecio,
           sUrlImg: cajaSeleccionada.sUrlImg,
           iPosicion: index,
-          fOnItemTap: (int indice) {},
+          fOnItemTap: _onCajaPressed,
         );
       case 'Discos duros':
         FbDiscoDuro discoDuroSeleccionado = _discosDuros[index];

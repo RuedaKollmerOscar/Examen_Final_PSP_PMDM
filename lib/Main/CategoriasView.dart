@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techshop/Custom/Widgets/CustomAppBar.dart';
 
 import '../Custom/Views/ListView/CategoriasListView.dart';
 import '../Custom/Widgets/CustomBottomMenu.dart';
@@ -26,19 +27,7 @@ class _CategoriasViewState extends State<CategoriasView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          "Categorías",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-        ),
-        centerTitle: true,
-        shadowColor: Theme.of(context).colorScheme.inversePrimary,
-        elevation: 5,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
+      appBar: CustomAppBar(title: 'Categorias'),
       body: _listBody(),
       drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
       bottomNavigationBar: CustomBottomMenu(fOnItemTap: _onBottomMenuPressed),

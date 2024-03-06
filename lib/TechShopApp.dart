@@ -7,6 +7,7 @@ import 'package:techshop/Main/SubirProductosView.dart';
 import 'package:techshop/Main/SobreNosotrosView.dart';
 import 'package:techshop/Theme/DarkMode.dart';
 
+import 'Custom/Views/VistaProductos/CajaView.dart';
 import 'Main/AccountView.dart';
 import 'Main/ComponenteView.dart';
 import 'OnBoarding/LoginView.dart';
@@ -25,10 +26,15 @@ class TechShopApp extends StatelessWidget {
       theme: LightMode,
       darkTheme: DarkMode,
       routes: {
+        // Autentificacion
         "/loginview": (context) => LoginView(),
         "/registerview": (context) => RegisterView(),
-        "/homeview": (context) => HomeView(),
         "/splashview": (context) => SplashView(),
+
+        // Vistas de productos
+        "/cajaview": (context) => CajaView(),
+
+        "/homeview": (context) => HomeView(),
         "/accountview": (context) => AccountView(),
         "/componenteview": (context) => ComponenteView(),
         "/mapatiendasview": (context) => MapaTiendasView(),
