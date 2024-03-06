@@ -5,6 +5,8 @@ import 'package:techshop/Custom/Views/VistaProductos/PlacaView.dart';
 import 'Custom/Views/VistaProductos/CajaView.dart';
 import 'Custom/Views/VistaProductos/DiscoDuroView.dart';
 import 'Custom/Views/VistaProductos/DisipadorView.dart';
+import 'Custom/Views/VistaProductos/ProcesadorView.dart';
+import 'Custom/Views/VistaProductos/RAMview.dart';
 import 'Main/AccountView.dart';
 import 'Main/CatalogoView.dart';
 import 'Main/CategoriasView.dart';
@@ -42,6 +44,8 @@ class TechShopApp extends StatelessWidget {
         "/disipadorview": (context) => DisipadorView(),
         "/fuenteview": (context) => FuenteView(),
         "/placaview": (context) => PlacaView(),
+        "/procesadorview": (context) => ProcesadorView(),
+        "/ramview": (context) => RAMView(),
 
         "/homeview": (context) => HomeView(),
         "/accountview": (context) => AccountView(),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../../FirestoreObjects/FbProcesador.dart'; // Asegúrate de importar el archivo correcto
+import '../../../FirestoreObjects/FbRAM.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
 
-class ProcesadoresView extends StatelessWidget {
+class RAMView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    FbProcesador procesadorSeleccionado = DataHolder().procesadorSeleccionado;
+    FbRAM ramSeleccionada = DataHolder().ramSeleccionada;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: CustomAppBar(title: procesadorSeleccionado.sNombre),
+      appBar: CustomAppBar(title: ramSeleccionada.sNombre),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -18,7 +18,7 @@ class ProcesadoresView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nombre: ${procesadorSeleccionado.sNombre}',
+                'Nombre: ${ramSeleccionada.sNombre}',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -26,48 +26,43 @@ class ProcesadoresView extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                'Marca: ${procesadorSeleccionado.sMarca}',
+                'Capacidad: ${ramSeleccionada.iCapacidad} GB',
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 10),
               Text(
-                'Modelo: ${procesadorSeleccionado.sModelo}',
+                'Cantidad de Módulos: ${ramSeleccionada.iModulos}',
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 10),
               Text(
-                'Núcleos: ${procesadorSeleccionado.iNucleos}',
+                'Velocidad: ${ramSeleccionada.iVelocidad} MHz',
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 10),
               Text(
-                'Hilos: ${procesadorSeleccionado.iHilos}',
+                'Generación: ${ramSeleccionada.iGeneracion}',
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 10),
               Text(
-                'Velocidad Base: ${procesadorSeleccionado.dVelocidadBase} GHz',
+                'RGB: ${ramSeleccionada.bRGB ? 'Sí' : 'No'}',
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 10),
               Text(
-                'Overclock: ${procesadorSeleccionado.bOverclock ? 'Sí' : 'No'}',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Precio: ${procesadorSeleccionado.dPrecio} €',
+                'Precio: ${ramSeleccionada.dPrecio} €',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 20),
-              if (procesadorSeleccionado.sUrlImg.isNotEmpty)
+              if (ramSeleccionada.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    procesadorSeleccionado.sUrlImg,
+                    ramSeleccionada.sUrlImg,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,

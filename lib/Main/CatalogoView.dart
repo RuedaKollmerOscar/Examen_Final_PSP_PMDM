@@ -194,7 +194,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           dPrecio: ramSeleccionada.dPrecio,
           sUrlImg: ramSeleccionada.sUrlImg,
           iPosicion: index,
-          fOnItemTap: (int indice) {},
+          fOnItemTap: _onRAMPressed,
         );
       case 'Tarjetas gráficas':
         FbGrafica tarjetaGraficaSeleccionada = _graficas[index];
