@@ -4,7 +4,7 @@ class FbFuente {
   final String sNombre;
   final String sTipoCableado;
   final String sFormato;
-  final double dPotencia;
+  final int iPotencia;
   final String sCertificacion;
   final String sUrlImg;
   final double dPrecio;
@@ -13,7 +13,7 @@ class FbFuente {
     required this.sNombre,
     required this.sTipoCableado,
     required this.sFormato,
-    required this.dPotencia,
+    required this.iPotencia,
     required this.sCertificacion,
     required this.sUrlImg,
     required this.dPrecio,
@@ -25,7 +25,7 @@ class FbFuente {
       sNombre: data?['nombre'] != null ? data!['nombre'] : "xxxx",
       sTipoCableado: data?['tipoCableado'] != null ? data!['tipoCableado'] : "xxxx",
       sFormato: data?['formato'] != null ? data!['formato'] : "xxxx",
-      dPotencia: (data?['potencia'] as num?)?.toDouble() ?? -1,
+      iPotencia: (data?['potencia'] as num?)?.toInt() ?? -1,
       sCertificacion: data?['certificacion'] != null ? data!['certificacion'] : "xxxx",
       sUrlImg: data?['urlImg'] != null ? data!['urlImg'] : "xxxx",
       dPrecio: (data?['precio'] as num?)?.toDouble() ?? -1,
@@ -37,7 +37,7 @@ class FbFuente {
       if (sNombre != null) "nombre": sNombre,
       if (sTipoCableado != null) "tipoCableado": sTipoCableado,
       if (sFormato != null) "formato": sFormato,
-      if (dPotencia != null) "potencia": dPotencia,
+      if (iPotencia != null) "potencia": iPotencia,
       if (sCertificacion != null) "certificacion": sCertificacion,
       if (dPrecio != null) "precio": dPrecio,
       if (sUrlImg != null) "urlImg": sUrlImg

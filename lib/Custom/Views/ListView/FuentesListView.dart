@@ -4,7 +4,7 @@ class FuentesListView extends StatelessWidget {
   final String sNombre;
   final String sTipoCableado;
   final String sFormato;
-  final double dPotencia;
+  final int iPotencia;
   final String sCertificacion;
   final String sUrlImg;
   final double dPrecio;
@@ -16,7 +16,7 @@ class FuentesListView extends StatelessWidget {
     required this.sNombre,
     required this.sTipoCableado,
     required this.sFormato,
-    required this.dPotencia,
+    required this.iPotencia,
     required this.sCertificacion,
     required this.sUrlImg,
     required this.dPrecio,
@@ -70,7 +70,7 @@ class FuentesListView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Text(
-              'Potencia: ${dPotencia.toStringAsFixed(0)}W',
+              'Potencia: ${iPotencia.toStringAsFixed(0)}W',
               style: const TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),

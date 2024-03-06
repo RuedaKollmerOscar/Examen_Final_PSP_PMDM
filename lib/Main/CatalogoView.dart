@@ -153,7 +153,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           sNombre: fuenteSeleccionada.sNombre,
           sTipoCableado: fuenteSeleccionada.sTipoCableado,
           sFormato: fuenteSeleccionada.sFormato,
-          dPotencia: fuenteSeleccionada.dPotencia,
+          iPotencia: fuenteSeleccionada.iPotencia,
           sCertificacion: fuenteSeleccionada.sCertificacion,
           sUrlImg: fuenteSeleccionada.sUrlImg,
           dPrecio: fuenteSeleccionada.dPrecio,
