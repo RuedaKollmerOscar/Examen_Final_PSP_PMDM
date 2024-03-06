@@ -119,9 +119,25 @@ class FirebaseAdmin {
     return errorMessage;
   }
 
+
+
   Future<void> subirFotoPerfil(File fotoPerfil) async {
     final ref = FirebaseStorage.instance.ref().child("FotosPerfil/${getCurrentUserID()}/fotoPerfil.jpg");
     await ref.putFile(fotoPerfil);
+  }
+
+  Future<String> subirFotoProcesador(File fotoProcesador, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Procesadores/$nombreNube");
+    await ref.putFile(fotoProcesador, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<void> subirProcesador(FbProcesador procesadorNuevo) async {
+    CollectionReference<FbProcesador> ref = db.collection("Categorias/procesadores/catalogo").withConverter(
+        fromFirestore: FbProcesador.fromFirestore,
+        toFirestore: (FbProcesador procesador, _) => procesador.toFirestore(),
+    );
+    await ref.add(procesadorNuevo);
   }
 
   Future<String> subirFotoPlaca(File fotoPlaca, String nombreNube) async {
@@ -132,11 +148,11 @@ class FirebaseAdmin {
 
 
   Future<void> subirPlaca(FbPlaca placaBaseNueva) async {
-    CollectionReference<FbPlaca> postsRef = db.collection("Categorias/placasbase/catalogo").withConverter(
+    CollectionReference<FbPlaca> ref = db.collection("Categorias/placasbase/catalogo").withConverter(
       fromFirestore: FbPlaca.fromFirestore,
       toFirestore: (FbPlaca placa, _) => placa.toFirestore(),
     );
-    await postsRef.add(placaBaseNueva);
+    await ref.add(placaBaseNueva);
   }
 
   Future<String> subirFotoFuente(File fotoFuente, String nombreNube) async {
@@ -146,11 +162,11 @@ class FirebaseAdmin {
   }
 
   Future<void> subirFuente(FbFuente fuenteNueva) async {
-    CollectionReference<FbFuente> postsRef = db.collection("Categorias/fuentesalimentacion/catalogo").withConverter(
+    CollectionReference<FbFuente> ref = db.collection("Categorias/fuentesalimentacion/catalogo").withConverter(
       fromFirestore: FbFuente.fromFirestore,
       toFirestore: (FbFuente fuente, _) => fuente.toFirestore(),
     );
-    await postsRef.add(fuenteNueva);
+    await ref.add(fuenteNueva);
   }
 
   Future<String> subirFotoDisipador(File fotoDisipador, String nombreNube) async {
@@ -160,11 +176,11 @@ class FirebaseAdmin {
   }
 
   Future<void> subirDisipador(FbDisipador disipadorNuevo) async {
-    CollectionReference<FbDisipador> postsRef = db.collection("Categorias/disipadores/catalogo").withConverter(
+    CollectionReference<FbDisipador> ref = db.collection("Categorias/disipadores/catalogo").withConverter(
       fromFirestore: FbDisipador.fromFirestore,
       toFirestore: (FbDisipador disipador, _) => disipador.toFirestore(),
     );
-    await postsRef.add(disipadorNuevo);
+    await ref.add(disipadorNuevo);
   }
 
   Future<String> subirFotoDiscoDuro(File fotoDiscoDuro, String nombreNube) async {
@@ -174,11 +190,11 @@ class FirebaseAdmin {
   }
 
   Future<void> subirDiscoDuro(FbDiscoDuro discoDuroNuevo) async {
-    CollectionReference<FbDiscoDuro> postsRef = db.collection("Categorias/discosduros/catalogo").withConverter(
+    CollectionReference<FbDiscoDuro> ref = db.collection("Categorias/discosduros/catalogo").withConverter(
       fromFirestore: FbDiscoDuro.fromFirestore,
       toFirestore: (FbDiscoDuro discoDuro, _) => discoDuro.toFirestore(),
     );
-    await postsRef.add(discoDuroNuevo);
+    await ref.add(discoDuroNuevo);
   }
 
   Future<String> subirFotoCaja(File fotoCaja, String nombreNube) async {
@@ -188,11 +204,11 @@ class FirebaseAdmin {
   }
 
   Future<void> subirCaja(FbCaja cajaNueva) async {
-    CollectionReference<FbCaja> postsRef = db.collection("Categorias/cajas/catalogo").withConverter(
+    CollectionReference<FbCaja> ref = db.collection("Categorias/cajas/catalogo").withConverter(
       fromFirestore: FbCaja.fromFirestore,
       toFirestore: (FbCaja caja, _) => caja.toFirestore(),
     );
-    await postsRef.add(cajaNueva);
+    await ref.add(cajaNueva);
   }
 
   // Metodos para descargar colecciones

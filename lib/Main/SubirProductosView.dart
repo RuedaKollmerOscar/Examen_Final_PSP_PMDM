@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioDiscoDuro.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioDisipador.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioFuente.dart';
+import 'package:techshop/Custom/Views/Formularios/FormularioPlacas.dart';
+import 'package:techshop/Custom/Views/Formularios/FormularioProcesadores.dart';
 import '../Custom/Views/Formularios/FormularioCaja.dart';
 import '../Custom/Widgets/CustomBottomMenu.dart';
 import '../FirestoreObjects/FbCategoria.dart';
@@ -107,9 +109,9 @@ class _SubirProductosViewState extends State<SubirProductosView> {
       case 'Fuentes de alimentación':
         return FormularioFuente();
       case 'Placas base':
-        return Text('Contenido específico para Categoria3');
+        return FormularioPlacaBase();
       case 'Procesadores':
-        return Text('Contenido específico para Categoria3');
+        return FormularioProcesadores();
       case 'Memorias RAM':
         return Text('Contenido específico para Categoria3');
       case 'Tarjetas gráficas':
