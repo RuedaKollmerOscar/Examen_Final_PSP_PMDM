@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:techshop/Singletone/DataHolder.dart';
 
 class CustomDrawer extends StatelessWidget {
   final List<Widget> children;
@@ -23,27 +26,35 @@ class CustomDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text(sName,
+              accountName: Text(
+                sName,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
               ),
-              accountEmail: Text('@$sUsername',
+              accountEmail: Text(
+                '@$sUsername',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
               ),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
                 radius: 50,
-                child: Icon(
-                  Icons.person,
-                  size: 50,
-                  color: Theme.of(context).colorScheme.inversePrimary,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                child: FutureBuilder<Widget>(
+                  future: _fotoPerfilView(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return snapshot.data ?? const Icon(Icons.person, size: 50);
+                    } else {
+                      // Mientras se carga, puedes mostrar un indicador de carga o simplemente devolver un widget vacío.
+                      return SizedBox.shrink();
+                    }
+                  },
                 ),
               ),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background
+                color: Theme.of(context).colorScheme.background,
               ),
             ),
 
@@ -159,5 +170,25 @@ class CustomDrawer extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<Widget> _fotoPerfilView() async {
+    File? fotoPerfil = await DataHolder().fbadmin.descargarFotoPerfil();
+
+    if (fotoPerfil != null && fotoPerfil.existsSync()) {
+      return ClipOval(
+        child: Image.file(
+          fotoPerfil,
+          width: 100,
+          height: 100,
+          fit: BoxFit.cover,
+        ),
+      );
+    } else {
+      return const Icon(
+        Icons.person,
+        size: 50,
+      );
+    }
   }
 }

@@ -32,7 +32,7 @@ class _AccountViewState extends State<AccountView> {
 
   // Método asincrónico para cargar la foto de perfil
   Future<void> _cargarFotoPerfil() async {
-    _imagePreview = (await DataHolder().fbadmin.descargarFotoPerfil())!;
+    _imagePreview = await DataHolder().fbadmin.descargarFotoPerfil() ?? File("");
     setState(() {});
   }
 
@@ -281,18 +281,8 @@ class _AccountViewState extends State<AccountView> {
   }
 
   Widget _fotoPerfilView() {
-    if (_imagePreview.path.isEmpty || _imagePreview == null) {
-      return const Icon(
-        Icons.person,
-        size: 50
-      );
-    } else {
-      return Image.file(
-        _imagePreview,
-        width: 100,
-        height: 100,
-        fit: BoxFit.cover
-      );
-    }
+    return _imagePreview.path.isEmpty || _imagePreview == null
+        ? const Icon(Icons.person, size: 50)
+        : Image.file(_imagePreview, width: 100, height: 100, fit: BoxFit.cover);
   }
 }
