@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techshop/Custom/Views/VistaProductos/FuenteView.dart';
+import 'package:techshop/Custom/Views/VistaProductos/PlacaView.dart';
 
 import 'Custom/Views/VistaProductos/CajaView.dart';
 import 'Custom/Views/VistaProductos/DiscoDuroView.dart';
@@ -40,6 +41,7 @@ class TechShopApp extends StatelessWidget {
         "/discoduroview": (context) => DiscoDuroView(),
         "/disipadorview": (context) => DisipadorView(),
         "/fuenteview": (context) => FuenteView(),
+        "/placaview": (context) => PlacaView(),
 
         "/homeview": (context) => HomeView(),
         "/accountview": (context) => AccountView(),

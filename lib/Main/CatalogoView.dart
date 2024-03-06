@@ -165,7 +165,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           dPrecio: placaSeleccionada.dPrecio,
           sUrlImg: placaSeleccionada.sUrlImg,
           iPosicion: index,
-          fOnItemTap: (int indice) {},
+          fOnItemTap: _onPlacaPressed,
         );
       case 'Procesadores':
         FbProcesador procesadorSeleccionado = _procesadores[index];
