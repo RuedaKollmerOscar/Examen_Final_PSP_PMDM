@@ -86,16 +86,16 @@ class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
                   ),
                 ],
               ),
-              _fotoView(),
+              Center(child: _fotoView()),
 
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirDiscoDuro,
-                    child: Text('Subir disco duro'),
+                    child: Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,

@@ -92,16 +92,16 @@ class _FormularioGraficaState extends State<FormularioGrafica> {
                   ),
                 ],
               ),
-              _fotoView(),
+              Center(child: _fotoView()),
 
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirGrafica,
-                    child: Text('Subir tarjeta gráfica'),
+                    child: Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,

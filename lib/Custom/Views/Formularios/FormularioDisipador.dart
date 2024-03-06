@@ -85,16 +85,16 @@ class _FormularioDisipadorState extends State<FormularioDisipador> {
                   ),
                 ],
               ),
-              _fotoView(),
+              Center(child: _fotoView()),
 
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirDisipador,
-                    child: Text('Subir disipador'),
+                    child: Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,

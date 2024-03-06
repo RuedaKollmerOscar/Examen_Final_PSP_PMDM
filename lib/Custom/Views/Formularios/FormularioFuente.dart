@@ -84,16 +84,16 @@ class _FormularioFuenteState extends State<FormularioFuente> {
                   ),
                 ],
               ),
-              _fotoView(),
+              Center(child: _fotoView()),
 
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirFuente,
-                    child: Text('Subir fuente de alimentación'),
+                    child: Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,

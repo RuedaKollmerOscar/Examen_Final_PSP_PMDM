@@ -75,16 +75,16 @@ class _FormularioCajaState extends State<FormularioCaja> {
                   ),
                 ],
               ),
-              _fotoView(),
+              Center(child: _fotoView()),
 
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: _subirCaja,
-                    child: Text('Subir caja'),
+                    child: Text('Subir producto'),
                   ),
                   ElevatedButton(
                     onPressed: _cancelar,

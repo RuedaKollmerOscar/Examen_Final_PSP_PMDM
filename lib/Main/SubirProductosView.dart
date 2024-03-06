@@ -9,10 +9,14 @@ import 'package:techshop/Custom/Views/Formularios/FormularioProcesador.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioRAM.dart';
 import '../Custom/Views/Formularios/FormularioCaja.dart';
 import '../Custom/Widgets/CustomBottomMenu.dart';
+import '../Custom/Widgets/CustomDrawer.dart';
 import '../FirestoreObjects/FbCategoria.dart';
+import '../OnBoarding/LoginView.dart';
 import '../Singletone/DataHolder.dart';
 
 class SubirProductosView extends StatefulWidget {
+  const SubirProductosView({super.key});
+
   @override
   _SubirProductosViewState createState() => _SubirProductosViewState();
 }
@@ -20,7 +24,7 @@ class SubirProductosView extends StatefulWidget {
 class _SubirProductosViewState extends State<SubirProductosView> {
   String selectedCategory = 'Categoría por defecto';
 
-  final List<FbCategoria> _categorias = [];
+  final List<FbCategoria> _categorias = [FbCategoria(sName: 'Categoría por defecto', sUrlImg: '')];
   late Future<List<FbCategoria>> _futureCategorias;
 
   @override
@@ -32,11 +36,22 @@ class _SubirProductosViewState extends State<SubirProductosView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text("Sube tus propios productos"),
+        title: Text(
+          "Sube tus propios productos",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.inversePrimary,
+          ),
+        ),
         centerTitle: true,
+        elevation: 5,
+        shadowColor: Theme.of(context).colorScheme.inversePrimary,
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: _buildBody(),
+      drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
       bottomNavigationBar: CustomBottomMenu(fOnItemTap: _onBottomMenuPressed),
     );
   }
@@ -48,7 +63,7 @@ class _SubirProductosViewState extends State<SubirProductosView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
+                const Center(
                   child: Text(
                     'Selecciona la categoría para tu producto:',
                     style: TextStyle(
@@ -57,9 +72,9 @@ class _SubirProductosViewState extends State<SubirProductosView> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Center(child: _buildCategoryDropdown()),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Center(child: _buildCategorySpecificContent()),
               ],
             ),
@@ -76,25 +91,34 @@ class _SubirProductosViewState extends State<SubirProductosView> {
           selectedCategory = newValue?.sName ?? 'Categoría por defecto ';
         });
       },
+      underline: Container(
+        height: 2,
+        color: Theme.of(context).colorScheme.inversePrimary,
+      ),
       items: _categorias.map((FbCategoria categoria) {
         return DropdownMenuItem<FbCategoria>(
           value: categoria,
           child: Row(
-            children: [
-              if (categoria.sUrlImg.isNotEmpty)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    categoria.sUrlImg,
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
+              children: [
+                if (categoria.sUrlImg.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
+                      categoria.sUrlImg,
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                const SizedBox(width: 10),
+                Text(
+                  categoria.sName,
+                  style: const TextStyle(
+                    color: Colors.white, // Cambia el color del texto del elemento de la lista
                   ),
                 ),
-              SizedBox(width: 10),
-              Text(categoria.sName),
-            ],
-          ),
+              ],
+            ),
         );
       }).toList(),
     );
@@ -140,5 +164,23 @@ class _SubirProductosViewState extends State<SubirProductosView> {
       _categorias.clear();
       _categorias.addAll(listaCategorias);
     });
+  }
+
+  void _onDrawerPressed(int indice) async {
+    if(indice == 0) {
+      Navigator.of(context).popAndPushNamed("/homeview");
+    } else if (indice == 2) {
+      Navigator.of(context).popAndPushNamed("/accountview");
+    } else if (indice == 3) {
+      Navigator.of(context).popAndPushNamed("/mapatiendasview");
+    } else if (indice == 4) {
+      Navigator.of(context).popAndPushNamed("/sobrenosotrosview");
+    } else if (indice == 5) {
+      DataHolder().fbadmin.cerrarSesion();
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => const LoginView()),
+        ModalRoute.withName("/loginview"),
+      );
+    }
   }
 }

@@ -63,14 +63,19 @@ class _CatalogoViewState extends State<CatalogoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text("Catálogo ${categoriaSeleccionada.sName}",
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+        title: Text(
+          "Catalogo de ${categoriaSeleccionada.sName}",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.inversePrimary,
           ),
         ),
         centerTitle: true,
+        elevation: 5,
+        shadowColor: Theme.of(context).colorScheme.inversePrimary,
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
           body: _listBody(),
     );
@@ -294,5 +299,46 @@ class _CatalogoViewState extends State<CatalogoView> {
 
   Widget _separadorLista(BuildContext context, int index) {
     return Divider(thickness: 2, color: Colors.transparent);
+  }
+
+
+  void _onCajaPressed(int index) {
+    DataHolder().cajaSeleccionada = _cajas[index];
+    Navigator.of(context).pushNamed("/cajaview");
+  }
+
+  void _onDiscoDuroPressed(int index) {
+    DataHolder().discoDuroSeleccionado = _discosDuros[index];
+    Navigator.of(context).pushNamed("/discoduroview");
+  }
+
+  void _onDisipadorPressed(int index) {
+    DataHolder().disipadorSeleccionado = _disipadores[index];
+    Navigator.of(context).pushNamed("/disipadorview");
+  }
+
+  void _onFuentePressed(int index) {
+    DataHolder().fuenteSeleccionada = _fuentes[index];
+    Navigator.of(context).pushNamed("/fuenteview");
+  }
+
+  void _onPlacaPressed(int index) {
+    DataHolder().placaSeleccionada = _placas[index];
+    Navigator.of(context).pushNamed("/placaview");
+  }
+
+  void _onProcesadorPressed(int index) {
+    DataHolder().procesadorSeleccionado = _procesadores[index];
+    Navigator.of(context).pushNamed("/procesadorview");
+  }
+
+  void _onRAMPressed(int index) {
+    DataHolder().ramSeleccionada = _rams[index];
+    Navigator.of(context).pushNamed("/ramview");
+  }
+
+  void _onGraficaPressed(int index) {
+    DataHolder().graficaSeleccionada = _graficas[index];
+    Navigator.of(context).pushNamed("/graficaview");
   }
 }
