@@ -180,7 +180,7 @@ class _CatalogoViewState extends State<CatalogoView> {
             dPrecio: procesadorSeleccionado.dPrecio,
             sUrlImg: procesadorSeleccionado.sUrlImg,
             iPosicion: index,
-            fOnItemTap: (int indice) {},
+            fOnItemTap: _onProcesadorPressed,
         );
       case 'Memorias RAM':
         FbRAM ramSeleccionada = _rams[index];
