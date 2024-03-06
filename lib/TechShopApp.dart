@@ -8,6 +8,7 @@ import 'package:techshop/Main/SobreNosotrosView.dart';
 import 'package:techshop/Theme/DarkMode.dart';
 
 import 'Custom/Views/VistaProductos/CajaView.dart';
+import 'Custom/Views/VistaProductos/DiscoDuroView.dart';
 import 'Main/AccountView.dart';
 import 'Main/ComponenteView.dart';
 import 'OnBoarding/LoginView.dart';
@@ -33,6 +34,7 @@ class TechShopApp extends StatelessWidget {
 
         // Vistas de productos
         "/cajaview": (context) => CajaView(),
+        "/discoduroview": (context) => DiscoDuroView(),
 
         "/homeview": (context) => HomeView(),
         "/accountview": (context) => AccountView(),

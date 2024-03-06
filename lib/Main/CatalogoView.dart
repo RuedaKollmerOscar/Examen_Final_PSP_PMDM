@@ -126,7 +126,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           dPrecio: discoDuroSeleccionado.dPrecio,
           sUrlImg: discoDuroSeleccionado.sUrlImg,
           iPosicion: index,
-          fOnItemTap: (int indice) {},
+          fOnItemTap: _onDiscoDuroPressed,
         );
       case 'Disipadores':
         FbDisipador disipadorSeleccionado = _disipadores[index];

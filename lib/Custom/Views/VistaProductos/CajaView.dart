@@ -19,27 +19,30 @@ class CajaView extends StatelessWidget {
             children: [
               Text(
                 'Nombre: ${cajaSeleccionada.sNombre}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24, // Ajusta el tamaño del texto
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Color: ${cajaSeleccionada.sColor}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Peso: ${cajaSeleccionada.dPeso} kg',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Precio: ${cajaSeleccionada.dPrecio} €',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold
+                ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (cajaSeleccionada.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
