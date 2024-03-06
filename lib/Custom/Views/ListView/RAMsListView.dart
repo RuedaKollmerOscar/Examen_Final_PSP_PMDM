@@ -5,7 +5,7 @@ class RAMsListView extends StatelessWidget {
   final int iCapacidad;
   final int iModulos;
   final int iVelocidad;
-  final String sGeneracion;
+  final int iGeneracion;
   final bool bRGB;
   final double dPrecio;
   final String sUrlImg;
@@ -18,7 +18,7 @@ class RAMsListView extends StatelessWidget {
     required this.iCapacidad,
     required this.iModulos,
     required this.iVelocidad,
-    required this.sGeneracion,
+    required this.iGeneracion,
     required this.bRGB,
     required this.dPrecio,
     required this.sUrlImg,
@@ -61,11 +61,11 @@ class RAMsListView extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Capacidad: $iCapacidad',
+              'Capacidad: $iCapacidad GB',
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Módulos: $iModulos',
+              'Módulos: x$iModulos',
               style: const TextStyle(fontSize: 16),
             ),
             Text(
@@ -73,7 +73,7 @@ class RAMsListView extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Generación: DDR$sGeneracion',
+              'Generación: DDR$iGeneracion',
               style: const TextStyle(fontSize: 16),
             ),
             Text(

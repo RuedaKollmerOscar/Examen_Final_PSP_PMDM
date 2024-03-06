@@ -126,6 +126,20 @@ class FirebaseAdmin {
     await ref.putFile(fotoPerfil);
   }
 
+  Future<String> subirFotoRAM(File fotoRAM, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/RAMs/$nombreNube");
+    await ref.putFile(fotoRAM, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<void> subirRAM(FbRAM ramNueva) async {
+    CollectionReference<FbRAM> ref = db.collection("Categorias/rams/catalogo").withConverter(
+      fromFirestore: FbRAM.fromFirestore,
+      toFirestore: (FbRAM ram, _) => ram.toFirestore(),
+    );
+    await ref.add(ramNueva);
+  }
+
   Future<String> subirFotoProcesador(File fotoProcesador, String nombreNube) async {
     final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Procesadores/$nombreNube");
     await ref.putFile(fotoProcesador, SettableMetadata(contentType: "image/jpeg"));

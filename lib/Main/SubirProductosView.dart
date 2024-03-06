@@ -5,6 +5,7 @@ import 'package:techshop/Custom/Views/Formularios/FormularioDisipador.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioFuente.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioPlacas.dart';
 import 'package:techshop/Custom/Views/Formularios/FormularioProcesadores.dart';
+import 'package:techshop/Custom/Views/Formularios/FormularioRAMs.dart';
 import '../Custom/Views/Formularios/FormularioCaja.dart';
 import '../Custom/Widgets/CustomBottomMenu.dart';
 import '../FirestoreObjects/FbCategoria.dart';
@@ -113,7 +114,7 @@ class _SubirProductosViewState extends State<SubirProductosView> {
       case 'Procesadores':
         return FormularioProcesadores();
       case 'Memorias RAM':
-        return Text('Contenido específico para Categoria3');
+        return FormularioRAMs();
       case 'Tarjetas gráficas':
         return Text('Contenido específico para Categoria3');
       default:

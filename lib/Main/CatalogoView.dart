@@ -195,7 +195,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           iCapacidad: ramSeleccionada.iCapacidad,
           iModulos: ramSeleccionada.iModulos,
           iVelocidad: ramSeleccionada.iVelocidad,
-          sGeneracion: ramSeleccionada.sGeneracion,
+          iGeneracion: ramSeleccionada.iGeneracion,
           bRGB: ramSeleccionada.bRGB,
           dPrecio: ramSeleccionada.dPrecio,
           sUrlImg: ramSeleccionada.sUrlImg,
