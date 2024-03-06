@@ -124,6 +124,21 @@ class FirebaseAdmin {
     await ref.putFile(fotoPerfil);
   }
 
+  Future<String> subirFotoPlaca(File fotoPlaca, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Placas_Base/$nombreNube");
+    await ref.putFile(fotoPlaca, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+
+  Future<void> subirPlaca(FbPlaca placaBaseNueva) async {
+    CollectionReference<FbPlaca> postsRef = db.collection("Categorias/placasbase/catalogo").withConverter(
+      fromFirestore: FbPlaca.fromFirestore,
+      toFirestore: (FbPlaca placa, _) => placa.toFirestore(),
+    );
+    await postsRef.add(placaBaseNueva);
+  }
+
   Future<String> subirFotoFuente(File fotoFuente, String nombreNube) async {
     final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Fuentes_Alimentacion/$nombreNube");
     await ref.putFile(fotoFuente, SettableMetadata(contentType: "image/jpeg"));
