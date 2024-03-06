@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:techshop/Main/CatalogoView.dart';
-import 'package:techshop/Main/CategoriasView.dart';
-import 'package:techshop/Main/HomeView.dart';
-import 'package:techshop/Main/MapaTiendasView.dart';
-import 'package:techshop/Main/SubirProductosView.dart';
-import 'package:techshop/Main/SobreNosotrosView.dart';
-import 'package:techshop/Theme/DarkMode.dart';
 
 import 'Custom/Views/VistaProductos/CajaView.dart';
 import 'Custom/Views/VistaProductos/DiscoDuroView.dart';
+import 'Custom/Views/VistaProductos/DisipadorView.dart';
 import 'Main/AccountView.dart';
+import 'Main/CatalogoView.dart';
+import 'Main/CategoriasView.dart';
 import 'Main/ComponenteView.dart';
+import 'Main/HomeView.dart';
+import 'Main/MapaTiendasView.dart';
+import 'Main/SobreNosotrosView.dart';
+import 'Main/SubirProductosView.dart';
 import 'OnBoarding/LoginView.dart';
 import 'OnBoarding/RegisterView.dart';
 import 'Splash/SplashView.dart';
+import 'Theme/DarkMode.dart';
 import 'Theme/LightMode.dart';
+
 
 class TechShopApp extends StatelessWidget {
   const TechShopApp({super.key});
@@ -35,6 +37,7 @@ class TechShopApp extends StatelessWidget {
         // Vistas de productos
         "/cajaview": (context) => CajaView(),
         "/discoduroview": (context) => DiscoDuroView(),
+        "/disipadorview": (context) => DisipadorView(),
 
         "/homeview": (context) => HomeView(),
         "/accountview": (context) => AccountView(),

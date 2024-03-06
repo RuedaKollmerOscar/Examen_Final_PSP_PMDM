@@ -71,7 +71,6 @@ class DisipadoresListView extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -106,7 +105,6 @@ class DisipadoresListView extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
             Text(
               'Precio: $dPrecio €',
               style: TextStyle(

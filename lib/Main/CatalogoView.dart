@@ -139,7 +139,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           dPrecio: disipadorSeleccionado.dPrecio,
           sUrlImg: disipadorSeleccionado.sUrlImg,
           iPosicion: index,
-          fOnItemTap: (int indice) {},
+          fOnItemTap: _onDisipadorPressed,
         );
       case 'Fuentes de alimentación':
         FbFuente fuenteSeleccionada = _fuentes[index];
