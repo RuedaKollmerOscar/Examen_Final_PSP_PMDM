@@ -152,7 +152,7 @@ class _CatalogoViewState extends State<CatalogoView> {
           sUrlImg: fuenteSeleccionada.sUrlImg,
           dPrecio: fuenteSeleccionada.dPrecio,
           iPosicion: index,
-          fOnItemTap: (int indice) {},
+          fOnItemTap: _onFuentePressed,
         );
       case 'Placas base':
         FbPlaca placaSeleccionada = _placas[index];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techshop/Custom/Views/VistaProductos/FuenteView.dart';
 
 import 'Custom/Views/VistaProductos/CajaView.dart';
 import 'Custom/Views/VistaProductos/DiscoDuroView.dart';
@@ -38,6 +39,7 @@ class TechShopApp extends StatelessWidget {
         "/cajaview": (context) => CajaView(),
         "/discoduroview": (context) => DiscoDuroView(),
         "/disipadorview": (context) => DisipadorView(),
+        "/fuenteview": (context) => FuenteView(),
 
         "/homeview": (context) => HomeView(),
         "/accountview": (context) => AccountView(),
@@ -46,7 +48,7 @@ class TechShopApp extends StatelessWidget {
         "/sobrenosotrosview": (context) => SobreNosotrosView(),
         "/categoriasview": (context) => CategoriasView(),
         "/catalogoview": (context) => CatalogoView(),
-        "/subirproductosview": (context) => SubirProductosView()
+        "/subirproductosview": (context) => SubirProductosView(),
       },
       initialRoute: "/splashview"
     );
