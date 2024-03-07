@@ -32,14 +32,14 @@ class _CatalogoViewState extends State<CatalogoView> {
   FbCategoria categoriaSeleccionada = DataHolder().categoriaSeleccionada;
 
   // Listas para los componenetes
-  final List<FbCaja> _cajas = [];
-  final List<FbDiscoDuro> _discosDuros = [];
-  final List<FbDisipador> _disipadores = [];
-  final List<FbFuente> _fuentes = [];
-  final List<FbPlaca> _placas = [];
-  final List<FbProcesador> _procesadores = [];
-  final List<FbRAM> _rams = [];
-  final List<FbGrafica> _graficas = [];
+  final Map<String, FbCaja> _cajas = {};
+  final Map<String, FbDiscoDuro> _discosDuros = {};
+  final Map<String, FbDisipador> _disipadores = {};
+  final Map<String, FbFuente> _fuentes = {};
+  final Map<String, FbPlaca> _placas = {};
+  final Map<String, FbProcesador> _procesadores = {};
+  final Map<String, FbRAM> _rams = {};
+  final Map<String, FbGrafica> _graficas = {};
 
   @override
   void initState() {
@@ -91,71 +91,100 @@ class _CatalogoViewState extends State<CatalogoView> {
   Widget? _itemListBuilder(BuildContext context, int index) {
     switch (categoriaSeleccionada.sName) {
       case 'Cajas':
-        FbCaja cajaSeleccionada = _cajas[index];
-        return CajasListView(
-          sName: cajaSeleccionada.sNombre,
-          sColor: cajaSeleccionada.sColor,
-          dPeso: cajaSeleccionada.dPeso,
-          dPrecio: cajaSeleccionada.dPrecio,
-          sUrlImg: cajaSeleccionada.sUrlImg,
-          iPosicion: index,
-          fOnItemTap: _onCajaPressed,
-        );
+        List<FbCaja> cajasList = _cajas.values.toList();
+
+        if (index >= 0 && index < cajasList.length) {
+          FbCaja cajaSeleccionada = cajasList[index];
+
+          return CajasListView(
+            sName: cajaSeleccionada.sNombre,
+            sColor: cajaSeleccionada.sColor,
+            dPeso: cajaSeleccionada.dPeso,
+            dPrecio: cajaSeleccionada.dPrecio,
+            sUrlImg: cajaSeleccionada.sUrlImg,
+            iPosicion: index,
+            fOnItemTap: _onCajaPressed,
+          );
+        } else return Container();
       case 'Discos duros':
-        FbDiscoDuro discoDuroSeleccionado = _discosDuros[index];
-        return DiscosDurosListView(
-          sNombre: discoDuroSeleccionado.sNombre,
-          sTipo: discoDuroSeleccionado.sTipo,
-          iAlmacenamiento: discoDuroSeleccionado.iAlmacenamiento,
-          iEscritura: discoDuroSeleccionado.iEscritura,
-          iLectura: discoDuroSeleccionado.iLectura,
-          dPrecio: discoDuroSeleccionado.dPrecio,
-          sUrlImg: discoDuroSeleccionado.sUrlImg,
-          iPosicion: index,
-          fOnItemTap: _onDiscoDuroPressed,
-        );
+        List<FbDiscoDuro> discosDurosList = _discosDuros.values.toList();
+
+        if (index >= 0 && index < discosDurosList.length) {
+          FbDiscoDuro discoDuroSeleccionado = discosDurosList[index];
+
+          return DiscosDurosListView(
+            sNombre: discoDuroSeleccionado.sNombre,
+            sTipo: discoDuroSeleccionado.sTipo,
+            iAlmacenamiento: discoDuroSeleccionado.iAlmacenamiento,
+            iEscritura: discoDuroSeleccionado.iEscritura,
+            iLectura: discoDuroSeleccionado.iLectura,
+            dPrecio: discoDuroSeleccionado.dPrecio,
+            sUrlImg: discoDuroSeleccionado.sUrlImg,
+            iPosicion: index,
+            fOnItemTap: _onDiscoDuroPressed,
+          );
+        } else return Container();
       case 'Disipadores':
-        FbDisipador disipadorSeleccionado = _disipadores[index];
-        return DisipadoresListView(
-          sNombre: disipadorSeleccionado.sNombre,
-          sColor: disipadorSeleccionado.sColor,
-          sMaterial: disipadorSeleccionado.sMaterial,
-          iVelocidadRotacionMinima: disipadorSeleccionado.iVelocidadRotacionMinima,
-          iVelocidadRotacionMaxima: disipadorSeleccionado.iVelocidadRotacionMaxima,
-          dPrecio: disipadorSeleccionado.dPrecio,
-          sUrlImg: disipadorSeleccionado.sUrlImg,
-          iPosicion: index,
-          fOnItemTap: _onDisipadorPressed,
-        );
+        List<FbDisipador> disipadoresList = _disipadores.values.toList();
+
+        if (index >= 0 && index < disipadoresList.length) {
+          FbDisipador disipadorSeleccionado = disipadoresList[index];
+
+          return DisipadoresListView(
+            sNombre: disipadorSeleccionado.sNombre,
+            sColor: disipadorSeleccionado.sColor,
+            sMaterial: disipadorSeleccionado.sMaterial,
+            iVelocidadRotacionMinima: disipadorSeleccionado.iVelocidadRotacionMinima,
+            iVelocidadRotacionMaxima: disipadorSeleccionado.iVelocidadRotacionMaxima,
+            dPrecio: disipadorSeleccionado.dPrecio,
+            sUrlImg: disipadorSeleccionado.sUrlImg,
+            iPosicion: index,
+            fOnItemTap: _onDisipadorPressed,
+          );
+        } else return Container();
       case 'Fuentes de alimentación':
-        FbFuente fuenteSeleccionada = _fuentes[index];
-        return FuentesListView(
-          sNombre: fuenteSeleccionada.sNombre,
-          sTipoCableado: fuenteSeleccionada.sTipoCableado,
-          sFormato: fuenteSeleccionada.sFormato,
-          iPotencia: fuenteSeleccionada.iPotencia,
-          sCertificacion: fuenteSeleccionada.sCertificacion,
-          sUrlImg: fuenteSeleccionada.sUrlImg,
-          dPrecio: fuenteSeleccionada.dPrecio,
-          iPosicion: index,
-          fOnItemTap: _onFuentePressed,
-        );
+        List<FbFuente> fuentesList = _fuentes.values.toList();
+
+        if (index >= 0 && index < fuentesList.length) {
+          FbFuente fuenteSeleccionada = fuentesList[index];
+
+          return FuentesListView(
+            sNombre: fuenteSeleccionada.sNombre,
+            sTipoCableado: fuenteSeleccionada.sTipoCableado,
+            sFormato: fuenteSeleccionada.sFormato,
+            iPotencia: fuenteSeleccionada.iPotencia,
+            sCertificacion: fuenteSeleccionada.sCertificacion,
+            sUrlImg: fuenteSeleccionada.sUrlImg,
+            dPrecio: fuenteSeleccionada.dPrecio,
+            iPosicion: index,
+            fOnItemTap: _onFuentePressed,
+          );
+        } else return Container();
       case 'Placas base':
-        FbPlaca placaSeleccionada = _placas[index];
-        return PlacasListView(
-          sNombre: placaSeleccionada.sNombre,
-          sFactorForma: placaSeleccionada.sFactorForma,
-          sSocket: placaSeleccionada.sSocket,
-          sChipset: placaSeleccionada.sChipset,
-          bWifi: placaSeleccionada.bWifi,
-          dPrecio: placaSeleccionada.dPrecio,
-          sUrlImg: placaSeleccionada.sUrlImg,
-          iPosicion: index,
-          fOnItemTap: _onPlacaPressed,
-        );
+        List<FbPlaca> placasList = _placas.values.toList();
+
+        if (index >= 0 && index < placasList.length) {
+          FbPlaca placaSeleccionada = placasList[index];
+
+          return PlacasListView(
+            sNombre: placaSeleccionada.sNombre,
+            sFactorForma: placaSeleccionada.sFactorForma,
+            sSocket: placaSeleccionada.sSocket,
+            sChipset: placaSeleccionada.sChipset,
+            bWifi: placaSeleccionada.bWifi,
+            dPrecio: placaSeleccionada.dPrecio,
+            sUrlImg: placaSeleccionada.sUrlImg,
+            iPosicion: index,
+            fOnItemTap: _onPlacaPressed,
+          );
+        } else return Container();
       case 'Procesadores':
-        FbProcesador procesadorSeleccionado = _procesadores[index];
-        return ProcesadoresListView(
+        List<FbProcesador> procesadoresList = _procesadores.values.toList();
+
+        if (index >= 0 && index < procesadoresList.length) {
+          FbProcesador procesadorSeleccionado = procesadoresList[index];
+
+          return ProcesadoresListView(
             sNombre: procesadorSeleccionado.sNombre,
             sMarca: procesadorSeleccionado.sMarca,
             sModelo: procesadorSeleccionado.sModelo,
@@ -167,35 +196,46 @@ class _CatalogoViewState extends State<CatalogoView> {
             sUrlImg: procesadorSeleccionado.sUrlImg,
             iPosicion: index,
             fOnItemTap: _onProcesadorPressed,
-        );
+          );
+        } else return Container();
       case 'Memorias RAM':
-        FbRAM ramSeleccionada = _rams[index];
-        return RAMsListView(
-          sNombre: ramSeleccionada.sNombre,
-          iCapacidad: ramSeleccionada.iCapacidad,
-          iModulos: ramSeleccionada.iModulos,
-          iVelocidad: ramSeleccionada.iVelocidad,
-          iGeneracion: ramSeleccionada.iGeneracion,
-          bRGB: ramSeleccionada.bRGB,
-          dPrecio: ramSeleccionada.dPrecio,
-          sUrlImg: ramSeleccionada.sUrlImg,
-          iPosicion: index,
-          fOnItemTap: _onRAMPressed,
-        );
+        List<FbRAM> ramsList = _rams.values.toList();
+
+        if (index >= 0 && index < ramsList.length) {
+          FbRAM ramSeleccionada = ramsList[index];
+
+          return RAMsListView(
+            sNombre: ramSeleccionada.sNombre,
+            iCapacidad: ramSeleccionada.iCapacidad,
+            iModulos: ramSeleccionada.iModulos,
+            iVelocidad: ramSeleccionada.iVelocidad,
+            iGeneracion: ramSeleccionada.iGeneracion,
+            bRGB: ramSeleccionada.bRGB,
+            dPrecio: ramSeleccionada.dPrecio,
+            sUrlImg: ramSeleccionada.sUrlImg,
+            iPosicion: index,
+            fOnItemTap: _onRAMPressed
+          );
+        } else return Container();
       case 'Tarjetas gráficas':
-        FbGrafica tarjetaGraficaSeleccionada = _graficas[index];
-        return GraficasListView(
-          sNombre: tarjetaGraficaSeleccionada.sNombre,
-          sEnsamblador: tarjetaGraficaSeleccionada.sEnsamblador,
-          sFabricante: tarjetaGraficaSeleccionada.sFabricante,
-          sSerie: tarjetaGraficaSeleccionada.sSerie,
-          iCapacidad: tarjetaGraficaSeleccionada.iCapacidad,
-          iGeneracion: tarjetaGraficaSeleccionada.iGeneracion,
-          dPrecio: tarjetaGraficaSeleccionada.dPrecio,
-          sUrlImg: tarjetaGraficaSeleccionada.sUrlImg,
-          iPosicion: index,
-          fOnItemTap: _onGraficaPressed,
-        );
+        List<FbGrafica> graficasList = _graficas.values.toList();
+
+        if (index >= 0 && index < graficasList.length) {
+          FbGrafica tarjetaGraficaSeleccionada = graficasList[index];
+
+          return GraficasListView(
+            sNombre: tarjetaGraficaSeleccionada.sNombre,
+            sEnsamblador: tarjetaGraficaSeleccionada.sEnsamblador,
+            sFabricante: tarjetaGraficaSeleccionada.sFabricante,
+            sSerie: tarjetaGraficaSeleccionada.sSerie,
+            iCapacidad: tarjetaGraficaSeleccionada.iCapacidad,
+            iGeneracion: tarjetaGraficaSeleccionada.iGeneracion,
+            dPrecio: tarjetaGraficaSeleccionada.dPrecio,
+            sUrlImg: tarjetaGraficaSeleccionada.sUrlImg,
+            iPosicion: index,
+            fOnItemTap: _onGraficaPressed,
+          );
+        } else return Container();
       default:
         return null;
     }
@@ -222,7 +262,7 @@ class _CatalogoViewState extends State<CatalogoView> {
         DataHolder().fbadmin.descargarProcesadores(_cargarProcesadores);
         break;
       case 'Memorias RAM':
-        DataHolder().fbadmin.descargarRAM(cargarRAMs);
+        DataHolder().fbadmin.descargarRAM(_cargarRAMs);
         break;
       case 'Tarjetas gráficas':
         DataHolder().fbadmin.descargarGraficas(_cargarGraficas);
@@ -238,50 +278,103 @@ class _CatalogoViewState extends State<CatalogoView> {
 
 
   void _onCajaPressed(int index) {
-    DataHolder().cajaSeleccionada = _cajas[index];
-    Navigator.of(context).pushNamed("/cajaview");
+    List<FbCaja> cajasList = _cajas.values.toList();
+    if (index >= 0 && index < cajasList.length) {
+      DataHolder().cajaSeleccionada = cajasList[index];
+      DataHolder().idCajaSeleccionada = _cajas.keys.elementAt(index);
+      Navigator.of(context).pushNamed("/cajaview");
+    } else {
+      print("Índice fuera de rango");
+    }
   }
 
   void _onDiscoDuroPressed(int index) {
-    DataHolder().discoDuroSeleccionado = _discosDuros[index];
-    Navigator.of(context).pushNamed("/discoduroview");
+    List<FbDiscoDuro> discosDurosList = _discosDuros.values.toList();
+    if (index >= 0 && index < discosDurosList.length) {
+      DataHolder().discoDuroSeleccionado = discosDurosList[index];
+      DataHolder().idDiscoDuroSeleccionado = _discosDuros.keys.elementAt(index);
+      Navigator.of(context).pushNamed("/discoduroview");
+    } else {
+      print("Índice fuera de rango");
+    }
   }
 
+
   void _onDisipadorPressed(int index) {
-    DataHolder().disipadorSeleccionado = _disipadores[index];
-    Navigator.of(context).pushNamed("/disipadorview");
+    List<FbDisipador> disipadoresList = _disipadores.values.toList();
+    if (index >= 0 && index < disipadoresList.length) {
+      DataHolder().disipadorSeleccionado = disipadoresList[index];
+      DataHolder().idDisipadorSeleccionado = _disipadores.keys.elementAt(index);
+      Navigator.of(context).pushNamed("/disipadorview");
+    } else {
+      print("Índice fuera de rango");
+    }
   }
 
   void _onFuentePressed(int index) {
-    DataHolder().fuenteSeleccionada = _fuentes[index];
-    Navigator.of(context).pushNamed("/fuenteview");
+    List<FbFuente> fuentesList = _fuentes.values.toList();
+    if (index >= 0 && index < fuentesList.length) {
+      DataHolder().fuenteSeleccionada = fuentesList[index];
+      DataHolder().idFuenteSeleccionada = _fuentes.keys.elementAt(index);
+      Navigator.of(context).pushNamed("/fuenteview");
+    } else {
+      print("Índice fuera de rango");
+    }
   }
 
   void _onPlacaPressed(int index) {
-    DataHolder().placaSeleccionada = _placas[index];
-    Navigator.of(context).pushNamed("/placaview");
+    List<FbPlaca> placasList = _placas.values.toList();
+    if (index >= 0 && index < placasList.length) {
+      DataHolder().placaSeleccionada = placasList[index];
+      DataHolder().idPlacaSeleccionada = _placas.keys.elementAt(index);
+      Navigator.of(context).pushNamed("/placaview");
+    } else {
+      print("Índice fuera de rango");
+    }
   }
 
   void _onProcesadorPressed(int index) {
-    DataHolder().procesadorSeleccionado = _procesadores[index];
-    Navigator.of(context).pushNamed("/procesadorview");
+    List<FbProcesador> procesadoresList = _procesadores.values.toList();
+    if (index >= 0 && index < procesadoresList.length) {
+      DataHolder().procesadorSeleccionado = procesadoresList[index];
+      DataHolder().idProcesadorSeleccionado = _procesadores.keys.elementAt(index);
+      Navigator.of(context).pushNamed("/procesadorview");
+    } else {
+      print("Índice fuera de rango");
+    }
   }
 
   void _onRAMPressed(int index) {
-    DataHolder().ramSeleccionada = _rams[index];
-    Navigator.of(context).pushNamed("/ramview");
+    List<FbRAM> ramsList = _rams.values.toList();
+    if (index >= 0 && index < ramsList.length) {
+      DataHolder().ramSeleccionada = ramsList[index];
+      DataHolder().idRAMSeleccionada = _rams.keys.elementAt(index);
+      Navigator.of(context).pushNamed("/ramview");
+    } else {
+      print("Índice fuera de rango");
+    }
   }
 
   void _onGraficaPressed(int index) {
-    DataHolder().graficaSeleccionada = _graficas[index];
-    Navigator.of(context).pushNamed("/graficaview");
+    List<FbGrafica> graficasList = _graficas.values.toList();
+    if (index >= 0 && index < graficasList.length) {
+      DataHolder().graficaSeleccionada = graficasList[index];
+      DataHolder().idGraficaSeleccionada = _graficas.keys.elementAt(index);
+      Navigator.of(context).pushNamed("/graficaview");
+    } else {
+      print("Índice fuera de rango");
+    }
   }
+
+
 
   void _cargarCajas(QuerySnapshot<FbCaja> cajasDescargadas) {
     if (mounted) {
       setState(() {
         _cajas.clear();
-        _cajas.addAll(cajasDescargadas.docs.map((doc) => doc.data()));
+        _cajas.addAll(Map.fromEntries(cajasDescargadas.docs.map(
+              (doc) => MapEntry(doc.id, doc.data()),
+        )));
       });
     }
   }
@@ -290,7 +383,9 @@ class _CatalogoViewState extends State<CatalogoView> {
     if (mounted) {
       setState(() {
         _discosDuros.clear();
-        _discosDuros.addAll(discosDurosDescargados.docs.map((doc) => doc.data()));
+        _discosDuros.addAll(Map.fromEntries(discosDurosDescargados.docs.map(
+              (doc) => MapEntry(doc.id, doc.data()),
+        )));
       });
     }
   }
@@ -299,7 +394,9 @@ class _CatalogoViewState extends State<CatalogoView> {
     if (mounted) {
       setState(() {
         _disipadores.clear();
-        _disipadores.addAll(disipadoresDescargados.docs.map((doc) => doc.data()));
+        _disipadores.addAll(Map.fromEntries(disipadoresDescargados.docs.map(
+              (doc) => MapEntry(doc.id, doc.data()),
+        )));
       });
     }
   }
@@ -308,7 +405,9 @@ class _CatalogoViewState extends State<CatalogoView> {
     if (mounted) {
       setState(() {
         _fuentes.clear();
-        _fuentes.addAll(fuentesDescargadas.docs.map((doc) => doc.data()));
+        _fuentes.addAll(Map.fromEntries(fuentesDescargadas.docs.map(
+              (doc) => MapEntry(doc.id, doc.data()),
+        )));
       });
     }
   }
@@ -317,7 +416,9 @@ class _CatalogoViewState extends State<CatalogoView> {
     if (mounted) {
       setState(() {
         _placas.clear();
-        _placas.addAll(placasDescargadas.docs.map((doc) => doc.data()));
+        _placas.addAll(Map.fromEntries(placasDescargadas.docs.map(
+              (doc) => MapEntry(doc.id, doc.data()),
+        )));
       });
     }
   }
@@ -326,16 +427,20 @@ class _CatalogoViewState extends State<CatalogoView> {
     if (mounted) {
       setState(() {
         _procesadores.clear();
-        _procesadores.addAll(procesadoresDescargados.docs.map((doc) => doc.data()));
+        _procesadores.addAll(Map.fromEntries(procesadoresDescargados.docs.map(
+              (doc) => MapEntry(doc.id, doc.data()),
+        )));
       });
     }
   }
 
-  void cargarRAMs(QuerySnapshot<FbRAM> RAMsDescargadas) {
+  void _cargarRAMs(QuerySnapshot<FbRAM> RAMsDescargadas) {
     if (mounted) {
       setState(() {
         _rams.clear();
-        _rams.addAll(RAMsDescargadas.docs.map((doc) => doc.data()));
+        _rams.addAll(Map.fromEntries(RAMsDescargadas.docs.map(
+              (doc) => MapEntry(doc.id, doc.data()),
+        )));
       });
     }
   }
@@ -344,7 +449,9 @@ class _CatalogoViewState extends State<CatalogoView> {
     if (mounted) {
       setState(() {
         _graficas.clear();
-        _graficas.addAll(graficasDescargadas.docs.map((doc) => doc.data()));
+        _graficas.addAll(Map.fromEntries(graficasDescargadas.docs.map(
+              (doc) => MapEntry(doc.id, doc.data()),
+        )));
       });
     }
   }

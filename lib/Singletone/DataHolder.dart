@@ -17,6 +17,8 @@ class DataHolder {
 
   late FbComponente componenteSeleccionado;
   late FbCategoria categoriaSeleccionada;
+
+  // Componentes
   late FbCaja cajaSeleccionada;
   late FbDiscoDuro discoDuroSeleccionado;
   late FbDisipador disipadorSeleccionado;
@@ -25,6 +27,17 @@ class DataHolder {
   late FbProcesador procesadorSeleccionado;
   late FbRAM ramSeleccionada;
   late FbGrafica graficaSeleccionada;
+
+  // IDs de los componentes
+  late String idGraficaSeleccionada;
+  late String idRAMSeleccionada;
+  late String idProcesadorSeleccionado;
+  late String idPlacaSeleccionada;
+  late String idCajaSeleccionada;
+  late String idDiscoDuroSeleccionado;
+  late String idDisipadorSeleccionado;
+  late String idFuenteSeleccionada;
+
 
   FirebaseAdmin fbadmin=FirebaseAdmin();
   GeolocAdmin geolocAdmin = GeolocAdmin();

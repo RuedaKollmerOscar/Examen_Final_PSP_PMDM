@@ -4,7 +4,10 @@ import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
 
 class FuenteView extends StatelessWidget {
-  const FuenteView({super.key});
+  FuenteView({super.key});
+
+  final FbFuente fuenteSeleccionada = DataHolder().fuenteSeleccionada;
+  final String idFuenteSeleccionada = DataHolder().idFuenteSeleccionada;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,12 @@ class FuenteView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: CustomAppBar(title: fuenteSeleccionada.sNombre),
+      appBar: CustomAppBar(
+        title: idFuenteSeleccionada,
+        actions: [
+          _buildPopupMenuButton(context),
+        ],
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -70,5 +78,68 @@ class FuenteView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  PopupMenuButton<String> _buildPopupMenuButton(BuildContext context) {
+    return PopupMenuButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      icon: Icon(
+        Icons.more_vert, // Tres puntos en vertical
+        color: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      color: Theme.of(context).colorScheme.background,
+      onSelected: (caso) {
+        switch (caso) {
+          case 'editar':
+            _editar();
+            break;
+          case 'eliminar':
+            _eliminar();
+            break;
+        }
+      },
+      itemBuilder: (BuildContext context) => [
+        PopupMenuItem(
+          value: 'editar',
+          child: ListTile(
+            leading: Icon(
+              Icons.edit,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            title: Text(
+              'Editar',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            ),
+          ),
+        ),
+        PopupMenuItem(
+          value: 'eliminar',
+          child: ListTile(
+            leading: Icon(
+              Icons.delete,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            title: Text(
+              'Eliminar',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _editar() {
+    print("Editar producto con el id: $idFuenteSeleccionada");
+  }
+
+  void _eliminar() {
+    print("Eliminar producto con el id: $idFuenteSeleccionada");
   }
 }
