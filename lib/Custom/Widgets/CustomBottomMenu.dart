@@ -28,9 +28,10 @@ class CustomBottomMenu extends StatelessWidget {
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
                 label: Text(
-                  "Destacados",
+                  "Favoritos",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.inversePrimary,
+                    fontSize: 10,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -53,6 +54,7 @@ class CustomBottomMenu extends StatelessWidget {
                   "Categorías",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.inversePrimary,
+                    fontSize: 10,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -68,13 +70,14 @@ class CustomBottomMenu extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: () => fOnItemTap!(2),
                 icon: Icon(
-                  Icons.shopping_cart,
+                  Icons.add_box,
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
                 label: Text(
-                  "Mis Productos",
+                  "Sube un Producto",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.inversePrimary,
+                    fontSize: 10,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(

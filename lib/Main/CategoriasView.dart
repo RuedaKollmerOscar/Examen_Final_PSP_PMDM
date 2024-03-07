@@ -16,6 +16,7 @@ class CategoriasView extends StatefulWidget {
 }
 
 class _CategoriasViewState extends State<CategoriasView> {
+  String userEmail = DataHolder().fbadmin.getCurrentUserEmail() ?? "Invitado";
   final List<FbCategoria> _categorias = [];
   late Future<List<FbCategoria>> _futureCategorias;
 
@@ -31,7 +32,7 @@ class _CategoriasViewState extends State<CategoriasView> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const CustomAppBar(title: 'Categorias'),
       body: _listBody(),
-      drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
+      drawer: CustomDrawer(sName:userEmail.split('@')[0] , sUsername: userEmail ,fOnItemTap: _onDrawerPressed),
       bottomNavigationBar: CustomBottomMenu(fOnItemTap: _onBottomMenuPressed),
     );
   }
@@ -39,13 +40,13 @@ class _CategoriasViewState extends State<CategoriasView> {
   void _onDrawerPressed(int indice) async {
     if(indice == 0) {
       Navigator.of(context).popAndPushNamed("/homeview");
-    } else if (indice == 2) {
+    } else if (indice == 1) {
       Navigator.of(context).popAndPushNamed("/accountview");
-    } else if (indice == 3) {
+    } else if (indice == 2) {
       Navigator.of(context).popAndPushNamed("/mapatiendasview");
-    } else if (indice == 4) {
+    } else if (indice == 3) {
       Navigator.of(context).popAndPushNamed("/sobrenosotrosview");
-    } else if (indice == 5) {
+    } else if (indice == 4) {
       DataHolder().fbadmin.cerrarSesion();
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (BuildContext context) => const LoginView()),

@@ -14,6 +14,7 @@ class AccountView extends StatefulWidget {
 }
 
 class _AccountViewState extends State<AccountView> {
+  String userEmail = DataHolder().fbadmin.getCurrentUserEmail() ?? "Invitado";
   final ImagePicker _picker=ImagePicker();
   File _imagePreview = File("");
   final TextEditingController _tecEmail = TextEditingController();
@@ -74,16 +75,16 @@ class _AccountViewState extends State<AccountView> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
-                        'Nombre de Usuario',
+                      Text(
+                        userEmail.split('@')[0],
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        '@nombreusuario',
+                      Text(
+                        userEmail,
                         style: TextStyle(
                           color: Colors.grey,
                         ),

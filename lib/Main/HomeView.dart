@@ -16,8 +16,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  String userEmail = DataHolder().fbadmin.getCurrentUserEmail() ?? "Invitado";
   final List<FbComponente> _componentes = [];
-
   late Position position;
   late Future<List<FbComponente>> _futureComponentes;
 
@@ -38,7 +38,7 @@ class _HomeViewState extends State<HomeView> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const CustomAppBar(title: 'Productos destacados'),
       body: _listBody(),
-      drawer: CustomDrawer(fOnItemTap: _onDrawerPressed),
+      drawer: CustomDrawer(sName:userEmail.split('@')[0] , sUsername: userEmail ,fOnItemTap: _onDrawerPressed),
       bottomNavigationBar: CustomBottomMenu(fOnItemTap: _onBottomMenuPressed),
     );
   }
@@ -46,13 +46,13 @@ class _HomeViewState extends State<HomeView> {
   void _onDrawerPressed(int indice) async {
     if(indice == 0) {
       Navigator.of(context).popAndPushNamed("/homeview");
-    } else if (indice == 2) {
+    } else if (indice == 1) {
       Navigator.of(context).popAndPushNamed("/accountview");
-    } else if (indice == 3) {
+    } else if (indice == 2) {
       Navigator.of(context).popAndPushNamed("/mapatiendasview");
-    } else if (indice == 4) {
+    } else if (indice == 3) {
       Navigator.of(context).popAndPushNamed("/sobrenosotrosview");
-    } else if (indice == 5) {
+    } else if (indice == 4) {
       DataHolder().fbadmin.cerrarSesion();
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (BuildContext context) => const LoginView()),

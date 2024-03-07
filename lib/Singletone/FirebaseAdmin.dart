@@ -398,7 +398,7 @@ class FirebaseAdmin {
   Future<String> eliminarComponente(String categoria, String idComponente) async {
     try {
       await db.collection("Categorias/$categoria/catalogo").doc(idComponente).delete();
-      return "Componente eliminado con exito";
+      return "Componente eliminado correctamente";
     } catch (e) {
       return "Error al eliminar el componente: $e";
     }

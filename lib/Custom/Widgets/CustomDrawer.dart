@@ -33,7 +33,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
               accountEmail: Text(
-                '@$sUsername',
+                sUsername,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
@@ -47,8 +47,7 @@ class CustomDrawer extends StatelessWidget {
                     if (snapshot.connectionState == ConnectionState.done) {
                       return snapshot.data ?? const Icon(Icons.person, size: 50);
                     } else {
-                      // Mientras se carga, puedes mostrar un indicador de carga o simplemente devolver un widget vacío.
-                      return SizedBox.shrink();
+                      return const SizedBox.shrink();
                     }
                   },
                 ),
@@ -86,23 +85,6 @@ class CustomDrawer extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20.0),
               child: ListTile(
                 leading: Icon(
-                  Icons.search_outlined,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                title: Text(
-                  'Buscar un producto',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                  ),
-                ),
-                onTap: () => fOnItemTap!(1),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: ListTile(
-                leading: Icon(
                   Icons.account_circle_outlined,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
@@ -112,7 +94,7 @@ class CustomDrawer extends StatelessWidget {
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                 ),
-                onTap: () => fOnItemTap!(2),
+                onTap: () => fOnItemTap!(1),
               ),
             ),
 
@@ -129,7 +111,7 @@ class CustomDrawer extends StatelessWidget {
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                 ),
-                onTap: () => fOnItemTap!(3),
+                onTap: () => fOnItemTap!(2),
               ),
             ),
 
@@ -146,7 +128,7 @@ class CustomDrawer extends StatelessWidget {
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                 ),
-                onTap: () => fOnItemTap!(4),
+                onTap: () => fOnItemTap!(3),
               ),
             ),
 
@@ -163,7 +145,7 @@ class CustomDrawer extends StatelessWidget {
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                 ),
-                onTap: () => fOnItemTap!(5),
+                onTap: () => fOnItemTap!(4),
               ),
             ),
           ],
