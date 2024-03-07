@@ -122,7 +122,7 @@ class _FormularioProcesadorState extends State<FormularioProcesador> {
                     child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
-                    onPressed: _cancelar,
+                    onPressed: _limpiarFormulario,
                     child: const Text('Cancelar'),
                   ),
                 ],
@@ -223,7 +223,7 @@ class _FormularioProcesadorState extends State<FormularioProcesador> {
     }
   }
 
-  void _cancelar() {
+  void _limpiarFormulario() {
     _eliminarFoto();
     _tecNombre.clear();
     _tecMarca.clear();
@@ -251,7 +251,11 @@ class _FormularioProcesadorState extends State<FormularioProcesador> {
         dPrecio: double.parse(_tecPrecio.text.trim()),
         sUrlImg: await DataHolder().fbadmin.subirFotoProcesador(_imagePreview, nombreNube),
       );
-      DataHolder().fbadmin.subirProcesador(procesadorNuevo);
+      errorMessage = await DataHolder().fbadmin.subirProcesador(procesadorNuevo);
+      if (errorMessage == null) {
+        CustomSnackbar(sMensaje: 'Se ha subido tu producto').show(context);
+        _limpiarFormulario();
+      } else CustomSnackbar(sMensaje: 'Se ha producido un error $errorMessage').show(context);
     }
   }
 

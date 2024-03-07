@@ -100,7 +100,7 @@ class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
                     child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
-                    onPressed: _cancelar,
+                    onPressed: _limpiarFormulario,
                     child: const Text('Cancelar'),
                   ),
                 ],
@@ -201,7 +201,7 @@ class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
     }
   }
 
-  void _cancelar() {
+  void _limpiarFormulario() {
     _eliminarFoto();
     _tecNombre.clear();
     _tecTipo.clear();
@@ -225,7 +225,11 @@ class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
           dPrecio: double.parse(_tecPrecio.text.trim()),
           sUrlImg: await DataHolder().fbadmin.subirFotoDiscoDuro(_imagePreview, nombreNube)
     );
-      DataHolder().fbadmin.subirDiscoDuro(discoDuroNuevo);
+      errorMessage = await DataHolder().fbadmin.subirDiscoDuro(discoDuroNuevo);
+      if (errorMessage == null) {
+        CustomSnackbar(sMensaje: 'Se ha subido tu producto').show(context);
+        _limpiarFormulario();
+      } else CustomSnackbar(sMensaje: 'Se ha producido un error $errorMessage').show(context);
     }
   }
 

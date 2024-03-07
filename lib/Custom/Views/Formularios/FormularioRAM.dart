@@ -116,7 +116,7 @@ class _FormularioRAMState extends State<FormularioRAM> {
                     child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
-                    onPressed: _cancelar,
+                    onPressed: _limpiarFormulario,
                     child: const Text('Cancelar'),
                   ),
                 ],
@@ -217,7 +217,7 @@ class _FormularioRAMState extends State<FormularioRAM> {
     }
   }
 
-  void _cancelar() {
+  void _limpiarFormulario() {
     _eliminarFoto();
     _tecNombre.clear();
     _tecCapacidadGB.clear();
@@ -243,8 +243,11 @@ class _FormularioRAMState extends State<FormularioRAM> {
         dPrecio: double.parse(_tecPrecio.text.trim()),
         sUrlImg: await DataHolder().fbadmin.subirFotoRAM(_imagePreview, nombreNube),
       );
-      DataHolder().fbadmin.subirRAM(ramNueva);
-    }
+      errorMessage = await DataHolder().fbadmin.subirRAM(ramNueva);
+      if (errorMessage == null) {
+        CustomSnackbar(sMensaje: 'Se ha subido tu producto').show(context);
+        _limpiarFormulario();
+      } else CustomSnackbar(sMensaje: 'Se ha producido un error $errorMessage').show(context);    }
   }
 
   String _checkFields() {

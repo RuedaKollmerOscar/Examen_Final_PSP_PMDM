@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techshop/Custom/Views/VistaProductos/FuenteView.dart';
 import 'package:techshop/Custom/Views/VistaProductos/PlacaView.dart';
+import 'package:techshop/Custom/Views/VistaProductos/RAMview.dart';
 
 import 'Custom/Views/VistaProductos/CajaView.dart';
 import 'Custom/Views/VistaProductos/DiscoDuroView.dart';
@@ -44,6 +45,7 @@ class TechShopApp extends StatelessWidget {
         "/fuenteview": (context) => FuenteView(),
         "/placaview": (context) => PlacaView(),
         "/procesadorview": (context) => ProcesadorView(),
+        "/ramview": (context) => RAMView(),
         "/graficaview": (context) => GraficaView(),
 
         "/homeview": (context) => HomeView(),

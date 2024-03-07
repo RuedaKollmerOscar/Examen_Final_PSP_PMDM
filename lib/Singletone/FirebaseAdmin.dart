@@ -97,7 +97,7 @@ class FirebaseAdmin {
   Future<String?> registrarUsuario(String email, String password) async {
     String? errorMessage;
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await dbAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -124,121 +124,9 @@ class FirebaseAdmin {
     await ref.putFile(fotoPerfil);
   }
 
+
+
   // Metodos para subir componentes
-
-
-  // Tarjetas graficas
-  Future<String> subirFotoGrafica(File fotoGrafica, String nombreNube) async {
-    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Tarjetas_graficas/$nombreNube");
-    await ref.putFile(fotoGrafica, SettableMetadata(contentType: "image/jpeg"));
-    return await ref.getDownloadURL();
-  }
-
-  Future<void> subirGrafica(FbGrafica graficaNueva) async {
-    CollectionReference<FbGrafica> ref = db.collection("Categorias/tarjetasgraficas/catalogo").withConverter(
-      fromFirestore: FbGrafica.fromFirestore,
-      toFirestore: (FbGrafica grafica, _) => grafica.toFirestore(),
-    );
-    await ref.add(graficaNueva);
-  }
-
-
-  // Memorias RAM
-  Future<String> subirFotoRAM(File fotoRAM, String nombreNube) async {
-    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/RAMs/$nombreNube");
-    await ref.putFile(fotoRAM, SettableMetadata(contentType: "image/jpeg"));
-    return await ref.getDownloadURL();
-  }
-
-  Future<void> subirRAM(FbRAM ramNueva) async {
-    CollectionReference<FbRAM> ref = db.collection("Categorias/rams/catalogo").withConverter(
-      fromFirestore: FbRAM.fromFirestore,
-      toFirestore: (FbRAM ram, _) => ram.toFirestore(),
-    );
-    await ref.add(ramNueva);
-  }
-
-
-  // Procesadores
-  Future<String> subirFotoProcesador(File fotoProcesador, String nombreNube) async {
-    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Procesadores/$nombreNube");
-    await ref.putFile(fotoProcesador, SettableMetadata(contentType: "image/jpeg"));
-    return await ref.getDownloadURL();
-  }
-
-  Future<void> subirProcesador(FbProcesador procesadorNuevo) async {
-    CollectionReference<FbProcesador> ref = db.collection("Categorias/procesadores/catalogo").withConverter(
-        fromFirestore: FbProcesador.fromFirestore,
-        toFirestore: (FbProcesador procesador, _) => procesador.toFirestore(),
-    );
-    await ref.add(procesadorNuevo);
-  }
-
-
-  // Placas base
-  Future<String> subirFotoPlaca(File fotoPlaca, String nombreNube) async {
-    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Placas_Base/$nombreNube");
-    await ref.putFile(fotoPlaca, SettableMetadata(contentType: "image/jpeg"));
-    return await ref.getDownloadURL();
-  }
-
-
-  Future<void> subirPlaca(FbPlaca placaBaseNueva) async {
-    CollectionReference<FbPlaca> ref = db.collection("Categorias/placasbase/catalogo").withConverter(
-      fromFirestore: FbPlaca.fromFirestore,
-      toFirestore: (FbPlaca placa, _) => placa.toFirestore(),
-    );
-    await ref.add(placaBaseNueva);
-  }
-
-
-  // Fuentes de alimentacion
-  Future<String> subirFotoFuente(File fotoFuente, String nombreNube) async {
-    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Fuentes_Alimentacion/$nombreNube");
-    await ref.putFile(fotoFuente, SettableMetadata(contentType: "image/jpeg"));
-    return await ref.getDownloadURL();
-  }
-
-  Future<void> subirFuente(FbFuente fuenteNueva) async {
-    CollectionReference<FbFuente> ref = db.collection("Categorias/fuentesalimentacion/catalogo").withConverter(
-      fromFirestore: FbFuente.fromFirestore,
-      toFirestore: (FbFuente fuente, _) => fuente.toFirestore(),
-    );
-    await ref.add(fuenteNueva);
-  }
-
-
-  // Disipadores
-  Future<String> subirFotoDisipador(File fotoDisipador, String nombreNube) async {
-    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Disipadores/$nombreNube");
-    await ref.putFile(fotoDisipador, SettableMetadata(contentType: "image/jpeg"));
-    return await ref.getDownloadURL();
-  }
-
-  Future<void> subirDisipador(FbDisipador disipadorNuevo) async {
-    CollectionReference<FbDisipador> ref = db.collection("Categorias/disipadores/catalogo").withConverter(
-      fromFirestore: FbDisipador.fromFirestore,
-      toFirestore: (FbDisipador disipador, _) => disipador.toFirestore(),
-    );
-    await ref.add(disipadorNuevo);
-  }
-
-
-  // Discos duros
-  Future<String> subirFotoDiscoDuro(File fotoDiscoDuro, String nombreNube) async {
-    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/DiscosDuros/$nombreNube");
-    await ref.putFile(fotoDiscoDuro, SettableMetadata(contentType: "image/jpeg"));
-    return await ref.getDownloadURL();
-  }
-
-  Future<void> subirDiscoDuro(FbDiscoDuro discoDuroNuevo) async {
-    CollectionReference<FbDiscoDuro> ref = db.collection("Categorias/discosduros/catalogo").withConverter(
-      fromFirestore: FbDiscoDuro.fromFirestore,
-      toFirestore: (FbDiscoDuro discoDuro, _) => discoDuro.toFirestore(),
-    );
-    await ref.add(discoDuroNuevo);
-  }
-
 
   // Cajas
   Future<String> subirFotoCaja(File fotoCaja, String nombreNube) async {
@@ -247,13 +135,167 @@ class FirebaseAdmin {
     return await ref.getDownloadURL();
   }
 
-  Future<void> subirCaja(FbCaja cajaNueva) async {
-    CollectionReference<FbCaja> ref = db.collection("Categorias/cajas/catalogo").withConverter(
-      fromFirestore: FbCaja.fromFirestore,
-      toFirestore: (FbCaja caja, _) => caja.toFirestore(),
-    );
-    await ref.add(cajaNueva);
+  Future<String?> subirCaja(FbCaja cajaNueva) async {
+    try {
+      CollectionReference<FbCaja> ref = db.collection("Categorias/cajas/catalogo").withConverter(
+        fromFirestore: FbCaja.fromFirestore,
+        toFirestore: (FbCaja caja, _) => caja.toFirestore(),
+      );
+      await ref.add(cajaNueva);
+      return null;
+    } catch (error) {
+      print("Error al subir la caja: $error");
+      return "Error al subir la caja: $error";
+    }
   }
+
+  // Discos duros
+  Future<String> subirFotoDiscoDuro(File fotoDiscoDuro, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/DiscosDuros/$nombreNube");
+    await ref.putFile(fotoDiscoDuro, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<String?> subirDiscoDuro(FbDiscoDuro discoDuroNuevo) async {
+    try {
+      CollectionReference<FbDiscoDuro> ref = db.collection("Categorias/discosduros/catalogo").withConverter(
+        fromFirestore: FbDiscoDuro.fromFirestore,
+        toFirestore: (FbDiscoDuro discoDuro, _) => discoDuro.toFirestore(),
+      );
+      await ref.add(discoDuroNuevo);
+      return null;
+    } catch (error) {
+      print("Error al subir el disco duro: $error");
+      return "Error al subir el disco duro: $error";
+    }
+  }
+
+  // Disipadores
+  Future<String> subirFotoDisipador(File fotoDisipador, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Disipadores/$nombreNube");
+    await ref.putFile(fotoDisipador, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<String?> subirDisipador(FbDisipador disipadorNuevo) async {
+    try {
+      CollectionReference<FbDisipador> ref = db.collection("Categorias/disipadores/catalogo").withConverter(
+        fromFirestore: FbDisipador.fromFirestore,
+        toFirestore: (FbDisipador disipador, _) => disipador.toFirestore(),
+      );
+      await ref.add(disipadorNuevo);
+      return null;
+    } catch (error) {
+      print("Error al subir el disipador: $error");
+      return "Error al subir el disipador: $error";
+    }
+  }
+
+  // Fuentes de alimentacion
+  Future<String> subirFotoFuente(File fotoFuente, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Fuentes_Alimentacion/$nombreNube");
+    await ref.putFile(fotoFuente, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<String?> subirFuente(FbFuente fuenteNueva) async {
+    try {
+      CollectionReference<FbFuente> ref = db.collection("Categorias/fuentesalimentacion/catalogo").withConverter(
+        fromFirestore: FbFuente.fromFirestore,
+        toFirestore: (FbFuente fuente, _) => fuente.toFirestore(),
+      );
+      await ref.add(fuenteNueva);
+      return null;
+    } catch (error) {
+      print("Error al subir la fuente: $error");
+      return "Error al subir la fuente: $error";
+    }
+  }
+
+  // Placas base
+  Future<String> subirFotoPlaca(File fotoPlaca, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Placas_Base/$nombreNube");
+    await ref.putFile(fotoPlaca, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<String?> subirPlaca(FbPlaca placaBaseNueva) async {
+    try {
+      CollectionReference<FbPlaca> ref = db.collection("Categorias/placasbase/catalogo").withConverter(
+        fromFirestore: FbPlaca.fromFirestore,
+        toFirestore: (FbPlaca placa, _) => placa.toFirestore(),
+      );
+      await ref.add(placaBaseNueva);
+      return null;
+    } catch (error) {
+      print("Error al subir la placa base: $error");
+      return "Error al subir la placa base: $error";
+    }
+  }
+
+  // Procesadores
+  Future<String> subirFotoProcesador(File fotoProcesador, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Procesadores/$nombreNube");
+    await ref.putFile(fotoProcesador, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<String?> subirProcesador(FbProcesador procesadorNuevo) async {
+    try {
+      CollectionReference<FbProcesador> ref = db.collection("Categorias/procesadores/catalogo").withConverter(
+        fromFirestore: FbProcesador.fromFirestore,
+        toFirestore: (FbProcesador procesador, _) => procesador.toFirestore(),
+      );
+      await ref.add(procesadorNuevo);
+      return null;
+    } catch (error) {
+      print("Error al subir el procesador: $error");
+      return "Error al subir el procesador: $error";
+    }
+  }
+
+  // Memorias RAM
+  Future<String> subirFotoRAM(File fotoRAM, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/RAMs/$nombreNube");
+    await ref.putFile(fotoRAM, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<String?> subirRAM(FbRAM ramNueva) async {
+    try {
+      CollectionReference<FbRAM> ref = db.collection("Categorias/rams/catalogo").withConverter(
+        fromFirestore: FbRAM.fromFirestore,
+        toFirestore: (FbRAM ram, _) => ram.toFirestore(),
+      );
+      await ref.add(ramNueva);
+      return null;
+    } catch (error) {
+      print("Error al subir la memoria RAM: $error");
+      return "Error al subir la memoria RAM: $error";
+    }
+  }
+
+  // Tarjetas graficas
+  Future<String> subirFotoGrafica(File fotoGrafica, String nombreNube) async {
+    final ref = FirebaseStorage.instance.ref().child("FotosComponentes/Tarjetas_graficas/$nombreNube");
+    await ref.putFile(fotoGrafica, SettableMetadata(contentType: "image/jpeg"));
+    return await ref.getDownloadURL();
+  }
+
+  Future<String?> subirGrafica(FbGrafica graficaNueva) async {
+    try {
+      CollectionReference<FbGrafica> ref = db.collection("Categorias/tarjetasgraficas/catalogo").withConverter(
+        fromFirestore: FbGrafica.fromFirestore,
+        toFirestore: (FbGrafica grafica, _) => grafica.toFirestore(),
+      );
+      await ref.add(graficaNueva);
+      return null;
+    } catch (error) {
+      print("Error al subir la tarjeta gráfica: $error");
+      return "Error al subir la tarjeta gráfica: $error";
+    }
+  }
+
 
 
   // Metodos para descargar colecciones

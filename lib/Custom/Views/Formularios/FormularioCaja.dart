@@ -89,7 +89,7 @@ class _FormularioCajaState extends State<FormularioCaja> {
                     child: const Text('Subir producto'),
                   ),
                   ElevatedButton(
-                    onPressed: _cancelar,
+                    onPressed: _limpiarFormulario,
                     child: const Text('Cancelar'),
                   ),
                 ],
@@ -190,7 +190,7 @@ class _FormularioCajaState extends State<FormularioCaja> {
     }
   }
 
-  void _cancelar() {
+  void _limpiarFormulario() {
     _eliminarFoto();
     _tecNombre.clear();
     _tecColor.clear();
@@ -211,7 +211,11 @@ class _FormularioCajaState extends State<FormularioCaja> {
           dPrecio: double.parse(_tecPrecio.text.trim()),
           sUrlImg: await DataHolder().fbadmin.subirFotoCaja(_imagePreview, nombreNube)
       );
-      DataHolder().fbadmin.subirCaja(cajaNueva);
+      errorMessage = await DataHolder().fbadmin.subirCaja(cajaNueva);
+      if (errorMessage == null) {
+        CustomSnackbar(sMensaje: 'Se ha subido tu producto').show(context);
+        _limpiarFormulario();
+      } else CustomSnackbar(sMensaje: 'Se ha producido un error $errorMessage').show(context);
     }
   }
 

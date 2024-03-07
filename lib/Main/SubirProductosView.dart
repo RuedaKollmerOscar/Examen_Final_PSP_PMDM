@@ -62,16 +62,16 @@ class _SubirProductosViewState extends State<SubirProductosView> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Center(child: _buildCategoryDropdown()),
+                Center(child: _buildComboBoxCategorias()),
                 const SizedBox(height: 20),
-                Center(child: _buildCategorySpecificContent()),
+                Center(child: _buildFormulario()),
               ],
             ),
           ),
     );
   }
 
-  Widget _buildCategoryDropdown() {
+  Widget _buildComboBoxCategorias() {
     return DropdownButton<FbCategoria>(
       value: _categorias.firstWhere((cat) => cat.sName == selectedCategory,
           orElse: () => _categorias.first),
@@ -103,7 +103,6 @@ class _SubirProductosViewState extends State<SubirProductosView> {
                 Text(
                   categoria.sName,
                   style: const TextStyle(
-                    color: Colors.white, // Cambia el color del texto del elemento de la lista
                   ),
                 ),
               ],
@@ -113,7 +112,7 @@ class _SubirProductosViewState extends State<SubirProductosView> {
     );
   }
 
-  Widget _buildCategorySpecificContent() {
+  Widget _buildFormulario() {
     switch (selectedCategory) {
       case 'Cajas':
         return const FormularioCaja();
