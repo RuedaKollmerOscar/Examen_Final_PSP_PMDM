@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:techshop/FirestoreObjects/FbFuente.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
+import '../../Widgets/CustomSnackbar.dart';
 
 class FuenteView extends StatelessWidget {
   FuenteView({super.key});
 
-  final FbFuente fuenteSeleccionada = DataHolder().fuenteSeleccionada;
-  final String idFuenteSeleccionada = DataHolder().idFuenteSeleccionada;
+  final FbFuente fuente = DataHolder().fuenteSeleccionada;
+  final String idFuente = DataHolder().idFuenteSeleccionada;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    FbFuente fuenteSeleccionada = DataHolder().fuenteSeleccionada;
-
+  _context = context;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-        title: idFuenteSeleccionada,
+        title: fuente.sNombre,
         actions: [
           _buildPopupMenuButton(context),
         ],
@@ -28,7 +29,7 @@ class FuenteView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nombre: ${fuenteSeleccionada.sNombre}',
+                'Nombre: ${fuente.sNombre}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -36,38 +37,38 @@ class FuenteView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'Tipo de Cableado: ${fuenteSeleccionada.sTipoCableado}',
+                'Tipo de Cableado: ${fuente.sTipoCableado}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Formato: ${fuenteSeleccionada.sFormato}',
+                'Formato: ${fuente.sFormato}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Potencia: ${fuenteSeleccionada.iPotencia} W',
+                'Potencia: ${fuente.iPotencia} W',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Certificación: ${fuenteSeleccionada.sCertificacion}',
+                'Certificación: ${fuente.sCertificacion}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Precio: ${fuenteSeleccionada.dPrecio} €',
+                'Precio: ${fuente.dPrecio} €',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
-              if (fuenteSeleccionada.sUrlImg.isNotEmpty)
+              if (fuente.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    fuenteSeleccionada.sUrlImg,
+                    fuente.sUrlImg,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
@@ -136,10 +137,11 @@ class FuenteView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idFuenteSeleccionada");
+    print("Editar producto con el id: $idFuente");
   }
 
-  void _eliminar() {
-    print("Eliminar producto con el id: $idFuenteSeleccionada");
+  Future<void> _eliminar() async {
+    String mensaje = await DataHolder().fbadmin.eliminarComponente("fuentesalimentacion", idFuente);
+    CustomSnackbar(sMensaje: mensaje).show(_context);
   }
 }

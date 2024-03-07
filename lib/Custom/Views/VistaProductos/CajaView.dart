@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import '../../../FirestoreObjects/FbCaja.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
+import '../../Widgets/CustomSnackbar.dart';
 
 class CajaView extends StatelessWidget {
   CajaView({super.key});
 
-  final FbCaja cajaSeleccionada = DataHolder().cajaSeleccionada;
-  final String idCajaSeleccionada = DataHolder().idCajaSeleccionada;
+  final FbCaja caja = DataHolder().cajaSeleccionada;
+  final String idCaja = DataHolder().idCajaSeleccionada;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    FbCaja cajaSeleccionada = DataHolder().cajaSeleccionada;
-
+    _context = context;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-          title: idCajaSeleccionada,
+          title: caja.sNombre,
           actions: [
             _buildPopupMenuButton(context),
           ],
@@ -28,7 +29,7 @@ class CajaView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nombre: ${cajaSeleccionada.sNombre}',
+                'Nombre: ${caja.sNombre}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24, // Ajusta el tamaño del texto
@@ -36,28 +37,28 @@ class CajaView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'Color: ${cajaSeleccionada.sColor}',
+                'Color: ${caja.sColor}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Peso: ${cajaSeleccionada.dPeso} kg',
+                'Peso: ${caja.dPeso} kg',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Precio: ${cajaSeleccionada.dPrecio} €',
+                'Precio: ${caja.dPrecio} €',
                 style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold
                 ),
               ),
               const SizedBox(height: 20),
-              if (cajaSeleccionada.sUrlImg.isNotEmpty)
+              if (caja.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    cajaSeleccionada.sUrlImg,
+                    caja.sUrlImg,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
@@ -126,10 +127,11 @@ class CajaView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idCajaSeleccionada");
+    print("Editar producto con el id: $idCaja");
   }
 
-  void _eliminar() {
-    print("Eliminar producto con el id: $idCajaSeleccionada");
+  Future<void> _eliminar() async {
+    String mensaje = await DataHolder().fbadmin.eliminarComponente("cajas", idCaja);
+    CustomSnackbar(sMensaje: mensaje).show(_context);
   }
 }

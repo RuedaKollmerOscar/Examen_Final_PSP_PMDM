@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import '../../../FirestoreObjects/FbDiscoDuro.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
+import '../../Widgets/CustomSnackbar.dart';
 
 class DiscoDuroView extends StatelessWidget {
   DiscoDuroView({super.key});
 
-  final FbDiscoDuro discoDuroSeleccionado = DataHolder().discoDuroSeleccionado;
-  final String idDiscoDuroSeleccionado = DataHolder().idDiscoDuroSeleccionado;
+  final FbDiscoDuro discoDuro = DataHolder().discoDuroSeleccionado;
+  final String idDiscoDuro = DataHolder().idDiscoDuroSeleccionado;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    FbDiscoDuro discoDuroSeleccionado = DataHolder().discoDuroSeleccionado;
-
+    _context = context;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-        title: idDiscoDuroSeleccionado,
+        title: discoDuro.sNombre,
         actions: [
           _buildPopupMenuButton(context),
         ],
@@ -28,7 +29,7 @@ class DiscoDuroView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nombre: ${discoDuroSeleccionado.sNombre}',
+                'Nombre: ${discoDuro.sNombre}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -36,38 +37,38 @@ class DiscoDuroView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'Tipo: ${discoDuroSeleccionado.sTipo}',
+                'Tipo: ${discoDuro.sTipo}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Velocidad de Escritura: ${discoDuroSeleccionado.iEscritura} MB/s',
+                'Velocidad de Escritura: ${discoDuro.iEscritura} MB/s',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Velocidad de Lectura: ${discoDuroSeleccionado.iLectura} MB/s',
+                'Velocidad de Lectura: ${discoDuro.iLectura} MB/s',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Almacenamiento: ${discoDuroSeleccionado.iAlmacenamiento}',
+                'Almacenamiento: ${discoDuro.iAlmacenamiento}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Precio: ${discoDuroSeleccionado.dPrecio} €',
+                'Precio: ${discoDuro.dPrecio} €',
                 style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold
                 ),
               ),
               const SizedBox(height: 20),
-              if (discoDuroSeleccionado.sUrlImg.isNotEmpty)
+              if (discoDuro.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    discoDuroSeleccionado.sUrlImg,
+                    discoDuro.sUrlImg,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
@@ -136,10 +137,11 @@ class DiscoDuroView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idDiscoDuroSeleccionado");
+    print("Editar producto con el id: $idDiscoDuro");
   }
 
-  void _eliminar() {
-    print("Eliminar producto con el id: $idDiscoDuroSeleccionado");
+  Future<void> _eliminar() async {
+    String mensaje = await DataHolder().fbadmin.eliminarComponente("discosduros", idDiscoDuro);
+    CustomSnackbar(sMensaje: mensaje).show(_context);
   }
 }

@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import '../../../FirestoreObjects/FbProcesador.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
+import '../../Widgets/CustomSnackbar.dart';
 
 class ProcesadorView extends StatelessWidget {
   ProcesadorView({super.key});
 
-  final FbProcesador procesadorSeleccionado = DataHolder().procesadorSeleccionado;
-  final String idProcesadorSeleccionado = DataHolder().idProcesadorSeleccionado;
+  final FbProcesador procesador = DataHolder().procesadorSeleccionado;
+  final String idProcesador = DataHolder().idProcesadorSeleccionado;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    FbProcesador procesadorSeleccionado = DataHolder().procesadorSeleccionado;
-
+    _context = context;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-        title: idProcesadorSeleccionado,
+        title: procesador.sNombre,
         actions: [
           _buildPopupMenuButton(context),
         ],
@@ -28,7 +29,7 @@ class ProcesadorView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nombre: ${procesadorSeleccionado.sNombre}',
+                'Nombre: ${procesador.sNombre}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -36,48 +37,48 @@ class ProcesadorView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'Marca: ${procesadorSeleccionado.sMarca}',
+                'Marca: ${procesador.sMarca}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Modelo: ${procesadorSeleccionado.sModelo}',
+                'Modelo: ${procesador.sModelo}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Núcleos: ${procesadorSeleccionado.iNucleos}',
+                'Núcleos: ${procesador.iNucleos}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Hilos: ${procesadorSeleccionado.iHilos}',
+                'Hilos: ${procesador.iHilos}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Velocidad Base: ${procesadorSeleccionado.dVelocidadBase} GHz',
+                'Velocidad Base: ${procesador.dVelocidadBase} GHz',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Overclock: ${procesadorSeleccionado.bOverclock ? 'Sí' : 'No'}',
+                'Overclock: ${procesador.bOverclock ? 'Sí' : 'No'}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Precio: ${procesadorSeleccionado.dPrecio} €',
+                'Precio: ${procesador.dPrecio} €',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
-              if (procesadorSeleccionado.sUrlImg.isNotEmpty)
+              if (procesador.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    procesadorSeleccionado.sUrlImg,
+                    procesador.sUrlImg,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
@@ -145,10 +146,11 @@ class ProcesadorView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idProcesadorSeleccionado");
+    print("Editar producto con el id: $idProcesador");
   }
 
-  void _eliminar() {
-    print("Eliminar producto con el id: $idProcesadorSeleccionado");
+  Future<void> _eliminar() async {
+    String mensaje = await DataHolder().fbadmin.eliminarComponente("procesadores", idProcesador);
+    CustomSnackbar(sMensaje: mensaje).show(_context);
   }
 }

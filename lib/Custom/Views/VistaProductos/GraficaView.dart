@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import '../../../FirestoreObjects/FbGrafica.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
+import '../../Widgets/CustomSnackbar.dart';
 
 class GraficaView extends StatelessWidget {
 
   GraficaView({Key? key}) : super(key: key);
 
-  final FbGrafica graficaSeleccionada = DataHolder().graficaSeleccionada;
-  final String idGraficaSeleccionada = DataHolder().idGraficaSeleccionada;
+  final FbGrafica grafica = DataHolder().graficaSeleccionada;
+  final String idGrafica = DataHolder().idGraficaSeleccionada;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-        title: idGraficaSeleccionada,
+        title: grafica.sNombre,
         actions: [
           _buildPopupMenuButton(context),
         ],
@@ -27,7 +30,7 @@ class GraficaView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nombre: ${graficaSeleccionada.sNombre}',
+                'Nombre: ${grafica.sNombre}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -35,43 +38,43 @@ class GraficaView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'Ensamblador: ${graficaSeleccionada.sEnsamblador}',
+                'Ensamblador: ${grafica.sEnsamblador}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Fabricante: ${graficaSeleccionada.sFabricante}',
+                'Fabricante: ${grafica.sFabricante}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Serie: ${graficaSeleccionada.sSerie}',
+                'Serie: ${grafica.sSerie}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Capacidad: ${graficaSeleccionada.iCapacidad} GB',
+                'Capacidad: ${grafica.iCapacidad} GB',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Generación: ${graficaSeleccionada.iGeneracion}',
+                'Generación: ${grafica.iGeneracion}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Precio: ${graficaSeleccionada.dPrecio} €',
+                'Precio: ${grafica.dPrecio} €',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
-              if (graficaSeleccionada.sUrlImg.isNotEmpty)
+              if (grafica.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    graficaSeleccionada.sUrlImg,
+                    grafica.sUrlImg,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
@@ -140,10 +143,11 @@ class GraficaView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idGraficaSeleccionada");
+    print("Editar producto con el id: $idGrafica");
   }
 
-  void _eliminar() {
-    print("Eliminar producto con el id: $idGraficaSeleccionada");
+  Future<void> _eliminar() async {
+    String mensaje = await DataHolder().fbadmin.eliminarComponente("tarjetasgraficas", idGrafica);
+    CustomSnackbar(sMensaje: mensaje).show(_context);
   }
 }

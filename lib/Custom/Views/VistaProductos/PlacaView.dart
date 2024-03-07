@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import '../../../FirestoreObjects/FbPlaca.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
+import '../../Widgets/CustomSnackbar.dart';
 
 class PlacaView extends StatelessWidget {
   PlacaView({super.key});
 
-  final FbPlaca placaSeleccionada = DataHolder().placaSeleccionada;
-  final String idPlacaSeleccionada = DataHolder().idPlacaSeleccionada;
+  final FbPlaca placa = DataHolder().placaSeleccionada;
+  final String idPlaca = DataHolder().idPlacaSeleccionada;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    FbPlaca placaSeleccionada = DataHolder().placaSeleccionada;
-
+    _context = context;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-        title: idPlacaSeleccionada,
+        title: placa.sNombre,
         actions: [
           _buildPopupMenuButton(context),
         ],
@@ -28,7 +29,7 @@ class PlacaView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nombre: ${placaSeleccionada.sNombre}',
+                'Nombre: ${placa.sNombre}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -36,38 +37,38 @@ class PlacaView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'Factor de Forma: ${placaSeleccionada.sFactorForma}',
+                'Factor de Forma: ${placa.sFactorForma}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Socket: ${placaSeleccionada.sSocket}',
+                'Socket: ${placa.sSocket}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Chipset: ${placaSeleccionada.sChipset}',
+                'Chipset: ${placa.sChipset}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Wifi: ${placaSeleccionada.bWifi ? 'Sí' : 'No'}',
+                'Wifi: ${placa.bWifi ? 'Sí' : 'No'}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Precio: ${placaSeleccionada.dPrecio} €',
+                'Precio: ${placa.dPrecio} €',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
-              if (placaSeleccionada.sUrlImg.isNotEmpty)
+              if (placa.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    placaSeleccionada.sUrlImg,
+                    placa.sUrlImg,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
@@ -135,10 +136,11 @@ class PlacaView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idPlacaSeleccionada");
+    print("Editar producto con el id: $idPlaca");
   }
 
-  void _eliminar() {
-    print("Eliminar producto con el id: $idPlacaSeleccionada");
+  Future<void> _eliminar() async {
+    String mensaje = await DataHolder().fbadmin.eliminarComponente("placasbase", idPlaca);
+    CustomSnackbar(sMensaje: mensaje).show(_context);
   }
 }

@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import '../../../FirestoreObjects/FbRAM.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
+import '../../Widgets/CustomSnackbar.dart';
 
 class RAMView extends StatelessWidget {
   RAMView({super.key});
 
-  final FbRAM ramSeleccionada = DataHolder().ramSeleccionada;
-  final String idRAMseleccionada = DataHolder().idRAMSeleccionada;
+  final FbRAM ram = DataHolder().ramSeleccionada;
+  final String idRam = DataHolder().idRAMSeleccionada;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    FbRAM ramSeleccionada = DataHolder().ramSeleccionada;
-
+    _context = context;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-        title: idRAMseleccionada,
+        title: ram.sNombre,
         actions: [
           _buildPopupMenuButton(context),
         ],
@@ -28,7 +29,7 @@ class RAMView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nombre: ${ramSeleccionada.sNombre}',
+                'Nombre: ${ram.sNombre}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -36,43 +37,43 @@ class RAMView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'Capacidad: ${ramSeleccionada.iCapacidad} GB',
+                'Capacidad: ${ram.iCapacidad} GB',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Cantidad de Módulos: ${ramSeleccionada.iModulos}',
+                'Cantidad de Módulos: ${ram.iModulos}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Velocidad: ${ramSeleccionada.iVelocidad} MHz',
+                'Velocidad: ${ram.iVelocidad} MHz',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Generación: ${ramSeleccionada.iGeneracion}',
+                'Generación: ${ram.iGeneracion}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'RGB: ${ramSeleccionada.bRGB ? 'Sí' : 'No'}',
+                'RGB: ${ram.bRGB ? 'Sí' : 'No'}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Precio: ${ramSeleccionada.dPrecio} €',
+                'Precio: ${ram.dPrecio} €',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
-              if (ramSeleccionada.sUrlImg.isNotEmpty)
+              if (ram.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    ramSeleccionada.sUrlImg,
+                    ram.sUrlImg,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
@@ -141,10 +142,11 @@ class RAMView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idRAMseleccionada");
+    print("Editar producto con el id: $idRam");
   }
 
-  void _eliminar() {
-    print("Eliminar producto con el id: $idRAMseleccionada");
+  void _eliminar() async {
+    String mensaje = await DataHolder().fbadmin.eliminarComponente("rams", idRam);
+    CustomSnackbar(sMensaje: mensaje).show(_context);
   }
 }

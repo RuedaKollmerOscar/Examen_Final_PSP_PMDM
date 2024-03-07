@@ -393,6 +393,17 @@ class FirebaseAdmin {
   }
 
 
+  // Metodo para eliminar componentes
+
+  Future<String> eliminarComponente(String categoria, String idComponente) async {
+    try {
+      await db.collection("Categorias/$categoria/catalogo").doc(idComponente).delete();
+      return "Componente eliminado con exito";
+    } catch (e) {
+      return "Error al eliminar el componente: $e";
+    }
+  }
+
   // Descarga la coleccion y la devuelve (no devuelve un list)
   Future<QuerySnapshot<FbTienda>> cargarTiendas() async {
     try {

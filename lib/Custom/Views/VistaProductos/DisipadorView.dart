@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import '../../../FirestoreObjects/FbDisipador.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
+import '../../Widgets/CustomSnackbar.dart';
 
 class DisipadorView extends StatelessWidget {
   DisipadorView({super.key});
 
-  final FbDisipador disipadorSeleccionado = DataHolder().disipadorSeleccionado;
-  final String idDisipadorSeleccionado = DataHolder().idDisipadorSeleccionado;
+  final FbDisipador disipador = DataHolder().disipadorSeleccionado;
+  final String idDisipador = DataHolder().idDisipadorSeleccionado;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    FbDisipador disipadorSeleccionado = DataHolder().disipadorSeleccionado;
-
+    _context = context;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-        title: idDisipadorSeleccionado,
+        title: disipador.sNombre,
         actions: [
           _buildPopupMenuButton(context),
         ],
@@ -28,7 +29,7 @@ class DisipadorView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nombre: ${disipadorSeleccionado.sNombre}',
+                'Nombre: ${disipador.sNombre}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -36,38 +37,38 @@ class DisipadorView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'Color: ${disipadorSeleccionado.sColor}',
+                'Color: ${disipador.sColor}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Material: ${disipadorSeleccionado.sMaterial}',
+                'Material: ${disipador.sMaterial}',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Velocidad Mínima: ${disipadorSeleccionado.iVelocidadRotacionMinima} RPM',
+                'Velocidad Mínima: ${disipador.iVelocidadRotacionMinima} RPM',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Velocidad Máxima: ${disipadorSeleccionado.iVelocidadRotacionMaxima} RPM',
+                'Velocidad Máxima: ${disipador.iVelocidadRotacionMaxima} RPM',
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 10),
               Text(
-                'Precio: ${disipadorSeleccionado.dPrecio} €',
+                'Precio: ${disipador.dPrecio} €',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
-              if (disipadorSeleccionado.sUrlImg.isNotEmpty)
+              if (disipador.sUrlImg.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    disipadorSeleccionado.sUrlImg,
+                    disipador.sUrlImg,
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
@@ -136,10 +137,11 @@ class DisipadorView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idDisipadorSeleccionado");
+    print("Editar producto con el id: $idDisipador");
   }
 
-  void _eliminar() {
-    print("Eliminar producto con el id: $idDisipadorSeleccionado");
+  Future<void> _eliminar() async {
+    String mensaje = await DataHolder().fbadmin.eliminarComponente("disipadores", idDisipador);
+    CustomSnackbar(sMensaje: mensaje).show(_context);
   }
 }
