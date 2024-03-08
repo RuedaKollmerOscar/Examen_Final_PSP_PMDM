@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -416,6 +417,209 @@ class FirebaseAdmin {
     } catch (error) {
       print("Error al cargar tiendas: $error");
       throw error; // Re-lanzar el error para que pueda ser manejado fuera de la función
+    }
+  }
+
+  Future<FbCaja?> descargarCajaRandom() async {
+    try {
+      CollectionReference<FbCaja> ref = db.collection("Categorias/cajas/catalogo").withConverter(
+        fromFirestore: FbCaja.fromFirestore,
+        toFirestore: (FbCaja componente, _) => componente.toFirestore(),
+      );
+
+      // Obten la lista completa de cajas
+      QuerySnapshot<FbCaja> querySnapshot = await ref.get();
+      List<FbCaja> cajas = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      // Verifica si hay cajas disponibles
+      if (cajas.isEmpty) {
+        return null;
+      }
+
+      // Selecciona aleatoriamente una caja
+      Random random = Random();
+      int index = random.nextInt(cajas.length);
+      FbCaja cajaAleatoria = cajas[index];
+
+      return cajaAleatoria;
+    } catch (e) {
+      print("Error al descargar caja aleatoria: $e");
+      return null;
+    }
+  }
+
+  Future<FbDiscoDuro?> descargarDiscoDuroRandom() async {
+    try {
+      CollectionReference<FbDiscoDuro> ref = db.collection("Categorias/discosduros/catalogo").withConverter(
+        fromFirestore: FbDiscoDuro.fromFirestore,
+        toFirestore: (FbDiscoDuro componente, _) => componente.toFirestore(),
+      );
+
+      QuerySnapshot<FbDiscoDuro> querySnapshot = await ref.get();
+      List<FbDiscoDuro> discosDuros = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      if (discosDuros.isEmpty) {
+        return null;
+      }
+
+      Random random = Random();
+      int index = random.nextInt(discosDuros.length);
+      FbDiscoDuro discoDuroAleatorio = discosDuros[index];
+
+      return discoDuroAleatorio;
+    } catch (e) {
+      print("Error al descargar disco duro aleatorio: $e");
+      return null;
+    }
+  }
+
+  Future<FbDisipador?> descargarDisipadorRandom() async {
+    try {
+      CollectionReference<FbDisipador> ref = db.collection("Categorias/disipadores/catalogo").withConverter(
+        fromFirestore: FbDisipador.fromFirestore,
+        toFirestore: (FbDisipador componente, _) => componente.toFirestore(),
+      );
+
+      QuerySnapshot<FbDisipador> querySnapshot = await ref.get();
+      List<FbDisipador> disipadores = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      if (disipadores.isEmpty) {
+        return null;
+      }
+
+      Random random = Random();
+      int index = random.nextInt(disipadores.length);
+      FbDisipador disipadorAleatorio = disipadores[index];
+
+      return disipadorAleatorio;
+    } catch (e) {
+      print("Error al descargar disipador aleatorio: $e");
+      return null;
+    }
+  }
+
+  Future<FbFuente?> descargarFuenteRandom() async {
+    try {
+      CollectionReference<FbFuente> ref = db.collection("Categorias/fuentesalimentacion/catalogo").withConverter(
+        fromFirestore: FbFuente.fromFirestore,
+        toFirestore: (FbFuente componente, _) => componente.toFirestore(),
+      );
+
+      QuerySnapshot<FbFuente> querySnapshot = await ref.get();
+      List<FbFuente> fuentes = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      if (fuentes.isEmpty) {
+        return null;
+      }
+
+      Random random = Random();
+      int index = random.nextInt(fuentes.length);
+      FbFuente fuenteAleatoria = fuentes[index];
+
+      return fuenteAleatoria;
+    } catch (e) {
+      print("Error al descargar fuente aleatoria: $e");
+      return null;
+    }
+  }
+
+  Future<FbPlaca?> descargarPlacaRandom() async {
+    try {
+      CollectionReference<FbPlaca> ref = db.collection("Categorias/placasbase/catalogo").withConverter(
+        fromFirestore: FbPlaca.fromFirestore,
+        toFirestore: (FbPlaca componente, _) => componente.toFirestore(),
+      );
+
+      QuerySnapshot<FbPlaca> querySnapshot = await ref.get();
+      List<FbPlaca> placas = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      if (placas.isEmpty) {
+        return null;
+      }
+
+      Random random = Random();
+      int index = random.nextInt(placas.length);
+      FbPlaca placaAleatoria = placas[index];
+
+      return placaAleatoria;
+    } catch (e) {
+      print("Error al descargar placa aleatoria: $e");
+      return null;
+    }
+  }
+
+  Future<FbProcesador?> descargarProcesadorRandom() async {
+    try {
+      CollectionReference<FbProcesador> ref = db.collection("Categorias/procesadores/catalogo").withConverter(
+        fromFirestore: FbProcesador.fromFirestore,
+        toFirestore: (FbProcesador componente, _) => componente.toFirestore(),
+      );
+
+      QuerySnapshot<FbProcesador> querySnapshot = await ref.get();
+      List<FbProcesador> procesadores = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      if (procesadores.isEmpty) {
+        return null;
+      }
+
+      Random random = Random();
+      int index = random.nextInt(procesadores.length);
+      FbProcesador procesadorAleatorio = procesadores[index];
+
+      return procesadorAleatorio;
+    } catch (e) {
+      print("Error al descargar procesador aleatorio: $e");
+      return null;
+    }
+  }
+
+  Future<FbRAM?> descargarRAMRandom() async {
+    try {
+      CollectionReference<FbRAM> ref = db.collection("Categorias/rams/catalogo").withConverter(
+        fromFirestore: FbRAM.fromFirestore,
+        toFirestore: (FbRAM componente, _) => componente.toFirestore(),
+      );
+
+      QuerySnapshot<FbRAM> querySnapshot = await ref.get();
+      List<FbRAM> rams = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      if (rams.isEmpty) {
+        return null;
+      }
+
+      Random random = Random();
+      int index = random.nextInt(rams.length);
+      FbRAM ramAleatoria = rams[index];
+
+      return ramAleatoria;
+    } catch (e) {
+      print("Error al descargar RAM aleatoria: $e");
+      return null;
+    }
+  }
+
+  Future<FbGrafica?> descargarGraficaRandom() async {
+    try {
+      CollectionReference<FbGrafica> ref = db.collection("Categorias/tarjetasgraficas/catalogo").withConverter(
+        fromFirestore: FbGrafica.fromFirestore,
+        toFirestore: (FbGrafica componente, _) => componente.toFirestore(),
+      );
+
+      QuerySnapshot<FbGrafica> querySnapshot = await ref.get();
+      List<FbGrafica> graficas = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      if (graficas.isEmpty) {
+        return null;
+      }
+
+      Random random = Random();
+      int index = random.nextInt(graficas.length);
+      FbGrafica graficaAleatoria = graficas[index];
+
+      return graficaAleatoria;
+    } catch (e) {
+      print("Error al descargar tarjeta gráfica aleatoria: $e");
+      return null;
     }
   }
 }

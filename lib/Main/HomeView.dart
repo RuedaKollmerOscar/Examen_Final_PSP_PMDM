@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:techshop/Custom/Widgets/CustomAppBar.dart';
 import 'package:techshop/Custom/Widgets/CustomBottomMenu.dart';
+import 'package:techshop/Custom/Widgets/CustomSnackbar.dart';
+import 'package:techshop/FirestoreObjects/FbCaja.dart';
+import 'package:techshop/FirestoreObjects/FbDiscoDuro.dart';
+import 'package:techshop/FirestoreObjects/FbDisipador.dart';
+import 'package:techshop/FirestoreObjects/FbFuente.dart';
+import 'package:techshop/FirestoreObjects/FbGrafica.dart';
+import 'package:techshop/FirestoreObjects/FbPlaca.dart';
+import 'package:techshop/FirestoreObjects/FbProcesador.dart';
+import 'package:techshop/FirestoreObjects/FbRAM.dart';
 import '../Custom/Views/ListView/ComponentesListView.dart';
 import '../Custom/Widgets/CustomDrawer.dart';
-import '../FirestoreObjects/FbComponente.dart';
 import '../OnBoarding/LoginView.dart';
 import '../Singletone/DataHolder.dart';
 
@@ -17,9 +25,16 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   String userEmail = DataHolder().fbadmin.getCurrentUserEmail() ?? "Invitado";
-  final List<FbComponente> _componentes = [];
   late Position position;
-  late Future<List<FbComponente>> _futureComponentes;
+  late FbCaja cajaRandom;
+  late FbDiscoDuro discoDuroRandom;
+  late FbDisipador disipadorRandom;
+  late FbFuente fuenteRandom;
+  late FbPlaca placaRandom;
+  late FbProcesador procesadorRandom;
+  late FbRAM ramRandom;
+  late FbGrafica graficaRandom;
+  final List<Componente> _componentes = [];
 
   @override
   void initState() {
@@ -71,13 +86,6 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  // Gestiona el click del post
-  void _onComponentePressed(int index) {
-    DataHolder().componenteSeleccionado = _componentes[index];
-    Navigator.of(context).pushNamed("/componenteview");
-  }
-
-
   Widget _listBody() {
     return ListView.separated(
       padding: const EdgeInsets.all(8),
@@ -90,26 +98,16 @@ class _HomeViewState extends State<HomeView> {
   // Creador de items en forma de lista
   Widget? _itemListBuilder(BuildContext context, int index) {
     return ComponentesListView(
-      sName: _componentes[index].name,
-      sPrice: _componentes[index].price,
+      sName: _componentes[index].sNombre,
+      sPrice: _componentes[index].dPrecio,
+      sUrlImg: _componentes[index].sUrlImg,
       iPosicion: index,
       fOnItemTap: _onComponentePressed,
     );
   }
 
   Widget _separadorLista(BuildContext context, int index) {
-    return Divider(
-        thickness: 2, color: Theme.of(context).colorScheme.primary);
-  }
-
-  // Llena la lista de posts
-  Future<void> _cargarComponentes() async {
-    _futureComponentes = DataHolder().fbadmin.descargarComponentes();
-    List<FbComponente> listaComponentes = await _futureComponentes;
-    setState(() {
-      _componentes.clear();
-      _componentes.addAll(listaComponentes);
-    });
+    return const Divider(thickness: 2, color: Colors.transparent);
   }
 
   Future<void> determinarPosicionActual() async {
@@ -118,4 +116,38 @@ class _HomeViewState extends State<HomeView> {
       position = positionTemp;
     });
   }
+
+  Future<void> _cargarComponentes() async {
+    // Carga los componentes aleatorios
+    cajaRandom = (await DataHolder().fbadmin.descargarCajaRandom())!;
+    disipadorRandom = (await DataHolder().fbadmin.descargarDisipadorRandom())!;
+    fuenteRandom = (await DataHolder().fbadmin.descargarFuenteRandom())!;
+    placaRandom = (await DataHolder().fbadmin.descargarPlacaRandom())!;
+    procesadorRandom = (await DataHolder().fbadmin.descargarProcesadorRandom())!;
+    ramRandom = (await DataHolder().fbadmin.descargarRAMRandom())!;
+    graficaRandom = (await DataHolder().fbadmin.descargarGraficaRandom())!;
+
+
+    _componentes.add(Componente(sNombre: cajaRandom.sNombre, dPrecio: cajaRandom.dPrecio, sUrlImg: cajaRandom.sUrlImg));
+    _componentes.add(Componente(sNombre: disipadorRandom.sNombre, dPrecio: disipadorRandom.dPrecio, sUrlImg: disipadorRandom.sUrlImg));
+    _componentes.add(Componente(sNombre: fuenteRandom.sNombre, dPrecio: fuenteRandom.dPrecio, sUrlImg: fuenteRandom.sUrlImg));
+    _componentes.add(Componente(sNombre: placaRandom.sNombre, dPrecio: placaRandom.dPrecio, sUrlImg: placaRandom.sUrlImg));
+    _componentes.add(Componente(sNombre: procesadorRandom.sNombre, dPrecio: procesadorRandom.dPrecio, sUrlImg: procesadorRandom.sUrlImg));
+    _componentes.add(Componente(sNombre: ramRandom.sNombre, dPrecio: ramRandom.dPrecio, sUrlImg: ramRandom.sUrlImg));
+    _componentes.add(Componente(sNombre: graficaRandom.sNombre, dPrecio: graficaRandom.dPrecio, sUrlImg: graficaRandom.sUrlImg));
+
+    setState(() {});
+  }
+
+  _onComponentePressed(int indice) {
+    CustomSnackbar(sMensaje: 'Si quieres saber más visita nuestros catálogos').show(context);
+  }
+}
+
+class Componente {
+  String sNombre;
+  double dPrecio;
+  String sUrlImg;
+
+  Componente({required this.sNombre, required this.dPrecio, required this.sUrlImg});
 }
