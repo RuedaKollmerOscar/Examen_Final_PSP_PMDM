@@ -422,6 +422,24 @@ class FirebaseAdmin {
     }
   }
 
+  Future<String?> editarGrafica(String idGrafica, String nombre, String ensamblador, String fabricante, String serie, int capacidad, int generacion, double precio) async {
+    try {
+      await FirebaseFirestore.instance.collection("Categorias/tarjetasgraficas/catalogo").doc(idGrafica).update({
+        "nombre": nombre,
+        "ensamblador": ensamblador,
+        "fabricante": fabricante,
+        "serie": serie,
+        "capacidad": capacidad,
+        "generacion": generacion,
+        "precio": precio
+      });
+      return null;
+    } catch (e) {
+      print("Error al actualizar el componente: $e");
+      return "Error al actualizar el componente";
+    }
+  }
+
   // Metodos para descargar colecciones
 
   // Descarga la lista de componentes
