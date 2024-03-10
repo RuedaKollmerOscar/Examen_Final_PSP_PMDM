@@ -367,6 +367,23 @@ class FirebaseAdmin {
     }
   }
 
+  Future<String?> editarPlaca(String idPlaca,String nombre, String formato, String socket, String chipset, bool wifi, double precio) async {
+    try {
+      await FirebaseFirestore.instance.collection("Categorias/placasbase/catalogo").doc(idPlaca).update({
+        "nombre": nombre,
+        "factorForma": formato,
+        "socket": socket,
+        "chipset": chipset,
+        "wifi": wifi,
+        "precio": precio
+      });
+      return null;
+    } catch (e) {
+      print("Error al actualizar el componente: $e");
+      return "Error al actualizar el componente";
+    }
+  }
+
   // Metodos para descargar colecciones
 
   // Descarga la lista de componentes
