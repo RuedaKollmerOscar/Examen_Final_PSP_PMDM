@@ -94,7 +94,7 @@ class _EditarProcesadorViewState extends State<EditarProcesadorView> {
                     });
                   },
                 ),
-                Text('Overclock'),
+                const Text('Overclock'),
               ],
             ),
             const SizedBox(height: 16),
@@ -145,7 +145,7 @@ class _EditarProcesadorViewState extends State<EditarProcesadorView> {
     );
 
     if (errorMessage == null) {
-      CustomSnackbar(sMensaje: 'Componente actualizado con éxito').show(context);
+      const CustomSnackbar(sMensaje: 'Componente actualizado con éxito').show(context);
     } else {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     }

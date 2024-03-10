@@ -118,7 +118,7 @@ class _EditarDiscoDuroViewState extends State<EditarDiscoDuroView> {
     );
 
     if (errorMessage == null) {
-      CustomSnackbar(sMensaje: 'Componente actualizado con éxito').show(context);
+      const CustomSnackbar(sMensaje: 'Componente actualizado con éxito').show(context);
     } else {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     }

@@ -206,7 +206,6 @@ class MapaTiendasViewState extends State<MapaTiendasView> {
       }
     } catch (error) {
       // Manejar el error, si es necesario
-      print("Error en setearMarcadores: $error");
     }
   }
 

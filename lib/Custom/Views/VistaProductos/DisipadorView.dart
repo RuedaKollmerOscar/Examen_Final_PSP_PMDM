@@ -143,7 +143,7 @@ class DisipadorView extends StatelessWidget {
     showDialog(
       context: _context,
       builder: (BuildContext context) {
-        return EditarDisipadorView();
+        return const EditarDisipadorView();
       },
     );
   }

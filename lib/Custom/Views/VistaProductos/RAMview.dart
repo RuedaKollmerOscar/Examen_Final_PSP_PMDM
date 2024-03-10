@@ -148,7 +148,7 @@ class RAMView extends StatelessWidget {
     showDialog(
       context: _context,
       builder: (BuildContext context) {
-        return EditarRAMView();
+        return const EditarRAMView();
       },
     );
   }

@@ -105,7 +105,9 @@ class _CatalogoViewState extends State<CatalogoView> {
             iPosicion: index,
             fOnItemTap: _onCajaPressed,
           );
-        } else return Container();
+        } else {
+          return Container();
+        }
       case 'Discos duros':
         List<FbDiscoDuro> discosDurosList = _discosDuros.values.toList();
 
@@ -123,7 +125,9 @@ class _CatalogoViewState extends State<CatalogoView> {
             iPosicion: index,
             fOnItemTap: _onDiscoDuroPressed,
           );
-        } else return Container();
+        } else {
+          return Container();
+        }
       case 'Disipadores':
         List<FbDisipador> disipadoresList = _disipadores.values.toList();
 
@@ -141,7 +145,9 @@ class _CatalogoViewState extends State<CatalogoView> {
             iPosicion: index,
             fOnItemTap: _onDisipadorPressed,
           );
-        } else return Container();
+        } else {
+          return Container();
+        }
       case 'Fuentes de alimentación':
         List<FbFuente> fuentesList = _fuentes.values.toList();
 
@@ -159,7 +165,9 @@ class _CatalogoViewState extends State<CatalogoView> {
             iPosicion: index,
             fOnItemTap: _onFuentePressed,
           );
-        } else return Container();
+        } else {
+          return Container();
+        }
       case 'Placas base':
         List<FbPlaca> placasList = _placas.values.toList();
 
@@ -177,7 +185,9 @@ class _CatalogoViewState extends State<CatalogoView> {
             iPosicion: index,
             fOnItemTap: _onPlacaPressed,
           );
-        } else return Container();
+        } else {
+          return Container();
+        }
       case 'Procesadores':
         List<FbProcesador> procesadoresList = _procesadores.values.toList();
 
@@ -197,7 +207,9 @@ class _CatalogoViewState extends State<CatalogoView> {
             iPosicion: index,
             fOnItemTap: _onProcesadorPressed,
           );
-        } else return Container();
+        } else {
+          return Container();
+        }
       case 'Memorias RAM':
         List<FbRAM> ramsList = _rams.values.toList();
 
@@ -216,7 +228,9 @@ class _CatalogoViewState extends State<CatalogoView> {
             iPosicion: index,
             fOnItemTap: _onRAMPressed
           );
-        } else return Container();
+        } else {
+          return Container();
+        }
       case 'Tarjetas gráficas':
         List<FbGrafica> graficasList = _graficas.values.toList();
 
@@ -235,7 +249,9 @@ class _CatalogoViewState extends State<CatalogoView> {
             iPosicion: index,
             fOnItemTap: _onGraficaPressed,
           );
-        } else return Container();
+        } else {
+          return Container();
+        }
       default:
         return null;
     }
@@ -284,7 +300,6 @@ class _CatalogoViewState extends State<CatalogoView> {
       DataHolder().idCajaSeleccionada = _cajas.keys.elementAt(index);
       Navigator.of(context).pushNamed("/cajaview");
     } else {
-      print("Índice fuera de rango");
     }
   }
 
@@ -295,7 +310,6 @@ class _CatalogoViewState extends State<CatalogoView> {
       DataHolder().idDiscoDuroSeleccionado = _discosDuros.keys.elementAt(index);
       Navigator.of(context).pushNamed("/discoduroview");
     } else {
-      print("Índice fuera de rango");
     }
   }
 
@@ -307,7 +321,6 @@ class _CatalogoViewState extends State<CatalogoView> {
       DataHolder().idDisipadorSeleccionado = _disipadores.keys.elementAt(index);
       Navigator.of(context).pushNamed("/disipadorview");
     } else {
-      print("Índice fuera de rango");
     }
   }
 
@@ -318,7 +331,6 @@ class _CatalogoViewState extends State<CatalogoView> {
       DataHolder().idFuenteSeleccionada = _fuentes.keys.elementAt(index);
       Navigator.of(context).pushNamed("/fuenteview");
     } else {
-      print("Índice fuera de rango");
     }
   }
 
@@ -329,7 +341,6 @@ class _CatalogoViewState extends State<CatalogoView> {
       DataHolder().idPlacaSeleccionada = _placas.keys.elementAt(index);
       Navigator.of(context).pushNamed("/placaview");
     } else {
-      print("Índice fuera de rango");
     }
   }
 
@@ -340,7 +351,6 @@ class _CatalogoViewState extends State<CatalogoView> {
       DataHolder().idProcesadorSeleccionado = _procesadores.keys.elementAt(index);
       Navigator.of(context).pushNamed("/procesadorview");
     } else {
-      print("Índice fuera de rango");
     }
   }
 
@@ -351,7 +361,6 @@ class _CatalogoViewState extends State<CatalogoView> {
       DataHolder().idRAMSeleccionada = _rams.keys.elementAt(index);
       Navigator.of(context).pushNamed("/ramview");
     } else {
-      print("Índice fuera de rango");
     }
   }
 
@@ -362,7 +371,6 @@ class _CatalogoViewState extends State<CatalogoView> {
       DataHolder().idGraficaSeleccionada = _graficas.keys.elementAt(index);
       Navigator.of(context).pushNamed("/graficaview");
     } else {
-      print("Índice fuera de rango");
     }
   }
 

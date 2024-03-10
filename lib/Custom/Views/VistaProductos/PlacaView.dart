@@ -142,7 +142,7 @@ class PlacaView extends StatelessWidget {
     showDialog(
       context: _context,
       builder: (BuildContext context) {
-        return EditarPlacaView();
+        return const EditarPlacaView();
       },
     );
   }

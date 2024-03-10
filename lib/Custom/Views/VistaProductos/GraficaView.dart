@@ -149,7 +149,7 @@ class GraficaView extends StatelessWidget {
     showDialog(
       context: _context,
       builder: (BuildContext context) {
-        return EditarGraficaView();
+        return const EditarGraficaView();
       },
     );
   }

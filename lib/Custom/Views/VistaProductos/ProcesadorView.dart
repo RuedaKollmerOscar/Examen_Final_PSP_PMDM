@@ -152,7 +152,7 @@ class ProcesadorView extends StatelessWidget {
     showDialog(
       context: _context,
       builder: (BuildContext context) {
-        return EditarProcesadorView();
+        return const EditarProcesadorView();
       },
     );
   }

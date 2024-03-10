@@ -89,7 +89,9 @@ class _EditarCajaViewState extends State<EditarCajaView> {
   Future<void> _guardarCambios() async {
     String? errorMessage = await DataHolder().fbadmin.editarCaja(idCaja, tecNombre.text, tecColor.text, double.parse(tecPeso.text), double.parse(tecPrecio.text));
     if (errorMessage == null) {
-      CustomSnackbar(sMensaje: 'Componente actualizado con éxito').show(context);
-    } else CustomSnackbar(sMensaje: errorMessage).show(context);
+      const CustomSnackbar(sMensaje: 'Componente actualizado con éxito').show(context);
+    } else {
+      CustomSnackbar(sMensaje: errorMessage).show(context);
+    }
   }
 }

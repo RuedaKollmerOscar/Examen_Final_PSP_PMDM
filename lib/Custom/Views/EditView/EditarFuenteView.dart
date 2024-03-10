@@ -116,7 +116,7 @@ class _EditarFuenteViewState extends State<EditarFuenteView> {
     );
 
     if (errorMessage == null) {
-      CustomSnackbar(sMensaje: 'Componente actualizada con éxito').show(context);
+      const CustomSnackbar(sMensaje: 'Componente actualizada con éxito').show(context);
     } else {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     }

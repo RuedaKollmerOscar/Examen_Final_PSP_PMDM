@@ -143,7 +143,7 @@ class FuenteView extends StatelessWidget {
     showDialog(
       context: _context,
       builder: (BuildContext context) {
-        return EditarFuenteView();
+        return const EditarFuenteView();
       },
     );
   }

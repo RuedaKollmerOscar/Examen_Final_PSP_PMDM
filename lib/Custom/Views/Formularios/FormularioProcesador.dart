@@ -253,9 +253,11 @@ class _FormularioProcesadorState extends State<FormularioProcesador> {
       );
       errorMessage = await DataHolder().fbadmin.subirProcesador(procesadorNuevo);
       if (errorMessage == null) {
-        CustomSnackbar(sMensaje: 'Se ha subido tu producto').show(context);
+        const CustomSnackbar(sMensaje: 'Se ha subido tu producto').show(context);
         _limpiarFormulario();
-      } else CustomSnackbar(sMensaje: 'Se ha producido un error $errorMessage').show(context);
+      } else {
+        CustomSnackbar(sMensaje: 'Se ha producido un error $errorMessage').show(context);
+      }
     }
   }
 

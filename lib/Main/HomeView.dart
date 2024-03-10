@@ -140,7 +140,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   _onComponentePressed(int indice) {
-    CustomSnackbar(sMensaje: 'Si quieres saber más visita nuestros catálogos').show(context);
+    const CustomSnackbar(sMensaje: 'Si quieres saber más visita nuestros catálogos').show(context);
   }
 }
 

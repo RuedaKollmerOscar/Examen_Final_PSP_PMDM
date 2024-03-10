@@ -75,7 +75,7 @@ class _EditarPlacaViewState extends State<EditarPlacaView> {
                     });
                   },
                 ),
-                Text('WiFi'),
+                const Text('WiFi'),
               ],
             ),
             const SizedBox(height: 16),
@@ -124,7 +124,7 @@ class _EditarPlacaViewState extends State<EditarPlacaView> {
     );
 
     if (errorMessage == null) {
-      CustomSnackbar(sMensaje: 'Componente actualizada con éxito').show(context);
+      const CustomSnackbar(sMensaje: 'Componente actualizada con éxito').show(context);
     } else {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     }

@@ -143,7 +143,7 @@ class DiscoDuroView extends StatelessWidget {
     showDialog(
       context: _context,
       builder: (BuildContext context) {
-        return EditarDiscoDuroView();
+        return const EditarDiscoDuroView();
       },
     );
   }

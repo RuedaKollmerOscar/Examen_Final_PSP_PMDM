@@ -34,9 +34,9 @@ class TechShopApp extends StatelessWidget {
       darkTheme: DarkMode,
       routes: {
         // Autentificacion
-        "/loginview": (context) => LoginView(),
-        "/registerview": (context) => RegisterView(),
-        "/splashview": (context) => SplashView(),
+        "/loginview": (context) => const LoginView(),
+        "/registerview": (context) => const RegisterView(),
+        "/splashview": (context) => const SplashView(),
 
         // Vistas de productos
         "/cajaview": (context) => CajaView(),
@@ -48,14 +48,14 @@ class TechShopApp extends StatelessWidget {
         "/ramview": (context) => RAMView(),
         "/graficaview": (context) => GraficaView(),
 
-        "/homeview": (context) => HomeView(),
-        "/accountview": (context) => AccountView(),
-        "/componenteview": (context) => ComponenteView(),
-        "/mapatiendasview": (context) => MapaTiendasView(),
-        "/sobrenosotrosview": (context) => SobreNosotrosView(),
-        "/categoriasview": (context) => CategoriasView(),
-        "/catalogoview": (context) => CatalogoView(),
-        "/subirproductosview": (context) => SubirProductosView(),
+        "/homeview": (context) => const HomeView(),
+        "/accountview": (context) => const AccountView(),
+        "/componenteview": (context) => const ComponenteView(),
+        "/mapatiendasview": (context) => const MapaTiendasView(),
+        "/sobrenosotrosview": (context) => const SobreNosotrosView(),
+        "/categoriasview": (context) => const CategoriasView(),
+        "/catalogoview": (context) => const CatalogoView(),
+        "/subirproductosview": (context) => const SubirProductosView(),
       },
       initialRoute: "/splashview"
     );

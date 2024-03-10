@@ -77,7 +77,7 @@ class _AccountViewState extends State<AccountView> {
                       const SizedBox(height: 16),
                       Text(
                         userEmail.split('@')[0],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -85,7 +85,7 @@ class _AccountViewState extends State<AccountView> {
                       const SizedBox(height: 8),
                       Text(
                         userEmail,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                         ),
                       ),

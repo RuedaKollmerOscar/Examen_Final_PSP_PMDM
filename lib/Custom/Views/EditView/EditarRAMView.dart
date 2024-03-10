@@ -86,7 +86,7 @@ class _EditarRAMViewState extends State<EditarRAMView> {
                     });
                   },
                 ),
-                Text('RGB'),
+                const Text('RGB'),
               ],
             ),
             const SizedBox(height: 16),
@@ -136,7 +136,7 @@ class _EditarRAMViewState extends State<EditarRAMView> {
     );
 
     if (errorMessage == null) {
-      CustomSnackbar(sMensaje: 'Componente actualizado con éxito').show(context);
+      const CustomSnackbar(sMensaje: 'Componente actualizado con éxito').show(context);
     } else {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     }
