@@ -3,6 +3,7 @@ import '../../../FirestoreObjects/FbRAM.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
 import '../../Widgets/CustomSnackbar.dart';
+import '../EditView/EditarRAMView.dart';
 
 class RAMView extends StatelessWidget {
   RAMView({super.key});
@@ -22,64 +23,66 @@ class RAMView extends StatelessWidget {
           _buildPopupMenuButton(context),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Nombre: ${ram.sNombre}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Capacidad: ${ram.iCapacidad} GB',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Cantidad de Módulos: ${ram.iModulos}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Velocidad: ${ram.iVelocidad} MHz',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Generación: ${ram.iGeneracion}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'RGB: ${ram.bRGB ? 'Sí' : 'No'}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Precio: ${ram.dPrecio} €',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              if (ram.sUrlImg.isNotEmpty)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    ram.sUrlImg,
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Nombre: ${ram.sNombre}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
                   ),
                 ),
-            ],
+                const SizedBox(height: 10),
+                Text(
+                  'Capacidad: ${ram.iCapacidad} GB',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Cantidad de módulos: ${ram.iModulos}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Velocidad: ${ram.iVelocidad} MHz',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Generación: DDR${ram.iGeneracion}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'RGB: ${ram.bRGB ? 'Sí' : 'No'}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Precio: ${ram.dPrecio} €',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                if (ram.sUrlImg.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      ram.sUrlImg,
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -142,7 +145,12 @@ class RAMView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idRam");
+    showDialog(
+      context: _context,
+      builder: (BuildContext context) {
+        return EditarRAMView();
+      },
+    );
   }
 
   void _eliminar() async {

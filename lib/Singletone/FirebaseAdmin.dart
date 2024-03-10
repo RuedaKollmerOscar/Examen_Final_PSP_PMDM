@@ -404,6 +404,24 @@ class FirebaseAdmin {
     }
   }
 
+  Future<String?> editarRAM(String idRAM, String nombre, int capacidad, int modulos, int velocidad, int generacion, bool rgb, double precio) async {
+    try {
+      await FirebaseFirestore.instance.collection("Categorias/rams/catalogo").doc(idRAM).update({
+        "nombre": nombre,
+        "capacidad": capacidad,
+        "modulos": modulos,
+        "velocidad": velocidad,
+        "generacion": generacion,
+        "rgb": rgb,
+        "precio": precio
+      });
+      return null;
+    } catch (e) {
+      print("Error al actualizar el componente: $e");
+      return "Error al actualizar el componente";
+    }
+  }
+
   // Metodos para descargar colecciones
 
   // Descarga la lista de componentes

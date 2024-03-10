@@ -18,7 +18,7 @@ class _EditarPlacaViewState extends State<EditarPlacaView> {
   TextEditingController tecFactorForma = TextEditingController();
   TextEditingController tecSocket = TextEditingController();
   TextEditingController tecChipset = TextEditingController();
-  bool wifi = false;
+  bool bWifi = false;
   TextEditingController tecPrecio = TextEditingController();
 
   @override
@@ -27,7 +27,7 @@ class _EditarPlacaViewState extends State<EditarPlacaView> {
     tecFactorForma.text = placa.sFactorForma;
     tecSocket.text = placa.sSocket;
     tecChipset.text = placa.sChipset;
-    wifi = placa.bWifi;
+    bWifi = placa.bWifi;
     tecPrecio.text = placa.dPrecio.toString();
     super.initState();
   }
@@ -68,10 +68,10 @@ class _EditarPlacaViewState extends State<EditarPlacaView> {
             Row(
               children: [
                 Checkbox(
-                  value: wifi,
+                  value: bWifi,
                   onChanged: (value) {
                     setState(() {
-                      wifi = value ?? false;
+                      bWifi = value ?? false;
                     });
                   },
                 ),
@@ -119,12 +119,12 @@ class _EditarPlacaViewState extends State<EditarPlacaView> {
       tecFactorForma.text,
       tecSocket.text,
       tecChipset.text,
-      wifi,
+      bWifi,
       double.parse(tecPrecio.text),
     );
 
     if (errorMessage == null) {
-      CustomSnackbar(sMensaje: 'Placa actualizada con éxito').show(context);
+      CustomSnackbar(sMensaje: 'Componente actualizada con éxito').show(context);
     } else {
       CustomSnackbar(sMensaje: errorMessage).show(context);
     }

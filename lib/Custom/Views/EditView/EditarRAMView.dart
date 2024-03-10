@@ -1,38 +1,36 @@
 import 'package:flutter/material.dart';
-import '../../../FirestoreObjects/FbProcesador.dart';
+import '../../../FirestoreObjects/FbRAM.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomSnackbar.dart';
 
-class EditarProcesadorView extends StatefulWidget {
-  const EditarProcesadorView({Key? key}) : super(key: key);
+class EditarRAMView extends StatefulWidget {
+  const EditarRAMView({Key? key}) : super(key: key);
 
   @override
-  _EditarProcesadorViewState createState() => _EditarProcesadorViewState();
+  _EditarRAMViewState createState() => _EditarRAMViewState();
 }
 
-class _EditarProcesadorViewState extends State<EditarProcesadorView> {
-  final FbProcesador procesador = DataHolder().procesadorSeleccionado;
-  final String idProcesador = DataHolder().idProcesadorSeleccionado;
+class _EditarRAMViewState extends State<EditarRAMView> {
+  final FbRAM ram = DataHolder().ramSeleccionada;
+  final String idRAM = DataHolder().idRAMSeleccionada;
 
   TextEditingController tecNombre = TextEditingController();
-  TextEditingController tecMarca = TextEditingController();
-  TextEditingController tecModelo = TextEditingController();
-  TextEditingController tecNucleos = TextEditingController();
-  TextEditingController tecHilos = TextEditingController();
-  TextEditingController tecVelocidadBase = TextEditingController();
-  bool bOverclock = false;
+  TextEditingController tecCapacidad = TextEditingController();
+  TextEditingController tecCantidadModulos = TextEditingController();
+  TextEditingController tecVelocidad = TextEditingController();
+  TextEditingController tecGeneracion = TextEditingController();
+  bool bRGB = false; // Nuevo campo booleano para RGB
   TextEditingController tecPrecio = TextEditingController();
 
   @override
   void initState() {
-    tecNombre.text = procesador.sNombre;
-    tecMarca.text = procesador.sMarca;
-    tecModelo.text = procesador.sModelo;
-    tecNucleos.text = procesador.iNucleos.toString();
-    tecHilos.text = procesador.iHilos.toString();
-    tecVelocidadBase.text = procesador.dVelocidadBase.toString();
-    bOverclock = procesador.bOverclock;
-    tecPrecio.text = procesador.dPrecio.toString();
+    tecNombre.text = ram.sNombre;
+    tecCapacidad.text = ram.iCapacidad.toString();
+    tecCantidadModulos.text = ram.iModulos.toString();
+    tecVelocidad.text = ram.iVelocidad.toString();
+    tecGeneracion.text = ram.iGeneracion.toString();
+    bRGB = ram.bRGB;
+    tecPrecio.text = ram.dPrecio.toString();
     super.initState();
   }
 
@@ -40,7 +38,7 @@ class _EditarProcesadorViewState extends State<EditarProcesadorView> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Theme.of(context).colorScheme.background,
-      title: Text('Editar ${procesador.sNombre}'),
+      title: Text('Editar ${ram.sNombre}'),
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,49 +50,43 @@ class _EditarProcesadorViewState extends State<EditarProcesadorView> {
             const SizedBox(height: 16),
 
             TextFormField(
-              controller: tecMarca,
-              decoration: const InputDecoration(labelText: 'Marca'),
-            ),
-            const SizedBox(height: 16),
-
-            TextFormField(
-              controller: tecModelo,
-              decoration: const InputDecoration(labelText: 'Modelo'),
-            ),
-            const SizedBox(height: 16),
-
-            TextFormField(
-              controller: tecNucleos,
-              decoration: const InputDecoration(labelText: 'Núcleos'),
+              controller: tecCapacidad,
+              decoration: const InputDecoration(labelText: 'Capacidad (GB)'),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 16),
 
             TextFormField(
-              controller: tecHilos,
-              decoration: const InputDecoration(labelText: 'Hilos'),
+              controller: tecCantidadModulos,
+              decoration: const InputDecoration(labelText: 'Cantidad de Módulos'),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 16),
 
             TextFormField(
-              controller: tecVelocidadBase,
-              decoration: const InputDecoration(labelText: 'Velocidad Base (GHz)'),
+              controller: tecVelocidad,
+              decoration: const InputDecoration(labelText: 'Velocidad (MHz)'),
               keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 16),
+
+            TextFormField(
+              controller: tecGeneracion,
+              decoration: const InputDecoration(labelText: 'Generación'),
             ),
             const SizedBox(height: 16),
 
             Row(
               children: [
                 Checkbox(
-                  value: bOverclock,
+                  value: bRGB,
                   onChanged: (value) {
                     setState(() {
-                      bOverclock = value ?? false;
+                      bRGB = value ?? false;
                     });
                   },
                 ),
-                Text('Overclock'),
+                Text('RGB'),
               ],
             ),
             const SizedBox(height: 16),
@@ -132,15 +124,14 @@ class _EditarProcesadorViewState extends State<EditarProcesadorView> {
   }
 
   Future<void> _guardarCambios() async {
-    String? errorMessage = await DataHolder().fbadmin.editarProcesador(
-      idProcesador,
+    String? errorMessage = await DataHolder().fbadmin.editarRAM(
+      idRAM,
       tecNombre.text,
-      tecMarca.text,
-      tecModelo.text,
-      int.parse(tecNucleos.text),
-      int.parse(tecHilos.text),
-      double.parse(tecVelocidadBase.text),
-      bOverclock,
+      int.parse(tecCapacidad.text),
+      int.parse(tecCantidadModulos.text),
+      int.parse(tecVelocidad.text),
+      int.parse(tecGeneracion.text),
+      bRGB,
       double.parse(tecPrecio.text),
     );
 
