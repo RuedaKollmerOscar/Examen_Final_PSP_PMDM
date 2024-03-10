@@ -298,6 +298,25 @@ class FirebaseAdmin {
   }
 
 
+  // Metodos para editar componentes
+
+
+  Future<String?> editarCaja(String idCaja, String nombre, String color, double peso, double precio) async {
+    try {
+      await FirebaseFirestore.instance.collection("Categorias/cajas/catalogo").doc(idCaja).update({
+        "nombre": nombre,
+        "color": color,
+        "peso": peso,
+        "precio": precio,
+      });
+      return null;
+    } catch (e) {
+      print("Error al actualizar el componente: $e");
+      return "Error al actualizar el componente";
+    }
+  }
+
+
 
   // Metodos para descargar colecciones
 

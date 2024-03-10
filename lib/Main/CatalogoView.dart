@@ -51,7 +51,7 @@ class _CatalogoViewState extends State<CatalogoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: CustomAppBar(title: 'Catalogo de ${categoriaSeleccionada.sName}'),
+      appBar: CustomAppBar(title: 'Catálogo de ${categoriaSeleccionada.sName}'),
           body: _listBody(),
     );
   }
