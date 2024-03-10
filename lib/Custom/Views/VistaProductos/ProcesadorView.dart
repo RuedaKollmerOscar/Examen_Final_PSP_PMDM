@@ -3,6 +3,7 @@ import '../../../FirestoreObjects/FbProcesador.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
 import '../../Widgets/CustomSnackbar.dart';
+import '../EditView/EditarProcesadorView.dart';
 
 class ProcesadorView extends StatelessWidget {
   ProcesadorView({super.key});
@@ -22,69 +23,71 @@ class ProcesadorView extends StatelessWidget {
           _buildPopupMenuButton(context),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Nombre: ${procesador.sNombre}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Marca: ${procesador.sMarca}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Modelo: ${procesador.sModelo}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Núcleos: ${procesador.iNucleos}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Hilos: ${procesador.iHilos}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Velocidad Base: ${procesador.dVelocidadBase} GHz',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Overclock: ${procesador.bOverclock ? 'Sí' : 'No'}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Precio: ${procesador.dPrecio} €',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              if (procesador.sUrlImg.isNotEmpty)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    procesador.sUrlImg,
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Nombre: ${procesador.sNombre}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
                   ),
                 ),
-            ],
+                const SizedBox(height: 10),
+                Text(
+                  'Marca: ${procesador.sMarca}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Modelo: ${procesador.sModelo}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Núcleos: ${procesador.iNucleos}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Hilos: ${procesador.iHilos}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Velocidad Base: ${procesador.dVelocidadBase} GHz',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Overclock: ${procesador.bOverclock ? 'Sí' : 'No'}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Precio: ${procesador.dPrecio} €',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                if (procesador.sUrlImg.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      procesador.sUrlImg,
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -146,7 +149,12 @@ class ProcesadorView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idProcesador");
+    showDialog(
+      context: _context,
+      builder: (BuildContext context) {
+        return EditarProcesadorView();
+      },
+    );
   }
 
   Future<void> _eliminar() async {

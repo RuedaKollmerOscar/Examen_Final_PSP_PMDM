@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:techshop/FirestoreObjects/FbCategoria.dart';
 import 'package:techshop/FirestoreObjects/FbComponente.dart';
@@ -333,7 +334,7 @@ class FirebaseAdmin {
     }
   }
 
-  Future<String?> editarDisipador(String idDisipador,String nombre, String color, String material, int minima, int maxima, double precio) async {
+  Future<String?> editarDisipador(String idDisipador, String nombre, String color, String material, int minima, int maxima, double precio) async {
     try {
       await FirebaseFirestore.instance.collection("Categorias/disipadores/catalogo").doc(idDisipador).update({
         "nombre": nombre,
@@ -350,7 +351,7 @@ class FirebaseAdmin {
     }
   }
 
-  Future<String?> editarFuente(String idFuente,String nombre, String cableado, String formato, int potencia, String certificacion, double precio) async {
+  Future<String?> editarFuente(String idFuente, String nombre, String cableado, String formato, int potencia, String certificacion, double precio) async {
     try {
       await FirebaseFirestore.instance.collection("Categorias/fuentesalimentacion/catalogo").doc(idFuente).update({
         "nombre": nombre,
@@ -367,7 +368,7 @@ class FirebaseAdmin {
     }
   }
 
-  Future<String?> editarPlaca(String idPlaca,String nombre, String formato, String socket, String chipset, bool wifi, double precio) async {
+  Future<String?> editarPlaca(String idPlaca, String nombre, String formato, String socket, String chipset, bool wifi, double precio) async {
     try {
       await FirebaseFirestore.instance.collection("Categorias/placasbase/catalogo").doc(idPlaca).update({
         "nombre": nombre,
@@ -375,6 +376,25 @@ class FirebaseAdmin {
         "socket": socket,
         "chipset": chipset,
         "wifi": wifi,
+        "precio": precio
+      });
+      return null;
+    } catch (e) {
+      print("Error al actualizar el componente: $e");
+      return "Error al actualizar el componente";
+    }
+  }
+
+  Future<String?> editarProcesador(String idProcesador, String nombre, String marca, String modelo, int nucleos, int hilos, double velocidadBase, bool overclock, double precio) async {
+    try {
+      await FirebaseFirestore.instance.collection("Categorias/procesadores/catalogo").doc(idProcesador).update({
+        "nombre": nombre,
+        "marca": marca,
+        "modelo": modelo,
+        "nucleos": nucleos,
+        "hilos": hilos,
+        "velocidadBase": velocidadBase,
+        "overclock": overclock,
         "precio": precio
       });
       return null;
