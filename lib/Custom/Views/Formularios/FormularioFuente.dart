@@ -43,11 +43,6 @@ class _FormularioFuenteState extends State<FormularioFuente> {
               ),
               const SizedBox(height: 10),
               TextFormField(
-                controller: _tecCertificacion,
-                decoration: const InputDecoration(labelText: 'Certificación'),
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
                 controller: _tecTipoCableado,
                 decoration: const InputDecoration(labelText: 'Tipo de cableado'),
               ),
@@ -61,6 +56,11 @@ class _FormularioFuenteState extends State<FormularioFuente> {
                 controller: _tecPotencia,
                 decoration: const InputDecoration(labelText: 'Potencia (W)'),
                 keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: _tecCertificacion,
+                decoration: const InputDecoration(labelText: 'Certificación'),
               ),
               const SizedBox(height: 10),
               TextFormField(

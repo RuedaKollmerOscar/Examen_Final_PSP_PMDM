@@ -350,6 +350,22 @@ class FirebaseAdmin {
     }
   }
 
+  Future<String?> editarFuente(String idFuente,String nombre, String cableado, String formato, int potencia, String certificacion, double precio) async {
+    try {
+      await FirebaseFirestore.instance.collection("Categorias/fuentesalimentacion/catalogo").doc(idFuente).update({
+        "nombre": nombre,
+        "tipoCableado": cableado,
+        "formato": formato,
+        "potencia": potencia,
+        "certificacion": certificacion,
+        "precio": precio
+      });
+      return null;
+    } catch (e) {
+      print("Error al actualizar el componente: $e");
+      return "Error al actualizar el componente";
+    }
+  }
 
   // Metodos para descargar colecciones
 

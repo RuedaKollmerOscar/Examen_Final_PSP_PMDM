@@ -3,6 +3,7 @@ import 'package:techshop/FirestoreObjects/FbFuente.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
 import '../../Widgets/CustomSnackbar.dart';
+import '../EditView/EditarFuenteView.dart';
 
 class FuenteView extends StatelessWidget {
   FuenteView({super.key});
@@ -22,59 +23,61 @@ class FuenteView extends StatelessWidget {
           _buildPopupMenuButton(context),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Nombre: ${fuente.sNombre}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Tipo de Cableado: ${fuente.sTipoCableado}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Formato: ${fuente.sFormato}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Potencia: ${fuente.iPotencia} W',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Certificación: ${fuente.sCertificacion}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Precio: ${fuente.dPrecio} €',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              if (fuente.sUrlImg.isNotEmpty)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    fuente.sUrlImg,
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Nombre: ${fuente.sNombre}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
                   ),
                 ),
-            ],
+                const SizedBox(height: 10),
+                Text(
+                  'Tipo de Cableado: ${fuente.sTipoCableado}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Formato: ${fuente.sFormato}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Potencia: ${fuente.iPotencia} W',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Certificación: ${fuente.sCertificacion}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Precio: ${fuente.dPrecio} €',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                if (fuente.sUrlImg.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      fuente.sUrlImg,
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -137,7 +140,12 @@ class FuenteView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idFuente");
+    showDialog(
+      context: _context,
+      builder: (BuildContext context) {
+        return EditarFuenteView();
+      },
+    );
   }
 
   Future<void> _eliminar() async {
