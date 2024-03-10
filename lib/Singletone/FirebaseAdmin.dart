@@ -333,6 +333,23 @@ class FirebaseAdmin {
     }
   }
 
+  Future<String?> editarDisipador(String idDisipador,String nombre, String color, String material, int minima, int maxima, double precio) async {
+    try {
+      await FirebaseFirestore.instance.collection("Categorias/disipadores/catalogo").doc(idDisipador).update({
+        "nombre": nombre,
+        "color": color,
+        "material": material,
+        "velocidadRotacionMinima": minima,
+        "velocidadRotacionMaxima": maxima,
+        "precio": precio
+      });
+      return null;
+    } catch (e) {
+      print("Error al actualizar el componente: $e");
+      return "Error al actualizar el componente";
+    }
+  }
+
 
   // Metodos para descargar colecciones
 

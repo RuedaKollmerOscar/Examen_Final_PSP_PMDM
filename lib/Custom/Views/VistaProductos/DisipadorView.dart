@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techshop/Custom/Views/EditView/EditarDisipadorView.dart';
 import '../../../FirestoreObjects/FbDisipador.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
@@ -22,59 +23,61 @@ class DisipadorView extends StatelessWidget {
           _buildPopupMenuButton(context),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Nombre: ${disipador.sNombre}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Color: ${disipador.sColor}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Material: ${disipador.sMaterial}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Velocidad Mínima: ${disipador.iVelocidadRotacionMinima} RPM',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Velocidad Máxima: ${disipador.iVelocidadRotacionMaxima} RPM',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Precio: ${disipador.dPrecio} €',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              if (disipador.sUrlImg.isNotEmpty)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    disipador.sUrlImg,
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Nombre: ${disipador.sNombre}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
                   ),
                 ),
-            ],
+                const SizedBox(height: 10),
+                Text(
+                  'Color: ${disipador.sColor}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Material: ${disipador.sMaterial}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Velocidad Mínima: ${disipador.iVelocidadRotacionMinima} RPM',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Velocidad Máxima: ${disipador.iVelocidadRotacionMaxima} RPM',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Precio: ${disipador.dPrecio} €',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                if (disipador.sUrlImg.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      disipador.sUrlImg,
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -137,7 +140,12 @@ class DisipadorView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idDisipador");
+    showDialog(
+      context: _context,
+      builder: (BuildContext context) {
+        return EditarDisipadorView();
+      },
+    );
   }
 
   Future<void> _eliminar() async {
