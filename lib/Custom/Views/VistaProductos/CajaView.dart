@@ -87,7 +87,7 @@ class CajaView extends StatelessWidget {
       onSelected: (caso) {
         switch (caso) {
           case 'editar':
-            _mostrarDialogoEdicion(context);
+            _editar(context);
             break;
           case 'eliminar':
             _eliminar();
@@ -129,8 +129,7 @@ class CajaView extends StatelessWidget {
     );
   }
 
-  Future<void> _mostrarDialogoEdicion(BuildContext context) async {
-    // Utiliza showDialog para mostrar el diálogo de edición
+  Future<void> _editar(BuildContext context) async {
     await showDialog(
       context: context,
       builder: (BuildContext context) {

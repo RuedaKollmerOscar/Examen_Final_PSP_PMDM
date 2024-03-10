@@ -54,14 +54,14 @@ class _FormularioDiscoDuroState extends State<FormularioDiscoDuro> {
               ),
               const SizedBox(height: 10),
               TextFormField(
-                controller: _tecVelocidadEscritura,
-                decoration: const InputDecoration(labelText: 'Velocidad de escritura (MB/s)'),
+                controller: _tecVelocidadLectura,
+                decoration: const InputDecoration(labelText: 'Velocidad de lectura (MB/s)'),
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 10),
               TextFormField(
-                controller: _tecVelocidadLectura,
-                decoration: const InputDecoration(labelText: 'Velocidad de lectura (MB/s)'),
+                controller: _tecVelocidadEscritura,
+                decoration: const InputDecoration(labelText: 'Velocidad de escritura (MB/s)'),
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 10),

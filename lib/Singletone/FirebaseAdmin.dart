@@ -316,6 +316,22 @@ class FirebaseAdmin {
     }
   }
 
+  Future<String?> editarDiscoDuro(String idDiscoDuro, String nombre, String tipo, int almacenamiento, int lectura, int escritura, double precio) async {
+    try {
+      await FirebaseFirestore.instance.collection("Categorias/discosduros/catalogo").doc(idDiscoDuro).update({
+        "nombre": nombre,
+        "tipo": tipo,
+        "almacenamiento": almacenamiento,
+        "lectura": lectura,
+        "escritura": escritura,
+        "precio": precio
+      });
+      return null;
+    } catch (e) {
+      print("Error al actualizar el componente: $e");
+      return "Error al actualizar el componente";
+    }
+  }
 
 
   // Metodos para descargar colecciones

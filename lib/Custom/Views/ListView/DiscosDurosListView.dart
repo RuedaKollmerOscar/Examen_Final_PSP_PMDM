@@ -69,21 +69,21 @@ class DiscosDurosListView extends StatelessWidget {
             ),
 
             Text(
-              'Velocidad de Escritura: $iEscritura MB/s',
+              'Almacenamiento: $iAlmacenamiento GB',
               style: const TextStyle(
                 fontSize: 16,
               ),
             ),
 
             Text(
-              'Velocidad de Lectura: $iLectura MB/s',
+              'Velocidad de lectura: $iLectura MB/s',
               style: const TextStyle(
                 fontSize: 16,
               ),
             ),
 
             Text(
-              'Almacenamiento: $iAlmacenamiento GB', // Nuevo atributo
+              'Velocidad de escritura: $iEscritura MB/s',
               style: const TextStyle(
                 fontSize: 16,
               ),

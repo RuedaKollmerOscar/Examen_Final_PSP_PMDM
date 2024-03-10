@@ -3,6 +3,7 @@ import '../../../FirestoreObjects/FbDiscoDuro.dart';
 import '../../../Singletone/DataHolder.dart';
 import '../../Widgets/CustomAppBar.dart';
 import '../../Widgets/CustomSnackbar.dart';
+import '../EditView/EditarDiscoDuroView.dart';
 
 class DiscoDuroView extends StatelessWidget {
   DiscoDuroView({super.key});
@@ -22,59 +23,61 @@ class DiscoDuroView extends StatelessWidget {
           _buildPopupMenuButton(context),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Nombre: ${discoDuro.sNombre}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Tipo: ${discoDuro.sTipo}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Velocidad de Escritura: ${discoDuro.iEscritura} MB/s',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Velocidad de Lectura: ${discoDuro.iLectura} MB/s',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Almacenamiento: ${discoDuro.iAlmacenamiento}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Precio: ${discoDuro.dPrecio} €',
-                style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-              const SizedBox(height: 20),
-              if (discoDuro.sUrlImg.isNotEmpty)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    discoDuro.sUrlImg,
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Nombre: ${discoDuro.sNombre}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
                   ),
                 ),
-            ],
+                const SizedBox(height: 10),
+                Text(
+                  'Tipo: ${discoDuro.sTipo}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Almacenamiento: ${discoDuro.iAlmacenamiento}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Velocidad de lectura: ${discoDuro.iLectura} MB/s',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Velocidad de escritura: ${discoDuro.iEscritura} MB/s',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Precio: ${discoDuro.dPrecio} €',
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                const SizedBox(height: 20),
+                if (discoDuro.sUrlImg.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      discoDuro.sUrlImg,
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -137,8 +140,14 @@ class DiscoDuroView extends StatelessWidget {
   }
 
   void _editar() {
-    print("Editar producto con el id: $idDiscoDuro");
+    showDialog(
+      context: _context,
+      builder: (BuildContext context) {
+        return EditarDiscoDuroView();
+      },
+    );
   }
+
 
   Future<void> _eliminar() async {
     String mensaje = await DataHolder().fbadmin.eliminarComponente("discosduros", idDiscoDuro);
